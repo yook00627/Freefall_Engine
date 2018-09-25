@@ -4,6 +4,11 @@ namespace engine
 {
 	namespace graphics
 	{
+		void resizeWindow(GLFWwindow *window, int width, int height)
+		{
+			glViewport(0, 0, width, height);
+		}
+
 		Window::Window(const char *name, int width, int height)
 		{
 			w_name = name;
@@ -14,10 +19,12 @@ namespace engine
 				glfwTerminate();
 			}
 		}
+
 		Window::~Window()
 		{
 			glfwTerminate();
 		}
+
 		bool Window::init()
 		{
 			if (!glfwInit())
@@ -34,16 +41,24 @@ namespace engine
 				return false;
 			}
 			glfwMakeContextCurrent(w_window);
+			glfwSetWindowSizeCallback(w_window, resizeWindow);
 			return true;
 		}
-		bool Window::closed() const
+
+		void Window::clear() const
 		{
-			return glfwWindowShouldClose(w_window);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
-		void Window::update() const
+
+		void Window::update()
 		{
 			glfwPollEvents();
 			glfwSwapBuffers(w_window);
+		}
+
+		bool Window::closed() const
+		{
+			return glfwWindowShouldClose(w_window);
 		}
 	}
 }
