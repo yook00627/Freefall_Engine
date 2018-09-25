@@ -145,6 +145,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\shapes\circle.cpp" />
     <ClCompile Include="src\shapes\shapescpp.cpp" />
+    <ClCompile Include="src\shapes\rectangle.cpp" />
     <ClCompile Include="src\shapes\square.cpp" />
     <ClCompile Include="src\shapes\triangle.cpp" />
     <ClCompile Include="src\window\window.cpp" />
