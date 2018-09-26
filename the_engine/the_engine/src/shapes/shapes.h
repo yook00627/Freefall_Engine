@@ -22,3 +22,9 @@ public:
 	Rectangle(float width, float height);
 	void draw_rectangle();
 };
+
+class Square : public Rectangle {
+
+public:
+	Square(float edge);
+};

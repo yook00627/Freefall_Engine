@@ -11,12 +11,12 @@ void Rectangle::draw_rectangle() {
 	float new_width = (r_width / 16) / 2;
 
 	glBegin( GL_TRIANGLES );
-	glVertex2f((new_width * 2), new_height);
-	glVertex2f((-new_width * 2), new_height);
-	glVertex2f((new_width * 2), -new_height);
+	glVertex2f(new_width, new_height);
+	glVertex2f(-new_width, new_height);
+	glVertex2f(new_width, -new_height);
 
-	glVertex2f((-new_width * 2), new_height);
-	glVertex2f((new_width * 2), -new_height);
-	glVertex2f((-new_width * 2), -new_height);
+	glVertex2f(-new_width, new_height);
+	glVertex2f(new_width, -new_height);
+	glVertex2f(-new_width, -new_height);
 	glEnd();
 }
