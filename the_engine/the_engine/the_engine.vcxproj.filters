@@ -36,12 +36,18 @@
     <ClCompile Include="src\shapes\rectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\input\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\shapes\shapes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,20 +15,25 @@ namespace engine
 			int w_width, w_height;
 			const char *w_name;
 			GLFWwindow *w_window;
+
 		public:
-			//initialize the Window class
+			//creates the Window class
 			Window(const char *name, int width, int height);
 			//terminates widnow class
 			~Window();
-			//terminate 
+			//terminate program after window is cloased
 			bool closed() const;
+			//update the window
 			void update();
+			//update window when size change
 			void clear() const;
 
+			//getter for width and height
 			inline int getWidth() const { return w_width;  }
 			inline int getHeight() const { return w_height; }
 
 		private:
+			//initialize the window
 			bool init();
 		};
 

@@ -4,6 +4,7 @@ namespace engine
 {
 	namespace graphics
 	{
+		//function used to resize the width and hight when window size changes
 		void resizeWindow(GLFWwindow *window, int width, int height)
 		{
 			glViewport(0, 0, width, height);
@@ -25,10 +26,26 @@ namespace engine
 			glfwTerminate();
 		}
 
+		bool Window::closed() const
+		{
+			return glfwWindowShouldClose(w_window);
+		}
+
+		void Window::update()
+		{
+			glfwPollEvents();
+			glfwSwapBuffers(w_window);
+		}
+
+		void Window::clear() const
+		{
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+
 		bool Window::init()
 		{
 			if (!glfwInit())
-			{ 
+			{
 				std::cout << "Fail to start glfw" << std::endl;
 				return false;
 			}
@@ -42,23 +59,14 @@ namespace engine
 			}
 			glfwMakeContextCurrent(w_window);
 			glfwSetWindowSizeCallback(w_window, resizeWindow);
+
+			if (glewInit() != GLEW_OK)
+			{
+				std::cout << "can not initialize glew" << std::endl;
+				return false;
+			}
+
 			return true;
-		}
-
-		void Window::clear() const
-		{
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		}
-
-		void Window::update()
-		{
-			glfwPollEvents();
-			glfwSwapBuffers(w_window);
-		}
-
-		bool Window::closed() const
-		{
-			return glfwWindowShouldClose(w_window);
 		}
 	}
 }
