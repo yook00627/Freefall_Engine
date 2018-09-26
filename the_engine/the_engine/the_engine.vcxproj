@@ -156,7 +156,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\input\input.cpp" />
-    <ClCompile Include="src\map\map.cpp" />
+    <ClCompile Include="src\physics\physics.cpp" />
     <ClCompile Include="src\random\random.cpp" />
     <ClCompile Include="src\shapes\circle.cpp" />
     <ClCompile Include="src\shapes\shapescpp.cpp" />
@@ -167,7 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\input\input.h" />
-    <ClInclude Include="src\map\map.h" />
+    <ClInclude Include="src\physics\physics.h" />
     <ClInclude Include="src\random\random.h" />
     <ClInclude Include="src\shapes\shapes.h" />
     <ClInclude Include="src\window\window.h" />
