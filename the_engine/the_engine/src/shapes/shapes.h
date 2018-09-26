@@ -13,3 +13,12 @@ public:
 	Triangle(float width, float height);
 	void Create_Triangle();
 };
+
+class Rectangle {
+private:
+	float r_width, r_height;
+
+public:
+	Rectangle(float width, float height);
+	void Create_Rectangle();
+};
