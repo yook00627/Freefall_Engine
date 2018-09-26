@@ -6,14 +6,17 @@ Rectangle::Rectangle(float width, float height) {
 	r_height = height;
 };
 
-void Rectangle::Create_Rectangle() {
+void Rectangle::draw_rectangle() {
 	float new_height = (r_height / 9) / 2;
 	float new_width = (r_width / 16) / 2;
 
-	glBegin(GL_QUADS);
-	glVertex2f(new_width * 2, new_height);
-	glVertex2f(-new_width * 2, -new_height);
-	glVertex2f(-new_width * 2, new_height);
-	glVertex2f(new_width * 2, -new_height);
+	glBegin( GL_TRIANGLES );
+	glVertex2f((new_width * 2), new_height);
+	glVertex2f((-new_width * 2), new_height);
+	glVertex2f((new_width * 2), -new_height);
+
+	glVertex2f((-new_width * 2), new_height);
+	glVertex2f((new_width * 2), -new_height);
+	glVertex2f((-new_width * 2), -new_height);
 	glEnd();
 }

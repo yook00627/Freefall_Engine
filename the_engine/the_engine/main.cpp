@@ -33,8 +33,7 @@ int main(int argc, char *argv)
 		//Triangle tri(10, 10);
 		//tri.Create_Triangle();
 		Rectangle rect(10, 10);
-		rect.Create_Rectangle();
-		glDrawArrays(GL_ARRAY_BUFFER, 0, 0);
+		rect.draw_rectangle();
 
 		window.update();
 	}

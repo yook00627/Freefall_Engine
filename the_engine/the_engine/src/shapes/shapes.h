@@ -11,7 +11,7 @@ private:
 
 public:
 	Triangle(float width, float height);
-	void Create_Triangle();
+	void create_triangle();
 };
 
 class Rectangle {
@@ -20,5 +20,5 @@ private:
 
 public:
 	Rectangle(float width, float height);
-	void Create_Rectangle();
+	void draw_rectangle();
 };

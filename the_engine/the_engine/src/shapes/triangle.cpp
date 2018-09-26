@@ -6,7 +6,7 @@ Triangle::Triangle(float width, float height) {
 	t_height = height;
 };
 
-void Triangle::Create_Triangle() {
+void Triangle::create_triangle() {
 	float new_height = (t_height / 9) / 2;
 	float new_width = (t_width / 16) / 2;
 
