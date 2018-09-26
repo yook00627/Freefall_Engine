@@ -3,6 +3,8 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "../input/input.h"
+
 
 namespace engine
 {
@@ -36,6 +38,7 @@ namespace engine
 		private:
 			bool init();
 		};
+
 
 	}
 }

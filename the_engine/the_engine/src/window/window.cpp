@@ -1,5 +1,6 @@
 #include "window.h"
 
+
 namespace engine
 {
 	namespace graphics
@@ -38,6 +39,7 @@ namespace engine
 		void Window::update()
 		{
 			glfwPollEvents();
+			engine::input::KeyboardMouse;
 			glfwSwapBuffers(w_window);
 		}
 
@@ -64,6 +66,7 @@ namespace engine
 				return false;
 			}
 			glfwMakeContextCurrent(w_window);
+			glfwSetWindowUserPointer(w_window, this);
 			glfwSetWindowSizeCallback(w_window, resizeWindow);
 
 			if (glewInit() != GLEW_OK)
