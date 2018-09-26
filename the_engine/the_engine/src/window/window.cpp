@@ -4,12 +4,13 @@ namespace engine
 {
 	namespace graphics
 	{
-		//function used to resize the width and hight when window size changes
+		// this resizes the widnow when changed
 		void resizeWindow(GLFWwindow *window, int width, int height)
 		{
 			glViewport(0, 0, width, height);
 		}
 
+		//creates the Window class
 		Window::Window(const char *name, int width, int height)
 		{
 			w_name = name;
@@ -21,27 +22,32 @@ namespace engine
 			}
 		}
 
+		//terminates widnow class
 		Window::~Window()
 		{
 			glfwTerminate();
 		}
 
+		//terminate program after window is cloased
 		bool Window::closed() const
 		{
 			return glfwWindowShouldClose(w_window);
 		}
 
+		//update the window
 		void Window::update()
 		{
 			glfwPollEvents();
 			glfwSwapBuffers(w_window);
 		}
 
+		//update window when size change
 		void Window::clear() const
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
 
+		//initialize the window
 		bool Window::init()
 		{
 			if (!glfwInit())

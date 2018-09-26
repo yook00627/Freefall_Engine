@@ -8,6 +8,11 @@ namespace engine
 {
 	namespace graphics
 	{
+		constexpr auto SCREEN_WIDTH = 1280;;
+		constexpr auto SCREEN_HEIGHT = 720;;
+		constexpr auto SCREEN_NAME = "IKOKO";
+
+		//Class for openigng up window
 		class Window
 		{
 		private:
@@ -17,23 +22,18 @@ namespace engine
 			GLFWwindow *w_window;
 
 		public:
-			//creates the Window class
 			Window(const char *name, int width, int height);
-			//terminates widnow class
 			~Window();
-			//terminate program after window is cloased
 			bool closed() const;
-			//update the window
 			void update();
-			//update window when size change
 			void clear() const;
 
-			//getter for width and height
-			inline int getWidth() const { return w_width;  }
+			//getter for width
+			inline int getWidth() const { return w_width; }
+			//getter for height
 			inline int getHeight() const { return w_height; }
 
 		private:
-			//initialize the window
 			bool init();
 		};
 
