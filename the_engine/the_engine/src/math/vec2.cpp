@@ -6,8 +6,8 @@ namespace engine
 	{
 		vec2::vec2()
 		{
-			x = 0x0f;
-			y = 0x0f;
+			x = 0.0f;
+			y = 0.0f;
 		}
 
 		vec2::vec2(const float x, const float y)
@@ -43,6 +43,11 @@ namespace engine
 			y /= other.y;
 
 			return *this;
+		}
+		std::ostream &operator << (std::ostream & stream, const vec2 &vector)
+		{
+			stream << "vec2 (" << vector.x << ", " << vector.y << ")";
+			return stream;
 		}
 	}
 }

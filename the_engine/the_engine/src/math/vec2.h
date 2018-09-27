@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 namespace engine
 {
 	namespace math
@@ -15,6 +17,7 @@ namespace engine
 			vec2 &multiply(const vec2 &other);
 			vec2 &divide(const vec2 &other);
 
+			friend std::ostream &operator << (std::ostream & stream, const vec2 &vector);
 		};
 	}
 }

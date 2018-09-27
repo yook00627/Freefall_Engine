@@ -2,6 +2,7 @@
 #include <math.h>
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
+#include "src/math/vec2.h"
 
 
 int main(int argc, char *argv)
@@ -9,12 +10,16 @@ int main(int argc, char *argv)
 	using namespace engine;
 	using namespace graphics;
 	using namespace input;
+	using namespace math;
 
 	
 	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 	KeyboardMouse input_keys;
 	GLuint var;
+	vec2 vector;
+
+
 	glGenVertexArrays(1, &var);
 	glBindVertexArray(var);
 
@@ -27,6 +32,8 @@ int main(int argc, char *argv)
 		//tri.Create_Triangle();
 		Square r(10);
 		r.draw_rectangle();
+		//vector.add(vec2(2, 3));
+		std::cout << vector << std::endl;
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			std::cout << "pressed space" << std::endl;
@@ -35,9 +42,11 @@ int main(int argc, char *argv)
 		{
 			std::cout << "pressed mouse" << std::endl;
 		}
+#if 0
 		double x, y;
 		input_keys.get_mouse_position(x, y);
 		std::cout << "x postion: " << x << " y position: " << y << std::endl;
+#endif
 		window.update();
 	}
 
