@@ -156,7 +156,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\input\input.cpp" />
-    <ClCompile Include="src\math\math.cpp" />
+    <ClCompile Include="src\math\vec2.cpp" />
     <ClCompile Include="src\physics\physics.cpp" />
     <ClCompile Include="src\random\random.cpp" />
     <ClCompile Include="src\shapes\circle.cpp" />
@@ -168,7 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\input\input.h" />
-    <ClInclude Include="src\math\math.h" />
+    <ClInclude Include="src\math\vec2.h" />
     <ClInclude Include="src\physics\physics.h" />
     <ClInclude Include="src\random\random.h" />
     <ClInclude Include="src\shapes\shapes.h" />
