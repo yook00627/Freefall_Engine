@@ -11,14 +11,21 @@ namespace engine
 	{
 		constexpr auto MAX_KEYS = 101;
 		constexpr auto MAX_BUTTONS = 12;
+		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		//Class for inputs
 		class KeyboardMouse
 		{
 		private:
-			static bool *keys[MAX_KEYS];
-			static bool *mouse_buttons[MAX_BUTTONS];
+			static bool p_keys[MAX_KEYS];
+			static bool p_mouse_buttons[MAX_BUTTONS];
+			static double p_mx, p_my;
 		public:
-			void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+			KeyboardMouse();
+			~KeyboardMouse();
+			static bool key_pressed(unsigned int keycode);
+		private:
+			friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+			void init();
 		};
 	}
 }

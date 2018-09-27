@@ -3,10 +3,11 @@
 
 namespace engine
 {
+	using namespace input;
 	namespace graphics
 	{
 		// this resizes the widnow when changed
-		void resizeWindow(GLFWwindow *window, int width, int height)
+		void resize_window(GLFWwindow *window, int width, int height)
 		{
 			glViewport(0, 0, width, height);
 		}
@@ -39,7 +40,7 @@ namespace engine
 		void Window::update()
 		{
 			glfwPollEvents();
-			engine::input::KeyboardMouse;
+			glfwSetKeyCallback(w_window, key_callback);
 			glfwSwapBuffers(w_window);
 		}
 
@@ -66,8 +67,7 @@ namespace engine
 				return false;
 			}
 			glfwMakeContextCurrent(w_window);
-			glfwSetWindowUserPointer(w_window, this);
-			glfwSetWindowSizeCallback(w_window, resizeWindow);
+			glfwSetWindowSizeCallback(w_window, resize_window);
 
 			if (glewInit() != GLEW_OK)
 			{

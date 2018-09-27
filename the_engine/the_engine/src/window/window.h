@@ -22,7 +22,6 @@ namespace engine
 			int w_width, w_height;
 			const char *w_name;
 			GLFWwindow *w_window;
-
 		public:
 			Window(const char *name, int width, int height);
 			~Window();
