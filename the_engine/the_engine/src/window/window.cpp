@@ -40,7 +40,6 @@ namespace engine
 		void Window::update()
 		{
 			glfwPollEvents();
-			glfwSetKeyCallback(w_window, key_callback);
 			glfwSwapBuffers(w_window);
 		}
 
@@ -68,6 +67,9 @@ namespace engine
 			}
 			glfwMakeContextCurrent(w_window);
 			glfwSetWindowSizeCallback(w_window, resize_window);
+			glfwSetKeyCallback(w_window, key_callback);
+			glfwSetMouseButtonCallback(w_window, mouse_button_callback);
+			glfwSetCursorPosCallback(w_window, cursor_position_callback);
 
 			if (glewInit() != GLEW_OK)
 			{

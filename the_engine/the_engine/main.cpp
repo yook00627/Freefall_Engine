@@ -27,10 +27,17 @@ int main(int argc, char *argv)
 		//tri.Create_Triangle();
 		Square r(10);
 		r.draw_rectangle();
-		if (input_keys.key_pressed(GLFW_KEY_A))
+		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
-			std::cout << "pressed a" << std::endl;
+			std::cout << "pressed space" << std::endl;
 		}
+		if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			std::cout << "pressed mouse" << std::endl;
+		}
+		double x, y;
+		input_keys.get_mouse_position(x, y);
+		std::cout << "x postion: " << x << " y position: " << y << std::endl;
 		window.update();
 	}
 
