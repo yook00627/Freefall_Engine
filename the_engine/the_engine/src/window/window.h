@@ -36,13 +36,11 @@ namespace engine
 			void clear() const;
 
 			//getter for width
-			inline int getWidth() const { return w_width; }
+			inline int getWidth() const { return w_width; };
 			//getter for height
-			inline int getHeight() const { return w_height; }
+			inline int getHeight() const { return w_height; };
 		private:
 			bool init();
 		};
-
-
 	}
 }
