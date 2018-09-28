@@ -13,11 +13,12 @@ namespace engine
 		}
 
 		//creates the Window class
-		Window::Window(const char *name, int width, int height)
+		Window::Window(const char *name, int width, int height, screenstate mode)
 		{
 			w_name = name;
 			w_width = width;
 			w_height = height;
+			w_mode = mode;
 			if (!init())
 			{
 				glfwTerminate();
@@ -58,7 +59,15 @@ namespace engine
 				return false;
 			}
 
-			w_window = glfwCreateWindow(w_width, w_height, w_name, NULL, NULL);
+			if (w_mode == WINDOW_MODE)
+			{
+				w_window = glfwCreateWindow(w_width, w_height, w_name, NULL, NULL);
+			}
+			else if (w_mode == FULL_SCREEN_MODE)
+			{
+				w_window = glfwCreateWindow(w_width, w_height, w_name, glfwGetPrimaryMonitor(), NULL);
+			}
+
 			if (!w_window)
 			{
 				glfwTerminate();

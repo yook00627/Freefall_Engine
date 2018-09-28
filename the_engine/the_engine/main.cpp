@@ -11,13 +11,15 @@ int main(int argc, char *argv)
 	using namespace graphics;
 	using namespace input;
 
-	
-	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
+	//FULL SCREEN MODE OR WIDNOW MODE
+	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_MODE);
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 	KeyboardMouse input_keys;
 	GLuint var;
 
 
+	double old_time = 0;
+	double new_time = 0;
 
 	glGenVertexArrays(1, &var);
 	glBindVertexArray(var);
@@ -30,7 +32,7 @@ int main(int argc, char *argv)
 		//tri.Create_Triangle();
 		Square r(10);
 		r.draw_rectangle();
-
+		
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			std::cout << "pressed space" << std::endl;
@@ -39,8 +41,8 @@ int main(int argc, char *argv)
 		{
 			std::cout << "pressed mouse" << std::endl;
 		}
-		double time = glfwGetTime();
-		std::cout << time << std::endl;
+		new_time = glfwGetTime();
+		std::cout << new_time << std::endl;
 		//double x, y;
 		//input_keys.get_mouse_position(x, y);
 		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
