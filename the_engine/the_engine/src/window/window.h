@@ -6,11 +6,6 @@
 #include "../input/input.h"
 
 
-enum screenstate {
-	WINDOW_MODE,
-	FULL_SCREEN_MODE
-};
-
 namespace engine
 {
 	namespace graphics
@@ -27,13 +22,13 @@ namespace engine
 			int w_width, w_height;
 			const char *w_name;
 			GLFWwindow *w_window;
-			screenstate w_mode;
 		public:
-			Window(const char *name, int width, int height, screenstate mode);
+			Window(const char *name, int width, int height);
 			~Window();
 			bool closed() const;
 			void update();
 			void clear() const;
+			void windowSizeToggle();
 
 			//getter for width
 			inline int getWidth() const { return w_width; };

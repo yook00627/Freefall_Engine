@@ -12,7 +12,7 @@ int main(int argc, char *argv)
 	using namespace input;
 
 	//FULL SCREEN MODE OR WIDNOW MODE
-	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_MODE);
+	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 	KeyboardMouse input_keys;
 	GLuint var;
@@ -34,6 +34,7 @@ int main(int argc, char *argv)
 		
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
+			window.windowSizeToggle();
 			std::cout << "pressed space" << std::endl;
 		}
 		if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))

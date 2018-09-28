@@ -13,12 +13,11 @@ namespace engine
 		}
 
 		//creates the Window class
-		Window::Window(const char *name, int width, int height, screenstate mode)
+		Window::Window(const char *name, int width, int height)
 		{
 			w_name = name;
 			w_width = width;
 			w_height = height;
-			w_mode = mode;
 			if (!init())
 			{
 				glfwTerminate();
@@ -50,6 +49,22 @@ namespace engine
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
 
+		//change window to full screen or window
+		void Window::windowSizeToggle()
+		{
+			static bool sw = true;
+			if (sw)
+			{
+				glfwSetWindowMonitor(w_window, glfwGetPrimaryMonitor(), 0, 0, w_width, w_height, 60);
+				sw = false;
+			}
+			else
+			{
+				glfwSetWindowMonitor(w_window, NULL, w_width/3, w_height/3, w_width, w_height, 60);
+				sw = true;
+			}
+		}
+
 		//initialize the window
 		bool Window::init()
 		{
@@ -59,15 +74,7 @@ namespace engine
 				return false;
 			}
 
-			if (w_mode == WINDOW_MODE)
-			{
-				w_window = glfwCreateWindow(w_width, w_height, w_name, NULL, NULL);
-			}
-			else if (w_mode == FULL_SCREEN_MODE)
-			{
-				w_window = glfwCreateWindow(w_width, w_height, w_name, glfwGetPrimaryMonitor(), NULL);
-			}
-
+			w_window = glfwCreateWindow(w_width, w_height, w_name, NULL, NULL);
 			if (!w_window)
 			{
 				glfwTerminate();
