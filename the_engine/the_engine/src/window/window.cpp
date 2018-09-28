@@ -60,7 +60,7 @@ namespace engine
 			}
 			else
 			{
-				glfwSetWindowMonitor(w_window, NULL, w_width/3, w_height/3, w_width, w_height, 60);
+				glfwSetWindowMonitor(w_window, NULL, 1920/6, 1080/6, w_width, w_height, 60);
 				sw = true;
 			}
 		}

@@ -34,8 +34,12 @@ int main(int argc, char *argv)
 		
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
-			window.windowSizeToggle();
 			std::cout << "pressed space" << std::endl;
+		}
+		if (input_keys.key_pressed(GLFW_KEY_F11))
+		{
+			std::cout << "press k 11" << std::endl;
+			window.windowSizeToggle();
 		}
 		if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
 		{

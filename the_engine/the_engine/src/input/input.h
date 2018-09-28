@@ -9,8 +9,8 @@ namespace engine
 {
 	namespace input
 	{
-		constexpr auto MAX_KEYS = 101;
-		constexpr auto MAX_MOUSE_BUTTONS = 12;
+		constexpr auto MAX_KEYS = 1024;
+		constexpr auto MAX_MOUSE_BUTTONS = 1024;
 		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 		void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
