@@ -17,7 +17,8 @@ int main(int argc, char *argv)
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 	KeyboardMouse input_keys;
 	GLuint var;
-	vec2 vector;
+	vec2 vector1;
+	vec2 vector2(2, 3);
 
 
 	glGenVertexArrays(1, &var);
@@ -26,14 +27,14 @@ int main(int argc, char *argv)
 	while (!window.closed())
 	{
 		window.clear();
-
+#if 0
 		//drawcircle(.4f, 40);
 		//Triangle tri(10, 10);
 		//tri.Create_Triangle();
 		Square r(10);
 		r.draw_rectangle();
 		//vector.add(vec2(2, 3));
-		std::cout << vector << std::endl;
+		std::cout << (vector1 != vector2) << std::endl;
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			std::cout << "pressed space" << std::endl;
@@ -42,7 +43,6 @@ int main(int argc, char *argv)
 		{
 			std::cout << "pressed mouse" << std::endl;
 		}
-#if 0
 		double x, y;
 		input_keys.get_mouse_position(x, y);
 		std::cout << "x postion: " << x << " y position: " << y << std::endl;
