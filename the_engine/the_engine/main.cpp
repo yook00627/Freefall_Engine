@@ -5,7 +5,6 @@
 #include "src/shapes/shapes.h"
 
 
-
 int main(int argc, char *argv)
 {
 	using namespace engine;
@@ -29,7 +28,7 @@ int main(int argc, char *argv)
 		//drawcircle(.4f, 40);
 		//Triangle tri(10, 10);
 		//tri.Create_Triangle();
-		Square r(1);
+		Square r(10);
 		r.draw_rectangle();
 
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
@@ -40,9 +39,11 @@ int main(int argc, char *argv)
 		{
 			std::cout << "pressed mouse" << std::endl;
 		}
-		double x, y;
-		/*input_keys.get_mouse_position(x, y);
-		std::cout << "x postion: " << x << " y position: " << y << std::endl;*/
+		double time = glfwGetTime();
+		std::cout << time << std::endl;
+		//double x, y;
+		//input_keys.get_mouse_position(x, y);
+		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
 
 		window.update();
 	}
@@ -52,6 +53,7 @@ int main(int argc, char *argv)
 #endif
 
 #if 0
+
 #include <stdio.h>
 #include <GL/glut.h>
 
@@ -155,6 +157,5 @@ int main(int argc, char** argv) {
 	init();
 	glutSpecialFunc(keyboardown);
 	glutMainLoop();
-
 }
 #endif
