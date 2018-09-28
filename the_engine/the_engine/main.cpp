@@ -55,8 +55,8 @@ int main(int argc, char *argv)
 }
 #endif
 
-#if 0
 
+#if 0
 #include <stdio.h>
 #include <GL/glut.h>
 
