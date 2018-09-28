@@ -155,32 +155,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\input\input.cpp" />
-    <ClCompile Include="src\math\vec2.cpp" />
     <ClCompile Include="src\physics\physics.cpp" />
     <ClCompile Include="src\random\random.cpp" />
-    <ClCompile Include="src\resource\resource_manager.cpp" />
     <ClCompile Include="src\shapes\circle.cpp" />
     <ClCompile Include="src\shapes\shapescpp.cpp" />
     <ClCompile Include="src\shapes\rectangle.cpp" />
     <ClCompile Include="src\shapes\square.cpp" />
     <ClCompile Include="src\shapes\triangle.cpp" />
-    <ClCompile Include="src\utility\shader.cpp" />
-    <ClCompile Include="src\utility\texture.cpp" />
     <ClCompile Include="src\window\window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\input\input.h" />
-    <ClInclude Include="src\math\vec2.h" />
     <ClInclude Include="src\physics\physics.h" />
     <ClInclude Include="src\random\random.h" />
-    <ClInclude Include="src\resource\resource_manager.h" />
     <ClInclude Include="src\shapes\shapes.h" />
-    <ClInclude Include="src\utility\utility.h" />
-    <ClInclude Include="src\utility\texture.h" />
-    <ClInclude Include="src\utility\shader.h" />
     <ClInclude Include="src\window\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
