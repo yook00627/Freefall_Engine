@@ -39,10 +39,10 @@
     <ClCompile Include="src\input\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\random\random.cpp">
+    <ClCompile Include="src\physics\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\physics.cpp">
+    <ClCompile Include="src\movement\movement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,10 +56,10 @@
     <ClInclude Include="src\input\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\random\random.h">
+    <ClInclude Include="src\physics\physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\physics.h">
+    <ClInclude Include="src\movement\movement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
