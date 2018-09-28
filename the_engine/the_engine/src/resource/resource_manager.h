@@ -12,8 +12,10 @@
 
 #include "../utility/utility.h"
 
+
 namespace engine
 {
+	using namespace utility;
 	namespace resourceManager
 	{
 		// A static singleton ResourceManager class that hosts several
