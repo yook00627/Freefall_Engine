@@ -11,7 +11,7 @@ Rectangle::Rectangle(float width, float height) {
 	r_height = height;
 };
 
-void Rectangle::draw_rectangle() {
+void Rectangle::draw_rectangle(double deltat) {
 	double x = 0, y = 0;
 	double new_height = (r_height / 9) / 2;
 	double new_width = (r_width / 16) / 2;
@@ -24,7 +24,7 @@ void Rectangle::draw_rectangle() {
 	glVertex2f(-new_width + Rect.pos.x, new_height + Rect.pos.y);
 	glVertex2f(new_width + Rect.pos.x, -new_height + Rect.pos.y);
 	glVertex2f(-new_width + Rect.pos.x, -new_height + Rect.pos.y);
-	Rect.update_position(0.90);
+	Rect.update_position(deltat);
 	std::cout << "x postion: " << Rect.pos.r << " y position: " << y << Rect.pos.y << std::endl;
 	glEnd();
 }

@@ -20,7 +20,7 @@ private:
 
 public:
 	Rectangle(float width, float height);
-	void draw_rectangle();
+	void draw_rectangle(double deltat);
 };
 
 class Square : public Rectangle {
