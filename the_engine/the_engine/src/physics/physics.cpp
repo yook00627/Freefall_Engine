@@ -4,7 +4,7 @@
 physics::physics()
 {
 	accel = glm::vec2(0.0, 0.0);
-	vel = glm::vec2(0.0, 0.001);
+	vel = glm::vec2(0.0, 0.0);
 	pos = glm::vec2(0.0, 0.0);
 };
 

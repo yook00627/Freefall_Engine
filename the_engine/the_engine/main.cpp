@@ -30,8 +30,7 @@ int main(int argc, char *argv)
 		//drawcircle(.4f, 40);
 		//Triangle tri(10, 10);
 		//tri.Create_Triangle();
-		Square r(10);
-		r.draw_rectangle();
+		Square r(1);
 		
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
@@ -41,7 +40,9 @@ int main(int argc, char *argv)
 		{
 			std::cout << "pressed mouse" << std::endl;
 		}
+		old_time = new_time;
 		new_time = glfwGetTime();
+		r.draw_rectangle(new_time - old_time);
 		std::cout << new_time << std::endl;
 		//double x, y;
 		//input_keys.get_mouse_position(x, y);
