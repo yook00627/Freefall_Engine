@@ -47,3 +47,17 @@ void ResolveCollision(Object A, Object B)
 		A.velocity -= 1 / A.mass * impulse
 		B.velocity += 1 / B.mass * impulse
 }*/
+
+//circle to circle collision
+/*
+//distance between the centers of the circles
+d = (x2-x1)^2 + (y2-y1)^2;
+
+// collision if and only if
+(r1+r2)^2 > d
+*/
+
+// aabb for box collisions
+/*
+
+*/

@@ -1,7 +1,21 @@
 #include "shapes.h"
 
+Circle::Circle()
+{
+	radius = 0.04f;
+	this->vectors.pos.x = 0;
+	this->vectors.pos.y = 0;
+};
 
-void drawCircle(float radius)
+Circle::Circle(float rad, float x, float y)
+{
+	radius = rad;
+	this->vectors.pos.x = x;
+	this->vectors.pos.y = y;
+}
+
+
+void Circle::drawCircle()
 {
 
 	glBegin(GL_POLYGON);
@@ -9,7 +23,7 @@ void drawCircle(float radius)
 	for (int i = 0; i <= 360; i++)
 	{
 		float degInRad = i * degree_radius;
-		glVertex2f(cos(degInRad)*radius / 1.7f + .3f, sin(degInRad)*radius + .3f);
+		glVertex2f(cos(degInRad)*this->radius / 1.7f + this->vectors.pos.y, sin(degInRad)*this->radius + this->vectors.pos.x);
 	}
 	glEnd();
 }
