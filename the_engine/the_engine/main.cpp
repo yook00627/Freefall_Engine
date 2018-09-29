@@ -23,12 +23,12 @@ int main(int argc, char *argv)
 	glGenVertexArrays(1, &var);
 	glBindVertexArray(var);
 
-	const float DEG2RAD = 3.14159 / 180;
+	const float DEG2RAD = 3.14159f / 180.0f;
 	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
 	//drawcircle(.4f, 40);
 	//Triangle tri(10, 10);
 	//tri.Create_Triangle();
-	Square r(0.5f, 0.0f, 0.9f);
+	Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.5f);
 
 

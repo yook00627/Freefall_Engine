@@ -35,7 +35,7 @@ void Rectangle::draw_rectangle() {
 	glVertex2f(-new_width + vectors.pos.x, -new_height + vectors.pos.y);
 	//run program to get new position
 	//vectors.update_position(deltat);
-	std::cout << "draw accel.y: " << &vectors.accel.y << std::endl;
-	std::cout << "draw pos.y: " << &vectors.pos.y << std::endl;
+	std::cout << "new_height: " << new_height << std::endl;
+	std::cout << "new_width: " << new_width << std::endl;
 	glEnd();
 }
