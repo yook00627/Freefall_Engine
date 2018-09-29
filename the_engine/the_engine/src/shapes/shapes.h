@@ -7,13 +7,13 @@
 #define degree_radius 3.14159f / 180;
 //void drawCircle(float radius);
 
-class base_shape {
+class BaseShape {
 public:
 	//base_shape();
 	physics vectors;
 };
 
-class Triangle : public base_shape {
+class Triangle : public BaseShape {
 private:
 	float t_width, t_height;
 
@@ -22,7 +22,7 @@ public:
 	void create_triangle(double deltat);
 };
 
-class Circle : public base_shape
+class Circle : public BaseShape
 {
 public:
 	float radius;
@@ -31,7 +31,7 @@ public:
 	void drawCircle();
 };
 
-class Rectangle : public base_shape {
+class Rectangle : public BaseShape {
 private:
 	float r_width, r_height;
 
