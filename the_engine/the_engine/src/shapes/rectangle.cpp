@@ -2,10 +2,20 @@
 #include <iostream>
 // Creates a rectangle based on height and width parameters
 
-Rectangle::Rectangle(float width, float height) {
+Rectangle::Rectangle()
+{
+	r_width = 2;
+	r_height = 1;
+	this->vectors.pos.x = 0;
+	this->vectors.pos.y = 0;
+};
+
+Rectangle::Rectangle(float width, float height, float x, float y) {
 	//sets private width and height
 	r_width = width;
 	r_height = height;
+	this->vectors.pos.x = x;
+	this->vectors.pos.y = y;
 };
 
 void Rectangle::draw_rectangle() {

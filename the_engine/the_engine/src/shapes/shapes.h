@@ -26,7 +26,8 @@ private:
 	float r_width, r_height;
 
 public:
-	Rectangle(float width, float height);
+	Rectangle();
+	Rectangle(float width, float height, float x, float y);
 	void draw_rectangle();
 };
 
