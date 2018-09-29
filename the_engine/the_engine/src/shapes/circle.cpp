@@ -3,8 +3,8 @@
 Circle::Circle()
 {
 	radius = 0.04f;
-	this->vectors.pos.x = 0f;
-	this->vectors.pos.y = 0f;
+	this->vectors.pos.x = 0.0f;
+	this->vectors.pos.y = 0.0f;
 };
 
 Circle::Circle(float rad, float x, float y)
