@@ -4,6 +4,21 @@
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
 
+#if 0
+const float DEG2RAD = 3.14159 / 180;
+
+void drawCircle(float radius)
+{
+	glBegin(GL_LINE_LOOP);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	for (int i = 0; i <= 360; i++)
+	{
+		float degInRad = i * DEG2RAD;
+		glVertex2f(cos(degInRad)*radius/1.7f + .3f, sin(degInRad)*radius + .3f);
+	}
+	glEnd();
+}
+#endif
 
 int main(int argc, char *argv)
 {
@@ -24,13 +39,15 @@ int main(int argc, char *argv)
 	glGenVertexArrays(1, &var);
 	glBindVertexArray(var);
 
+	const float DEG2RAD = 3.14159 / 180;
+
 	while (!window.closed())
 	{
 		window.clear();
 		//drawcircle(.4f, 40);
 		//Triangle tri(10, 10);
 		//tri.Create_Triangle();
-		Square r(1);
+		//Square r(1);
 		
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
@@ -38,16 +55,16 @@ int main(int argc, char *argv)
 		}
 		if (input_keys.key_pressed(GLFW_KEY_F11))
 		{
-			std::cout << "press k 11" << std::endl;
 			window.windowSizeToggle();
 		}
 		if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
 		{
 			std::cout << "pressed mouse" << std::endl;
 		}
+		drawCircle(.2f);
 		old_time = new_time;
 		new_time = glfwGetTime();
-		r.draw_rectangle(new_time - old_time);
+		//r.draw_rectangle(new_time - old_time);
 		std::cout << new_time << std::endl;
 		//double x, y;
 		//input_keys.get_mouse_position(x, y);

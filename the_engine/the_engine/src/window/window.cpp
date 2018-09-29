@@ -55,12 +55,12 @@ namespace engine
 			static bool sw = true;
 			if (sw)
 			{
-				glfwSetWindowMonitor(w_window, glfwGetPrimaryMonitor(), 0, 0, w_width, w_height, 60);
+				glfwSetWindowMonitor(w_window, glfwGetPrimaryMonitor(), 0, 0, w_width, w_height, GLFW_DONT_CARE);
 				sw = false;
 			}
 			else
 			{
-				glfwSetWindowMonitor(w_window, NULL, 1920/6, 1080/6, w_width, w_height, 60);
+				glfwSetWindowMonitor(w_window, NULL, 1920/6, 1080/6, w_width, w_height, GLFW_DONT_CARE);
 				sw = true;
 			}
 		}
