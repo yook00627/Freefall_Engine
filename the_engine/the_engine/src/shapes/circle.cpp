@@ -23,7 +23,7 @@ void Circle::drawCircle()
 	for (int i = 0; i <= 360; i++)
 	{
 		float degInRad = i * degree_radius;
-		glVertex2f(cos(degInRad)*this->radius / 1.7f + this->vectors.pos.y, sin(degInRad)*this->radius + this->vectors.pos.x);
+		glVertex2f(cos(degInRad)*this->radius / 1.7f + this->vectors.pos.x, sin(degInRad)*this->radius + this->vectors.pos.y);
 	}
 	glEnd();
 }
