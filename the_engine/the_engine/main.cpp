@@ -14,7 +14,7 @@ void drawCircle(float radius)
 	for (int i = 0; i <= 360; i++)
 	{
 		float degInRad = i * DEG2RAD;
-		glVertex2f(cos(degInRad)*radius/1.7f + .3f, sin(degInRad)*radius + .3f);
+		glVertex2f(cos(degInRad)*radius / 1.7f + .3f, sin(degInRad)*radius + .3f);
 	}
 	glEnd();
 }
@@ -48,7 +48,7 @@ int main(int argc, char *argv)
 	while (!window.closed())
 	{
 		window.clear();
-		
+
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			std::cout << "pressed space" << std::endl;

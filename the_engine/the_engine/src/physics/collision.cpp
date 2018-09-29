@@ -1,4 +1,4 @@
-#include "physics.h"
+/*#include "physics.h"
 
 bool AABBvsAABB(AABB a, AABB b)
 {
@@ -46,4 +46,4 @@ void ResolveCollision(Object A, Object B)
 		Vec2 impulse = j * normal
 		A.velocity -= 1 / A.mass * impulse
 		B.velocity += 1 / B.mass * impulse
-}
+}*/

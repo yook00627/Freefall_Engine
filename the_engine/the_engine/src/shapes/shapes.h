@@ -4,7 +4,8 @@
 #include <Math.h>
 #include "../physics/physics.h"
 
-void drawcircle(float radius, int sides);
+#define degree_radius 3.14159f / 180;
+void drawCircle(float radius);
 
 class base_shape {
 public:
