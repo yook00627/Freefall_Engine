@@ -4,10 +4,10 @@
 
 Rectangle::Rectangle()
 {
-	r_width = 2;
-	r_height = 1;
-	this->vectors.pos.x = 0;
-	this->vectors.pos.y = 0;
+	r_width = 2.0f;
+	r_height = 1.0f;
+	this->vectors.pos.x = 0.0f;
+	this->vectors.pos.y = 0.0f;
 };
 
 Rectangle::Rectangle(float width, float height, float x, float y) {
@@ -20,8 +20,8 @@ Rectangle::Rectangle(float width, float height, float x, float y) {
 
 void Rectangle::draw_rectangle() {
 	//aspect ratio compensation
-	float new_height = (r_height / 9) / 2;
-	float new_width = (r_width / 16) / 2;
+	float new_height = (r_height) / 2.0f;
+	float new_width = (r_width / 1.667f) / 2.0f;
 
 	//start drawing based on triangles
 	glBegin( GL_TRIANGLES );
