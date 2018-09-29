@@ -40,14 +40,14 @@ int main(int argc, char *argv)
 	glBindVertexArray(var);
 
 	const float DEG2RAD = 3.14159 / 180;
-
+	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
+	//drawcircle(.4f, 40);
+	//Triangle tri(10, 10);
+	//tri.Create_Triangle();
+	//Square r(1);
 	while (!window.closed())
 	{
 		window.clear();
-		//drawcircle(.4f, 40);
-		//Triangle tri(10, 10);
-		//tri.Create_Triangle();
-		//Square r(1);
 		
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
@@ -64,7 +64,8 @@ int main(int argc, char *argv)
 		drawCircle(.2f);
 		old_time = new_time;
 		new_time = glfwGetTime();
-		//r.draw_rectangle(new_time - old_time);
+		//r.vectors.update_position(new_time - old_time);
+		//r.draw_rectangle();
 		std::cout << new_time << std::endl;
 		//double x, y;
 		//input_keys.get_mouse_position(x, y);
