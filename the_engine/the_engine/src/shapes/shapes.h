@@ -35,5 +35,6 @@ public:
 class Square : public Rectangle {
 
 public:
-	Square(float edge);
+	Square();
+	Square(float edge, float x, float y);
 };

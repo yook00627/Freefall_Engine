@@ -4,22 +4,6 @@
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
 
-#if 0
-const float DEG2RAD = 3.14159 / 180;
-
-void drawCircle(float radius)
-{
-	glBegin(GL_LINE_LOOP);
-	glColor3f(0.0f, 0.0f, 0.0f);
-	for (int i = 0; i <= 360; i++)
-	{
-		float degInRad = i * DEG2RAD;
-		glVertex2f(cos(degInRad)*radius / 1.7f + .3f, sin(degInRad)*radius + .3f);
-	}
-	glEnd();
-}
-#endif
-
 int main(int argc, char *argv)
 {
 	using namespace engine;
