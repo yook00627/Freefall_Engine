@@ -158,6 +158,7 @@
     <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\physics\physics.cpp" />
     <ClCompile Include="src\movement\movement.cpp" />
+    <ClCompile Include="src\physics\collision.cpp" />
     <ClCompile Include="src\shapes\circle.cpp" />
     <ClCompile Include="src\shapes\shapes.cpp" />
     <ClCompile Include="src\shapes\rectangle.cpp" />
