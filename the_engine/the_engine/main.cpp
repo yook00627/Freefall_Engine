@@ -28,13 +28,28 @@ int main(int argc, char *argv)
 	//drawcircle(.4f, 40);
 	//Triangle tri(10, 10);
 	//tri.Create_Triangle();
-	//Square r(1);
+	Square r(0.5f, 0.0f, 0.9f);
+	Circle ball(0.05f, 0.0f, 0.5f);
+
+
+	bool sw = false;
+
 	while (!window.closed())
 	{
 		window.clear();
-
+		old_time = new_time;
+		new_time = glfwGetTime();
+		std::cout << new_time << std::endl;
+		r.draw_rectangle();
+		ball.drawCircle();
+		if (sw)
+		{
+			r.vectors.update_position(new_time - old_time);
+			ball.vectors.update_position(new_time - old_time);
+		}
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
+			sw = true;
 			std::cout << "pressed space" << std::endl;
 		}
 		if (input_keys.key_pressed(GLFW_KEY_F11))
@@ -45,12 +60,8 @@ int main(int argc, char *argv)
 		{
 			std::cout << "pressed mouse" << std::endl;
 		}
-		drawCircle(.2f);
-		old_time = new_time;
-		new_time = glfwGetTime();
-		//r.vectors.update_position(new_time - old_time);
-		//r.draw_rectangle();
-		std::cout << new_time << std::endl;
+		
+		
 		//double x, y;
 		//input_keys.get_mouse_position(x, y);
 		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
