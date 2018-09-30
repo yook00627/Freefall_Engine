@@ -25,10 +25,12 @@ public:
 class Circle : public BaseShape
 {
 public:
+	float mass = 1.0f;
 	float radius;
 	Circle();
-	Circle(float radius, float x, float y);
+	Circle(float radius, float x, float y, float mass);
 	void drawCircle();
+	~Circle();
 };
 
 class Rectangle : public BaseShape {
