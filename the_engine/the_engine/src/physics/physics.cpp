@@ -25,3 +25,13 @@ void physics::update_position(float deltat)
 	//accel = glm::vec2(0.0, 0.0);
 };
 
+void physics::reset(float new_x, float new_y, float new_vx, float new_vy, float new_ax, float new_ay)
+{
+	pos.x = new_x;
+	pos.y = new_y;
+	vel.x = new_vx;
+	vel.y = new_vy;
+	accel.x = new_ax;
+	accel.y = new_ay;
+};
+

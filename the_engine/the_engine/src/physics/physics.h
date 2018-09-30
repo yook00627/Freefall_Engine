@@ -25,5 +25,6 @@ public:
 	physics();
 
 	void update_position(float deltat);
+	void reset(float new_x, float new_y, float new_vx, float new_vy, float new_ax, float new_ay);
 
 };
