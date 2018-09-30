@@ -2,9 +2,11 @@
 #include <iostream>
 #include <math.h>
 #include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
+
 
 int main(int argc, char *argv)
 {
@@ -27,15 +29,18 @@ int main(int argc, char *argv)
 
 	const float DEG2RAD = 3.14159f / 180.0f;
 	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
-	//drawcircle(.4f, 40);
-	//Triangle tri(10, 10);
-	//tri.Create_Triangle();
 	//Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.5f);
-
-
 	bool sw = false;
 	ball.vectors.vel.x = 0.5f;
+
+	FT_Library ft;
+
+	if (FT_Init_FreeType(&ft)) {
+		fprintf(stderr, "Could not init freetype library\n");
+		return 1;
+	}
+
 	while (!window.closed())
 	{
 		window.clear();
@@ -45,10 +50,11 @@ int main(int argc, char *argv)
 		//r.draw_rectangle();
 		ball.drawCircle();
 
+
 		if (ball.vectors.pos.x > .8 || ball.vectors.pos.x < -.8)
 			ball.vectors.vel.x = -ball.vectors.vel.x;
 
-		std::cout << ball.vectors.pos.x << std::endl;
+		
 		ball.vectors.update_position(new_time - old_time);
 
 		if (sw)
@@ -58,15 +64,18 @@ int main(int argc, char *argv)
 			ball.vectors.accel.y = -9.8f;
 			ball.vectors.update_position(new_time - old_time);
 		}
+
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
 			std::cout << "pressed space" << std::endl;
 		}
+
 		if (input_keys.key_pressed(GLFW_KEY_F11))
 		{
 			window.windowSizeToggle();
 		}
+
 		if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
 		{
 			std::cout << "pressed mouse" << std::endl;
