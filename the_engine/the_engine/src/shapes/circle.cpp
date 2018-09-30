@@ -7,12 +7,14 @@ Circle::Circle()
 	this->vectors.pos.y = 0.0f;
 };
 
-Circle::Circle(float rad, float x, float y)
+Circle::Circle(float rad, float x, float y, float m)
 {
 	radius = rad;
 	this->vectors.pos.x = x;
 	this->vectors.pos.y = y;
 }
+
+Circle::~Circle(){};
 
 
 void Circle::drawCircle()
