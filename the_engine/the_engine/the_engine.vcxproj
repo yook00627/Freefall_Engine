@@ -70,26 +70,26 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\GLM\include\glm;$(SolutionDir)\Dependencies\GLUT\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependencies\GLFW\lib-vc2015;$(SolutionDir)\Dependencies\GLEW\lib;$(SolutionDir)\Dependencies\GLUT\lib;$(SolutionDir)\Dependencies\GLUT\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\GLM\include\glm;$(SolutionDir)\Dependencies\GLUT\include;$(SolutionDir)\Dependencies\FreeType\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\GLFW\lib-vc2015;$(SolutionDir)\Dependencies\GLEW\lib;$(SolutionDir)\Dependencies\GLUT\lib;$(SolutionDir)\Dependencies\FreeType\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\bin\$(Configuration)\intermediate\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\GLM\include\glm;$(SolutionDir)\Dependencies\GLUT\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependencies\GLFW\lib-vc2015;$(SolutionDir)\Dependencies\GLEW\lib;$(SolutionDir)\Dependencies\GLUT\lib;$(SolutionDir)\Dependencies\GLUT\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\GLM\include\glm;$(SolutionDir)\Dependencies\GLUT\include;$(SolutionDir)\Dependencies\FreeType\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\GLFW\lib-vc2015;$(SolutionDir)\Dependencies\GLEW\lib;$(SolutionDir)\Dependencies\GLUT\lib;$(SolutionDir)\Dependencies\FreeType\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\bin\$(Configuration)\intermediate\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\GLM\include\glm;$(SolutionDir)\Dependencies\GLUT\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependencies\GLFW\lib-vc2015;$(SolutionDir)\Dependencies\GLEW\lib;$(SolutionDir)\Dependencies\GLUT\lib;$(SolutionDir)\Dependencies\GLUT\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\GLM\include\glm;$(SolutionDir)\Dependencies\GLUT\include;$(SolutionDir)\Dependencies\FreeType\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\GLFW\lib-vc2015;$(SolutionDir)\Dependencies\GLEW\lib;$(SolutionDir)\Dependencies\GLUT\lib;$(SolutionDir)\Dependencies\FreeType\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\bin\$(Configuration)\intermediate\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\GLM\include\glm;$(SolutionDir)\Dependencies\GLUT\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Dependencies\GLFW\lib-vc2015;$(SolutionDir)\Dependencies\GLEW\lib;$(SolutionDir)\Dependencies\GLUT\lib;$(SolutionDir)\Dependencies\GLUT\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include;$(SolutionDir)\Dependencies\GLM\include\glm;$(SolutionDir)\Dependencies\GLUT\include;$(SolutionDir)\Dependencies\FreeType\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\GLFW\lib-vc2015;$(SolutionDir)\Dependencies\GLEW\lib;$(SolutionDir)\Dependencies\GLUT\lib;$(SolutionDir)\Dependencies\FreeType\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\bin\$(Configuration)\intermediate\</IntDir>
   </PropertyGroup>

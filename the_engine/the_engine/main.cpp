@@ -1,6 +1,8 @@
 #if 1
 #include <iostream>
 #include <math.h>
+#include <ft2build.h>
+
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
 
@@ -28,23 +30,32 @@ int main(int argc, char *argv)
 	//drawcircle(.4f, 40);
 	//Triangle tri(10, 10);
 	//tri.Create_Triangle();
-	Square r(0.5f, 0.0f, 0.0f);
+	//Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.5f);
 
 
 	bool sw = false;
-
+	ball.vectors.vel.x = 0.5f;
 	while (!window.closed())
 	{
 		window.clear();
 		old_time = new_time;
 		new_time = glfwGetTime();
-		std::cout << new_time << std::endl;
-		r.draw_rectangle();
+		//std::cout << new_time << std::endl;
+		//r.draw_rectangle();
 		ball.drawCircle();
+
+		if (ball.vectors.pos.x > .8 || ball.vectors.pos.x < -.8)
+			ball.vectors.vel.x = -ball.vectors.vel.x;
+
+		std::cout << ball.vectors.pos.x << std::endl;
+		ball.vectors.update_position(new_time - old_time);
+
 		if (sw)
 		{
-			r.vectors.update_position(new_time - old_time);
+			//r.vectors.update_position(new_time - old_time);
+			ball.vectors.vel.x = 0.0f;
+			ball.vectors.accel.y = -9.8f;
 			ball.vectors.update_position(new_time - old_time);
 		}
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
