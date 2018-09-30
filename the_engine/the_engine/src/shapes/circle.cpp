@@ -14,8 +14,6 @@ Circle::Circle(float rad, float x, float y, float m)
 	this->vectors.pos.y = y;
 }
 
-Circle::~Circle(){};
-
 
 void Circle::drawCircle()
 {

@@ -5,7 +5,6 @@
 #include "../physics/physics.h"
 
 #define degree_radius 3.14159f / 180.0f;
-//void drawCircle(float radius);
 
 class BaseShape {
 public:
@@ -30,7 +29,7 @@ public:
 	Circle();
 	Circle(float radius, float x, float y, float mass);
 	void drawCircle();
-	~Circle();
+	//~Circle();
 };
 
 class Rectangle : public BaseShape {
