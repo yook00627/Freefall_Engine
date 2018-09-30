@@ -32,8 +32,9 @@ int main(int argc, char *argv)
 	//Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
 	bool sw = false;
-	ball.vectors.vel.x = 0.5f;
+	ball.vectors.vel.x = 1.0f;
 	int score = 0;
+	float dif = 0;
 
 	FT_Library ft;
 
@@ -52,12 +53,12 @@ int main(int argc, char *argv)
 		ball.drawCircle();
 
 
-		if (ball.vectors.pos.x > .8 || ball.vectors.pos.x < -.8)
-			ball.vectors.vel.x = -ball.vectors.vel.x;
+		if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
+			ball.vectors.vel.x = (ball.vectors.pos.x>0?-1:1)*abs(ball.vectors.vel.x);
 
 		if (ball.vectors.pos.y < -1.2f)
 		{
-			ball.vectors.reset(0.0f, 0.8f, 0.5f, 0.0f, 0.0f, 0.0f);
+			ball.vectors.reset(0.0f, 0.8f, 1.0f + dif, 0.0f, 0.0f, 0.0f);
 			score++;
 			std::cout << score << std::endl;
 		}
@@ -73,9 +74,13 @@ int main(int argc, char *argv)
 			sw = false;
 		}
 
+		std::cout << ball.vectors.pos.x << std::endl;
+		std::cout << ball.vectors.vel.x << std::endl;
+
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
+			dif += 0.0005f;
 		}
 
 		if (input_keys.key_pressed(GLFW_KEY_DELETE))
