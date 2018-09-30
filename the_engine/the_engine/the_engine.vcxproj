@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\input\input.cpp" />
+    <ClCompile Include="src\physics\impulse.cpp" />
     <ClCompile Include="src\physics\physics.cpp" />
     <ClCompile Include="src\movement\movement.cpp" />
     <ClCompile Include="src\physics\collision.cpp" />
