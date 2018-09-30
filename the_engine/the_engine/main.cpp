@@ -30,9 +30,10 @@ int main(int argc, char *argv)
 	const float DEG2RAD = 3.14159f / 180.0f;
 	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
 	//Square r(0.5f, 0.0f, 0.0f);
-	Circle ball(0.05f, 0.0f, 0.5f);
+	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
 	bool sw = false;
 	ball.vectors.vel.x = 0.5f;
+	int score = 0;
 
 	FT_Library ft;
 
@@ -54,6 +55,12 @@ int main(int argc, char *argv)
 		if (ball.vectors.pos.x > .8 || ball.vectors.pos.x < -.8)
 			ball.vectors.vel.x = -ball.vectors.vel.x;
 
+		if (ball.vectors.pos.y < -1.2f)
+		{
+			ball.vectors.reset(0.0f, 0.8f, 0.5f, 0.0f, 0.0f, 0.0f);
+			score++;
+			std::cout << score << std::endl;
+		}
 		
 		ball.vectors.update_position(new_time - old_time);
 
@@ -63,14 +70,24 @@ int main(int argc, char *argv)
 			ball.vectors.vel.x = 0.0f;
 			ball.vectors.accel.y = -9.8f;
 			ball.vectors.update_position(new_time - old_time);
+			sw = false;
 		}
 
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
-			std::cout << "pressed space" << std::endl;
 		}
 
+		if (input_keys.key_pressed(GLFW_KEY_DELETE))
+		{
+			ball.~Circle();
+		}
+
+		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
+		{
+			window.~Window();
+			exit(0);
+		}
 		if (input_keys.key_pressed(GLFW_KEY_F11))
 		{
 			window.windowSizeToggle();
