@@ -32,8 +32,9 @@ int main(int argc, char *argv)
 	//Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
 	Line box(-0.08f, -0.5f, 0.08f, -0.5f, -0.08f, -0.3f, 0.08f, -0.3f);
+	Collision test(ball, box);
 	bool sw = false;
-	ball.vectors.vel.x = 1.0f;
+	ball.vectors.vel.x = 0.000005f;
 	int score = 0;
 	float dif = 0;
 
@@ -53,6 +54,7 @@ int main(int argc, char *argv)
 		//r.draw_rectangle();
 		box.drawline();
 		ball.drawCircle();
+		test.lineCircle(ball, box);
 
 
 		if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
@@ -71,9 +73,14 @@ int main(int argc, char *argv)
 		{
 			//r.vectors.update_position(new_time - old_time);
 			ball.vectors.vel.x = 0.0f;
-			ball.vectors.accel.y = -9.8f;
+			ball.vectors.accel.y = -3.0f;
 			ball.vectors.update_position(new_time - old_time);
 			sw = false;
+			if (test.lineCircle(ball, box) == true)
+			{
+				//std::cout << &ball.norms.x << " "<< &ball.norms.y << std::endl;
+				std::cout << "I HIT SOMETHING" << std::endl;
+			}
 		}
 		/*
 		std::cout << ball.vectors.pos.x << std::endl;
@@ -82,7 +89,7 @@ int main(int argc, char *argv)
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
-			dif += 0.0005f;
+			dif += 0.00000002f;
 		}
 
 		if (input_keys.key_pressed(GLFW_KEY_DELETE))

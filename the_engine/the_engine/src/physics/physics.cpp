@@ -1,5 +1,5 @@
 #include "physics.h"
-
+#include <iostream>
 physics::physics()
 {
 	accel = glm::vec2(0.0f, 0.0f);
@@ -17,6 +17,7 @@ void physics::update_position(float deltat)
 
 	//update new position based on current velocity and acceleration vector
 	pos.x += vel.x * deltat + (accel.x * (deltat * deltat) / 2.0f);
+	//std::cout << "physics pos y" << pos.y << std::endl;
 	pos.y += vel.y * deltat + (accel.y * (deltat * deltat) / 2.0f);
 	//update new velocity based on acceleration
 	vel.x += accel.x * deltat;

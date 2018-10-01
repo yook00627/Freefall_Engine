@@ -19,6 +19,7 @@ public:
 	float radius;
 	float x;
 	float y;
+	glm::vec2 norms;
 	Circle();
 	Circle(float radius, float x, float y, float mass);
 	void drawCircle();
@@ -70,8 +71,10 @@ public:
 	float y4;
 	Collision();
 	Collision(Circle &obj, Line &lobj);
-	bool lineCircle();
+	bool lineCircle(Circle &obj, Line &lobj);
 	bool linePoint(float x1, float y1, float x2, float y2, float closeX, float closeY);
+	float dist(float x, float y, float x1, float y1);
+	bool pointCircle(float px, float py, float cx, float cy, float r);
 };
 
 //class Square : public Rectangle {
