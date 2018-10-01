@@ -69,10 +69,9 @@ public:
 	float y3;
 	float y4;
 	Collision();
-	Collision(float rad, float cirx, float ciry, float x_1, float y_1, float x_2, float y_2, float x_3, float y_3, float x_4, float y_4) :
-		Circle(radius, x, y, mass), Line(x1, y1, x2, y2, x3, y3, x4, y4) 
-	{}
-	void circle_to_line();
+	Collision(Circle &obj, Line &lobj);
+	bool lineCircle();
+	bool linePoint(float x1, float y1, float x2, float y2, float closeX, float closeY);
 };
 
 //class Square : public Rectangle {
