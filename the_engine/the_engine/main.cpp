@@ -1,22 +1,22 @@
 #if 1
 #include <iostream>
 #include <math.h>
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
+#include "src/window/text.h"
+
 
 
 int main(int argc, char *argv)
 {
+
 	using namespace engine;
 	using namespace graphics;
 	using namespace input;
 
-	//FULL SCREEN MODE OR WIDNOW MODE
 	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
-	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+	glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 	KeyboardMouse input_keys;
 	GLuint var;
 
@@ -27,7 +27,7 @@ int main(int argc, char *argv)
 	glGenVertexArrays(1, &var);
 	glBindVertexArray(var);
 
-	const float DEG2RAD = 3.14159f / 180.0f;
+	//const float DEG2RAD = 3.14159f / 180.0f;
 	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
 	//Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
@@ -36,22 +36,36 @@ int main(int argc, char *argv)
 	int score = 0;
 	float dif = 0;
 
-	FT_Library ft;
+	float sx = 2.0f / SCREEN_WIDTH;
+	float sy = 2.0f / SCREEN_HEIGHT;
 
-	if (FT_Init_FreeType(&ft)) {
-		fprintf(stderr, "Could not init freetype library\n");
-		return 1;
-	}
+	bool pause = false;
 
 	while (!window.closed())
 	{
 		window.clear();
+		ball.drawCircle();
+
+		if (input_keys.key_pressed(GLFW_KEY_P) && pause == true)
+		{
+			pause = false;
+			glfwWaitEvents();
+		}
+		if (!pause)
+		{
+			if (input_keys.key_pressed(GLFW_KEY_P) )
+			{
+				pause = true;
+				glfwWaitEvents();
+			}
+
+		//drawing circle game
+#if 1
 		old_time = new_time;
 		new_time = glfwGetTime();
 		//std::cout << new_time << std::endl;
 		//r.draw_rectangle();
-		ball.drawCircle();
-
+		
 
 		if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
 			ball.vectors.vel.x = (ball.vectors.pos.x>0?-1:1)*abs(ball.vectors.vel.x);
@@ -74,18 +88,10 @@ int main(int argc, char *argv)
 			sw = false;
 		}
 
-		std::cout << ball.vectors.pos.x << std::endl;
-		std::cout << ball.vectors.vel.x << std::endl;
-
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
 			dif += 0.0005f;
-		}
-
-		if (input_keys.key_pressed(GLFW_KEY_DELETE))
-		{
-			ball.~Circle();
 		}
 
 		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
@@ -100,14 +106,16 @@ int main(int argc, char *argv)
 
 		if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			std::cout << "pressed mouse" << std::endl;
+
 		}
-		
 		
 		//double x, y;
 		//input_keys.get_mouse_position(x, y);
 		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
+#endif
 
+
+		}
 		window.update();
 	}
 
