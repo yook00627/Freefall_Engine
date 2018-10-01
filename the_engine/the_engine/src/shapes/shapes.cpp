@@ -15,4 +15,8 @@ namespace shapes
 	{
 
 	}
+	namespace Line
+	{
+
+	}
 }

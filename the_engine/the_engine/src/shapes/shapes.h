@@ -12,15 +12,6 @@ public:
 	physics vectors;
 };
 
-class Triangle : public BaseShape {
-private:
-	float t_width, t_height;
-
-public:
-	Triangle(float width, float height);
-	void create_triangle(double deltat);
-};
-
 class Circle : public BaseShape
 {
 public:
@@ -30,6 +21,22 @@ public:
 	Circle(float radius, float x, float y, float mass);
 	void drawCircle();
 	//~Circle();
+};
+
+class Line : public BaseShape
+{
+public:
+	float x_1 = 0.0f;
+	float y_1 = 0.0f;
+	float x_2 = 0.0f; 
+	float y_2 = 0.0f;
+	float x_3 = 0.0f;
+	float y_3 = 0.0f;
+	float x_4 = 0.0f;
+	float y_4 = 0.0f;
+	Line();
+	Line(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+	void drawline();
 };
 
 class Rectangle : public BaseShape {
@@ -42,9 +49,18 @@ public:
 	void draw_rectangle();
 };
 
-class Square : public Rectangle {
+//class Square : public Rectangle {
+//
+//public:
+//	Square();
+//	Square(float edge, float x, float y);
+//};
+
+class Triangle : public BaseShape {
+private:
+	float t_width, t_height;
 
 public:
-	Square();
-	Square(float edge, float x, float y);
+	Triangle(float width, float height);
+	void create_triangle(double deltat);
 };

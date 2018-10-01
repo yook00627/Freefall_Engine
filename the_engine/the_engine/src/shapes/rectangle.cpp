@@ -39,3 +39,19 @@ void Rectangle::draw_rectangle() {
 	std::cout << "new_width: " << new_width << std::endl;
 	glEnd();
 }
+
+//void draw_Line() 
+//{
+//	GLfloat lineVertices[] =
+//	{
+//		1.0f, 1.0f,
+//		-1.0f, 0.0f
+//		
+//	};
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glVertexPointer(2, GL_FLOAT, 0, lineVertices);
+//	glDrawArrays(GL_LINES, 0, 2);
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//
+//}
+//

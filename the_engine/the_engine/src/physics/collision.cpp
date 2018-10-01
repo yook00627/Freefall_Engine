@@ -1,63 +1,58 @@
-/*#include "physics.h"
+//#include <math.h>
+//
+////collision::collision
+//
+//
+//float cx, cy; // circle position
+//float rad; //circle rad
+//float linex1;
+//float linex2; //line left coordinates
+//float liney1;//line right coordinates
+//float liney2;
+//bool lineCircle(float cx, float cy, float rad, float linex1, float liney1, float linex2, float liney2)
+//{
+//	bool inside1 = pointCircle(linex1, liney1, cx, cy, rad);
+//	bool inside2 = pointCircle(linex2, liney2, cx, cy, rad);
+//
+//	if (inside1 || inside2)
+//		return (true);
+//
+//	float distx = linex1 - linex2;
+//	float disty = liney1 - liney2;
+//
+//	float len = sqrt((distx*distx) + (disty*disty));
+//	float dot = (cx - linex1) * (linex2 - linex1) + (cy - liney1) * (liney2 - liney1) / pow(len, 2);
+//	
+//	float closestX = linex1 + (dot * (linex2 - linex1));
+//	float closestY = liney1 + (dot * (liney2 - liney1));
+//
+//	bool check = linePoint(linex1, liney1, linex2, liney2, closestX, closestY);
+//
+//	if (!check)
+//		return (false);
+//
+//	distx = closestX - cx;
+//	disty = closestY - cy;
+//
+//	float distance = sqrt((distx * distx) + (disty * disty));
+//	if (distance <= rad)
+//		return (true);
+//	return (false);
+//}
+//
+//bool linePoint(float x1, float y1, float x2, float y2, float px, float py)
+//{
+//	float distx = px - x1;
+//	float disty = py - y1;
+//	float distx2 = px - x2;
+//	float disty2 = py - y2;
+//
+//	
+//
+//	float buffer = 5.0f;
+//
+//	if ()
+//}
 
-bool AABBvsAABB(AABB a, AABB b)
-{
-	// Exit with no intersection if found separated along an axis
-	if (a.max.x < b.min.x or a.min.x > b.max.x) return false;
-	if (a.max.y < b.min.y or a.min.y > b.max.y) return false;
 
-	// No separating axis found, therefor there is at least one overlapping axis
-	return true;
-}
-
-float Distance(glm::vec2 a, glm::vec2 b)
-{
-	return sqrt((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2);
-}
-
-
-bool CirclevsCircleOptimized(Circle a, Circle b)
-{
-	float r = a.radius + b.radius;
-	r *= r;
-	return r < (a.x + b.x) ^ 2 + (a.y + b.y) ^ 2;
-}
-
-void ResolveCollision(Object A, Object B)
-{
-	// Calculate relative velocity
-	glm::vec2 rv = B.velocity - A.velocity
-
-		// Calculate relative velocity in terms of the normal direction
-		float velAlongNormal = DotProduct(rv, normal)
-
-		// Do not resolve if velocities are separating
-		if (velAlongNormal > 0)
-			return;
-
-	// Calculate restitution
-	float e = min(A.restitution, B.restitution)
-
-		// Calculate impulse scalar
-		float j = -(1 + e) * velAlongNormal
-		j /= 1 / A.mass + 1 / B.mass
-
-		// Apply impulse
-		Vec2 impulse = j * normal
-		A.velocity -= 1 / A.mass * impulse
-		B.velocity += 1 / B.mass * impulse
-}*/
-
-//circle to circle collision
-/*
-//distance between the centers of the circles
-d = (x2-x1)^2 + (y2-y1)^2;
-
-// collision if and only if
-(r1+r2)^2 > d
-*/
-
-// aabb for box collisions
-/*
-
-*/
+//nclude "physics.h

@@ -31,6 +31,7 @@ int main(int argc, char *argv)
 	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
 	//Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
+	Line box(-0.08f, -0.5f, 0.08f, -0.5f, -0.08f, -0.3f, 0.08f, -0.3f);
 	bool sw = false;
 	ball.vectors.vel.x = 1.0f;
 	int score = 0;
@@ -50,6 +51,7 @@ int main(int argc, char *argv)
 		new_time = glfwGetTime();
 		//std::cout << new_time << std::endl;
 		//r.draw_rectangle();
+		box.drawline();
 		ball.drawCircle();
 
 
@@ -73,10 +75,10 @@ int main(int argc, char *argv)
 			ball.vectors.update_position(new_time - old_time);
 			sw = false;
 		}
-
+		/*
 		std::cout << ball.vectors.pos.x << std::endl;
 		std::cout << ball.vectors.vel.x << std::endl;
-
+*/
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
