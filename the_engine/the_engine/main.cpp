@@ -1,8 +1,6 @@
 #if 1
 #include <iostream>
 #include <math.h>
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
@@ -12,6 +10,7 @@
 
 int main(int argc, char *argv)
 {
+
 	using namespace engine;
 	using namespace graphics;
 	using namespace input;

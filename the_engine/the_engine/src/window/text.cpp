@@ -1,9 +1,8 @@
 #include "text.h"
 
+
 int PrintText::init()
 {
-	
-
 	if (FT_Init_FreeType(&ft)) {
 		fprintf(stderr, "Could not init freetype library\n");
 		return 1;
