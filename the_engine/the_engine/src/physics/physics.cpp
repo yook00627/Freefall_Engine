@@ -34,4 +34,3 @@ void physics::reset(float new_x, float new_y, float new_vx, float new_vy, float 
 	accel.x = new_ax;
 	accel.y = new_ay;
 };
-
