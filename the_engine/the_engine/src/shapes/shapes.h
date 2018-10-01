@@ -17,6 +17,8 @@ class Circle : public BaseShape
 public:
 	float mass = 1.0f;
 	float radius;
+	float x;
+	float y;
 	Circle();
 	Circle(float radius, float x, float y, float mass);
 	void drawCircle();
@@ -47,6 +49,30 @@ public:
 	Rectangle();
 	Rectangle(float width, float height, float x, float y);
 	void draw_rectangle();
+};
+
+
+// collision class definition
+// This class inherits circle's radius and position
+// This class inherits lines x and y axes
+class Collision : public Circle, public Line {
+public:
+	float radius;
+	float cx;
+	float cy;
+	float x1;
+	float x2;
+	float x3;
+	float x4;
+	float y1;
+	float y2;
+	float y3;
+	float y4;
+	Collision();
+	Collision(float rad, float cirx, float ciry, float x_1, float y_1, float x_2, float y_2, float x_3, float y_3, float x_4, float y_4) :
+		Circle(radius, x, y, mass), Line(x1, y1, x2, y2, x3, y3, x4, y4) 
+	{}
+	void circle_to_line();
 };
 
 //class Square : public Rectangle {

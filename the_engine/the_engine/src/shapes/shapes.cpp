@@ -19,4 +19,8 @@ namespace shapes
 	{
 
 	}
+	namespace Collision
+	{
+
+	}
 }

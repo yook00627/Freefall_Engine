@@ -21,12 +21,7 @@ public:
 	glm::vec2 accel;
 	glm::vec2 vel;
 	glm::vec2 pos;
-	glm::vec2 linea; //line pt1
-	glm::vec2 lineb; //line pt2
-	glm::vec2 linedist; //distance between pt1 and pt2
-	glm::vec2 circ_pos_rel_line; //relative dist between circle pos and pt1
-	glm::vec2 dist; // closest distance between circle pos and line segment
-
+ 
 	//constructor
 	physics();
 
