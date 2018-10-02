@@ -2,12 +2,13 @@
 #include <iostream>
 #include <math.h>
 
+
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
 #include "src/window/text.h"
 
 
-
+#if 1
 int main(int argc, char *argv)
 {
 
@@ -19,7 +20,6 @@ int main(int argc, char *argv)
 	glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 	KeyboardMouse input_keys;
 	GLuint var;
-
 
 	double old_time = 0;
 	double new_time = 0;
@@ -36,15 +36,20 @@ int main(int argc, char *argv)
 	int score = 0;
 	float dif = 0;
 
-	float sx = 2.0f / SCREEN_WIDTH;
-	float sy = 2.0f / SCREEN_HEIGHT;
-
 	bool pause = false;
+
+	TextRenderer *Text;
+
+
+	Text = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+	Text->Load("src/window/arial.ttf", 24);
+
 
 	while (!window.closed())
 	{
 		window.clear();
-		ball.drawCircle();
+
+		//ball.drawCircle();
 
 		if (input_keys.key_pressed(GLFW_KEY_P) && pause == true)
 		{
@@ -60,7 +65,7 @@ int main(int argc, char *argv)
 			}
 
 		//drawing circle game
-#if 1
+#if 0
 		old_time = new_time;
 		new_time = glfwGetTime();
 		//std::cout << new_time << std::endl;
@@ -114,6 +119,8 @@ int main(int argc, char *argv)
 		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
 #endif
 
+		Text->RenderText("Lives:", 5.0f, 5.0f, 1.0f);
+		Text->RenderText("Press ENTER to start", 250.0f, SCREEN_HEIGHT / 2, 1.0f);
 
 		}
 		window.update();
@@ -122,6 +129,10 @@ int main(int argc, char *argv)
 	return 0;
 }
 #endif
+
+#endif
+
+
 
 
 #if 0
@@ -230,3 +241,4 @@ int main(int argc, char** argv) {
 	glutMainLoop();
 }
 #endif
+
