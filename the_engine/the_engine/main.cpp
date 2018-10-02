@@ -2,7 +2,6 @@
 #include <iostream>
 #include <math.h>
 
-
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
 #include "src/window/text.h"
@@ -27,6 +26,9 @@ int main(int argc, char *argv)
 	glGenVertexArrays(1, &var);
 	glBindVertexArray(var);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//const float DEG2RAD = 3.14159f / 180.0f;
 	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
 	//Square r(0.5f, 0.0f, 0.0f);
@@ -49,8 +51,6 @@ int main(int argc, char *argv)
 	{
 		window.clear();
 
-		//ball.drawCircle();
-
 		if (input_keys.key_pressed(GLFW_KEY_P) && pause == true)
 		{
 			pause = false;
@@ -69,7 +69,7 @@ int main(int argc, char *argv)
 		old_time = new_time;
 		new_time = glfwGetTime();
 		//std::cout << new_time << std::endl;
-		//r.draw_rectangle();
+
 		
 
 		if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
@@ -119,8 +119,8 @@ int main(int argc, char *argv)
 		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
 #endif
 
-		Text->RenderText("Lives:", 5.0f, 5.0f, 1.0f);
-		Text->RenderText("Press ENTER to start", 250.0f, SCREEN_HEIGHT / 2, 1.0f);
+		Text->RenderText("Lives:" + std::to_string(score), 5.0f, 5.0f, 1.0f);
+		Text->RenderText("PRESS ENTER TO START", SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.2, 2.0f, glm::vec3(1.0, 1.0, 0.0));
 
 		}
 		window.update();
