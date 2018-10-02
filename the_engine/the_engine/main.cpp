@@ -76,16 +76,13 @@ int main(int argc, char *argv)
 			ball.vectors.accel.y = -3.0f;
 			ball.vectors.update_position(new_time - old_time);
 			sw = false;
-			if (test.lineCircle(ball, box) == true)
-			{
-				//std::cout << &ball.norms.x << " "<< &ball.norms.y << std::endl;
-				std::cout << "I HIT SOMETHING" << std::endl;
-			}
+			
 		}
-		/*
-		std::cout << ball.vectors.pos.x << std::endl;
-		std::cout << ball.vectors.vel.x << std::endl;
-*/
+		if (test.lineCircle(ball, box))
+		{
+			std::cout << "I HIT SOMETHING" << std::endl;
+		}
+
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
@@ -112,10 +109,7 @@ int main(int argc, char *argv)
 			std::cout << "pressed mouse" << std::endl;
 		}
 		
-		
-		//double x, y;
-		//input_keys.get_mouse_position(x, y);
-		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
+
 
 		window.update();
 	}

@@ -31,18 +31,26 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	x3 = lobj.x_3;	y3 = lobj.y_3;
 	x4 = lobj.x_4;	y4 = lobj.y_4;
 
-	//std::cout << "y in collision" << cy << std::endl;
-	bool inside1 = pointCircle(x1, y1, cx, cy, radius);
-	bool inside2 = pointCircle(x2, y2, cx, cy, radius);
 
-	if (inside1 || inside2)
+	//BOTTOM LINE TESTING
+
+	//bool inside1 = pointCircle(x1, y1, cx, cy, radius);
+	//bool inside2 = pointCircle(x2, y2, cx, cy, radius);
+
+	//LEFT LINE TOP TESTING
+	bool inside3 = pointCircle(x3, y3, cx, cy, radius);
+
+	//RIGHT LINE TOP TESTING
+	bool inside4 = pointCircle(x4, y4, cx, cy, radius);
+
+	if (inside3 || inside4)
 	{
-		std::cout << "inside1 " << inside1 << std::endl;
-		std::cout << "inside2" << inside2 << std::endl;
-		std::cout << "edge collision detected" << std::endl
-		glm::vec2 normal = glm::vec2(cx - closestX, cy - closestY);
-		obj.norms = normal;
-		return (true);
+		glm::vec2 normal;
+		if (inside3 == true)
+			normal = glm::vec2(cx - x1, cy - y1);
+		else
+			normal = glm::vec2(cx - x2, cy - y2);
+		return true;
 	}
 
 	//segv =  seg_b - seg_b
@@ -50,6 +58,19 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	float linedistx = x1 - x2;
 	float linedisty = y1 - y2;
 
+	float linedistxl = x1 - x3;
+	float linedistyl = y1 - y3;
+
+	float linedistxr = x2 - x4;
+	float linedistyr = y2 - y4;
+
+	//left line distance
+	float lenl = sqrt((linedistxl * linedistxl) + (linedistyl * linedistyl));
+
+	//right line distance
+	float lenr = sqrt((linedistxr * linedistxr) + (linedistyr * linedistyr));
+
+	//bottom line distance
 	float len = sqrt((linedistx * linedistx) + (linedisty * linedisty));
 
 	//getting dot product between the line and the circle to find the closest
@@ -57,21 +78,57 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	float dot = (((cx - x1)*(x2 - x1)) + ((cy - y1)*(y2 - y1))) / pow(len, 2);
 	float closestX = x1 + (dot * (x2 - x1));
 	float closestY = y1 + (dot * (y2 - y1));
+	closex = closestX;
+	closey = closestY;
+
+	//line left
+	float dotl = (((cx - x1) * (x3 - x1)) + ((cy - y1) * (y3 - y1))) / pow(len, 2);
+	float closestXl = x1 + (dotl * (x3 - x1));
+	float closestYl = y1 + (dotl * (y3 - y1));
+	closexl = closestXl;
+	closexl = closestYl;
+
+	//line right
+	float dotr = (((cx - x2) * (x4 - x2)) + ((cy - y2) * (y4 - y2))) / pow(len, 2);
+	float closestXr = x2 + (dotr * (x4 - x2));
+	float closestYr = y2 + (dotr * (y4 - y2));
+	closexr = closestXr;
+	closeyr = closestYr;
 
 	//function call to check if the point is on the line segment
 	bool onSegment = linePoint(x1, y1, x2, y2, closestX, closestY);
+	bool onSegmentl = linePoint(x1, y1, x3, y3, closestXl, closestYl);
+	bool onSegmentr = linePoint(x2, y2, x4, y4, closestXr, closestYr);
 
-	if (!onSegment)
+	if (!onSegment && !onSegmentl && !onSegmentr)
 		return false;
 
 	// get distance to the closest pt
 	linedistx = closestX - cx;
 	linedisty = closestY - cy;
+
+	linedistxl = closestXl - cx;
+	linedistyl = closestYl - cy;
+
+	linedistxr = closestXr - cx;
+	linedistyr = closestYr - cy;
+
+
 	float distance = sqrt((linedistx * linedistx) + (linedisty * linedisty));
-	
+	float distancel = sqrt((linedistxl * linedistxl) + (linedistyl * linedistyl));
+	float distancer = sqrt((linedistxr * linedistxr) + (linedistyr * linedistyr));
+
 	if (distance <= radius)
 	{
 		std::cout << "this is hitting" << std::endl;
+		return true;
+	}
+	else if (distancel <= radius)
+	{
+		return true;
+	}
+	else if (distancer <= radius)
+	{
 		return true;
 	}
 	return false;
@@ -90,7 +147,7 @@ bool Collision::linePoint(float x1, float y1, float x2, float y2, float closeX, 
 	
 	// since floats are so minutely accurate, add
 	// a little buffer zone that will give collision
-	float buffer = 0.1;    // higher # = less accurate
+	float buffer = 0.1f;    // higher # = less accurate
 	
 	// if the two distances are equal to the line's length, the
 	// point is on the line!
@@ -127,7 +184,6 @@ bool Collision::pointCircle(float px, float py, float cx, float cy, float r)
 		//radius the point is inside!
 		if (distance <= r) 
 		{
-			//std::cout << "collided" << std::endl;
 			return true;
 		}
 		return false;

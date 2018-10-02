@@ -56,7 +56,7 @@ public:
 // collision class definition
 // This class inherits circle's radius and position
 // This class inherits lines x and y axes
-class Collision : public Circle, public Line {
+class Collision {
 public:
 	float radius;
 	float cx;
@@ -69,6 +69,12 @@ public:
 	float y2;
 	float y3;
 	float y4;
+	float closex;
+	float closey;
+	float closexl;
+	float closeyl;
+	float closexr;
+	float closeyr;
 	Collision();
 	Collision(Circle &obj, Line &lobj);
 	bool lineCircle(Circle &obj, Line &lobj);
