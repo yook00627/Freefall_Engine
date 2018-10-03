@@ -2,6 +2,7 @@
 #include <glew/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include "../shapes/shapes.h"
 
 #if 0
 struct Circle

@@ -3,6 +3,7 @@
 
 namespace engine
 {
+
 	namespace input
 	{
 		bool KeyboardMouse::p_keys[MAX_KEYS];

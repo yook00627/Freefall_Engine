@@ -51,6 +51,12 @@
     <ClCompile Include="src\physics\impulse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\window\text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\window\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\window.h">
@@ -68,5 +74,18 @@
     <ClInclude Include="src\movement\movement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\window\text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\window\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="src\window\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\window\shader\text.vs" />
+    <None Include="src\window\shader\text.frag" />
   </ItemGroup>
 </Project>
