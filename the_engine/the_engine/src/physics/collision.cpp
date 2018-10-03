@@ -40,23 +40,23 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	//LEFT LINE TOP TESTING
 	bool inside3 = pointCircle(x3, y3, cx, cy, radius);
 
-	//RIGHT LINE TOP TESTING
+	////RIGHT LINE TOP TESTING
 	bool inside4 = pointCircle(x4, y4, cx, cy, radius);
 
-	if (inside3 || inside4)
+	if (inside4 || inside3)
 	{
 		glm::vec2 normal;
 		if (inside3 == true)
-			normal = glm::vec2(cx - x1, cy - y1);
+			normal = glm::vec2(x3 - cx, y3 - cy);
 		else
-			normal = glm::vec2(cx - x2, cy - y2);
+			normal = glm::vec2(x4 -cx, y4 - cx);
 		return true;
 	}
 
 	//segv =  seg_b - seg_b
 	//distance between 2 pts bottom
-	float linedistx = x1 - x2;
-	float linedisty = y1 - y2;
+	float linedistx = x2 - x1;
+	float linedisty = y2 - y1;
 
 	float linedistxl = x1 - x3;
 	float linedistyl = y1 - y3;
@@ -82,14 +82,14 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	closey = closestY;
 
 	//line left
-	float dotl = (((cx - x1) * (x3 - x1)) + ((cy - y1) * (y3 - y1))) / pow(len, 2);
+	float dotl = (((cx - x1) * (x3 - x1)) + ((cy - y1) * (y3 - y1))) / pow(lenl, 2);
 	float closestXl = x1 + (dotl * (x3 - x1));
 	float closestYl = y1 + (dotl * (y3 - y1));
 	closexl = closestXl;
 	closexl = closestYl;
 
 	//line right
-	float dotr = (((cx - x2) * (x4 - x2)) + ((cy - y2) * (y4 - y2))) / pow(len, 2);
+	float dotr = (((cx - x2) * (x4 - x2)) + ((cy - y2) * (y4 - y2))) / pow(lenr, 2);
 	float closestXr = x2 + (dotr * (x4 - x2));
 	float closestYr = y2 + (dotr * (y4 - y2));
 	closexr = closestXr;
@@ -99,9 +99,15 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	bool onSegment = linePoint(x1, y1, x2, y2, closestX, closestY);
 	bool onSegmentl = linePoint(x1, y1, x3, y3, closestXl, closestYl);
 	bool onSegmentr = linePoint(x2, y2, x4, y4, closestXr, closestYr);
-	if (onSegment == false && onSegmentl == false && onSegmentr == false)
-		return false;
-	
+	if (!onSegment)
+	{
+		if (!onSegmentl)
+		{
+			if (!onSegmentr)
+			return false;
+		}
+	}
+
 
 	// get distance to the closest pt
 	linedistx = closestX - cx;
@@ -118,7 +124,7 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	float distancel = sqrt((linedistxl * linedistxl) + (linedistyl * linedistyl));
 	float distancer = sqrt((linedistxr * linedistxr) + (linedistyr * linedistyr));
 
-	if (distance <= radius && (distance - radius == 0 && distancel - radius != 0 && distancer - radius != 0))
+	if (distance <= radius)
 	{
 		std::cout << "this is hitting" << std::endl;
 		right = false;
@@ -126,7 +132,7 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 		bottom = true;
 		return true;
 	}
-	else if (distancel <= radius && (distancel - radius == 0 && distance - radius != 0 && distancer - radius != 0))
+	else if (distancel <= radius)
 	{
 		left = true;
 		right = false;
@@ -134,8 +140,9 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 		std::cout << "hitting left" << std::endl;
 		return true;
 	}
-	else if (distancer <= radius && (distancer - radius == 0 && distancel - radius != 0 && distance - radius != 0))
+	else if (distancer <= radius)
 	{
+		std::cout << "hitting right" << std::endl;
 		bottom = false;
 		left = false;
 		right = true;
@@ -147,26 +154,60 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 
 bool Collision::linePoint(float x1, float y1, float x2, float y2, float closeX, float closeY)
 {
-	
+
 	// get distance from the point to the two ends of the line
 	float d1 = dist(closeX, closeY, x1, y1);
 	float d2 = dist(closeX, closeY, x2, y2);
-	
+
 	// get the length of the line
 	float lineLen = dist(x1, y1, x2, y2);
-	
+
 	// since floats are so minutely accurate, add
 	// a little buffer zone that will give collision
-	//float buffer = 0.01f;    // higher # = less accurate
-	
+	float buffer = 0.01f;    // higher # = less accurate
+
 	// if the two distances are equal to the line's length, the
 	// point is on the line!
 	// note we use the buffer here to give a range, rather than one #
-	if (d1 + d2 >= lineLen /*- buffer*/ && d1 + d2 <= lineLen /*+ buffer*/) 
+	if (d1 + d2 >= lineLen - buffer && d1 + d2 <= lineLen + buffer)
 	{
 		return true;
 	}
 	return false;
+}
+
+bool Collision::linePointr(float x1, float y1, float x2, float y2, float closeX, float closeY)
+{
+
+	// get distance from the point to the two ends of the line
+	float d1 = distr(closeX, closeY, x1, y1);
+	float d2 = distr(closeX, closeY, x2, y2);
+
+	// get the length of the line
+	float lineLen = distr(x1, y1, x2, y2);
+
+	// since floats are so minutely accurate, add
+	// a little buffer zone that will give collision
+	float buffer = 0.01f;    // higher # = less accurate
+
+	// if the two distances are equal to the line's length, the
+	// point is on the line!
+	// note we use the buffer here to give a range, rather than one #
+	if (d1 + d2 >= lineLen - buffer && d1 + d2 <= lineLen + buffer)
+	{
+		return true;
+	}
+	return false;
+}
+
+float Collision::distr(float x, float y, float x1, float y1)
+{
+	float distancex = (x - x1) * (x - x1);
+	float distancey = (y - y1) * (y - y1);
+
+	float distance = sqrt(distancex + distancey);
+
+	return (distance);
 }
 
 float Collision::dist(float x, float y, float x1, float y1)
@@ -181,21 +222,21 @@ float Collision::dist(float x, float y, float x1, float y1)
 
 
 // finding the distance between the point and the circle
-bool Collision::pointCircle(float px, float py, float cx, float cy, float r) 
+bool Collision::pointCircle(float px, float py, float cx, float cy, float r)
 {
-	
-		//get distance between the point and circle's center
-		// using the Pythagorean Theorem
-		float distX = px - cx;
-		float distY = py - cy;
-		float distance = sqrt((distX*distX) + (distY*distY));
-	
-		//if the distance is less than the circle's 
-		//radius the point is inside!
-		if (distance <= r) 
-		{
-			return true;
-		}
-		return false;
+
+	//get distance between the point and circle's center
+	// using the Pythagorean Theorem
+	float distX = px - cx;
+	float distY = py - cy;
+	float distance = sqrt((distX*distX) + (distY*distY));
+
+	//if the distance is less than the circle's 
+	//radius the point is inside!
+	if (distance <= r)
+	{
+		return true;
+	}
+	return false;
 }
 

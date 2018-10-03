@@ -3,7 +3,7 @@
 Circle::Circle()
 {
 	radius = 0.04f;
-	this->vectors.pos.x = 0.0f;
+	this->vectors.pos.x = 0.3f;
 	this->vectors.pos.y = 0.0f;
 };
 
