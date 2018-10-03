@@ -16,8 +16,6 @@ struct Character {
 	GLuint Advance;     // Horizontal offset to advance to next glyph
 };
 
-
-
 // A renderer class for rendering text displayed by a font loaded using the 
 // FreeType library. A single font is loaded, processed into a list of Character
 // items for later rendering.
@@ -39,16 +37,3 @@ private:
 	GLuint VAO, VBO;
 };
 
-
-
-#if 0
-private:
-	HDC hDC = NULL;
-	GLuint  base;
-public:
-	PrintText();
-	~PrintText();
-	GLvoid glPrint(const char *fmt, ...);
-private:
-	GLvoid init(GLvoid);
-#endif

@@ -20,8 +20,8 @@ int main(int argc, char *argv)
 	KeyboardMouse input_keys;
 	GLuint var;
 
-	double old_time = 0;
-	double new_time = 0;
+	float old_time = 0.0f;
+	float new_time = 0.0f;
 
 	glGenVertexArrays(1, &var);
 	glBindVertexArray(var);
@@ -29,45 +29,46 @@ int main(int argc, char *argv)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	//const float DEG2RAD = 3.14159f / 180.0f;
-	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
-	//Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
 	Line box(-0.08f, -0.5f, 0.08f, -0.5f, -0.08f, -0.3f, 0.08f, -0.3f);
 	Collision test(ball, box);
 	bool sw = false;
-	ball.vectors.vel.x = 0.000005f;
+	ball.vectors.vel.x = 0.5f;
 	int score = 0;
 	float dif = 0;
 
-	bool pause = false;
+	bool start = false;
 
 	TextRenderer *Text;
 
-
-	Text = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
-	Text->Load("src/window/arial.ttf", 24);
+	//Text = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//Text->Load("src/window/arial.ttf", 24);
 
 
 	while (!window.closed())
 	{
 		window.clear();
-
-		if (input_keys.key_pressed(GLFW_KEY_P) && pause == true)
+		if (!start)
 		{
-			pause = false;
+			//Text->RenderText("PRESS ENTER TO START", SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.2, 2.0f, glm::vec3(1.0, 1.0, 0.0));
+		}
+		if (input_keys.key_pressed(GLFW_KEY_ENTER) && start == false)
+		{
+			start = true;
 			glfwWaitEvents();
 		}
-		if (!pause)
+		if (start)
 		{
-			if (input_keys.key_pressed(GLFW_KEY_P) )
+			if (input_keys.key_pressed(GLFW_KEY_ENTER) )
 			{
-				pause = true;
+				start = true;
 				glfwWaitEvents();
 			}
 
 		//drawing circle game
-#if 0
+
+			//Text->RenderText("Lives:" + std::to_string(score), 5.0f, 5.0f, 1.0f);
+#if 1
 		old_time = new_time;
 		new_time = glfwGetTime();
 		//std::cout << new_time << std::endl;
@@ -95,7 +96,7 @@ int main(int argc, char *argv)
 		{
 			//r.vectors.update_position(new_time - old_time);
 			ball.vectors.vel.x = 0.0f;
-			ball.vectors.accel.y = -3.0f;
+			ball.vectors.accel.y = -9.8f;
 			ball.vectors.update_position(new_time - old_time);
 			sw = false;
 			
@@ -108,7 +109,7 @@ int main(int argc, char *argv)
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
-			dif += 0.00000002f;
+			dif += 0.002f;
 		}
 
 		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
@@ -131,8 +132,7 @@ int main(int argc, char *argv)
 		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
 #endif
 
-		Text->RenderText("Lives:" + std::to_string(score), 5.0f, 5.0f, 1.0f);
-		Text->RenderText("PRESS ENTER TO START", SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.2, 2.0f, glm::vec3(1.0, 1.0, 0.0));
+
 
 
 		}
