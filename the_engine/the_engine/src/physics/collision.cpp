@@ -99,9 +99,9 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	bool onSegment = linePoint(x1, y1, x2, y2, closestX, closestY);
 	bool onSegmentl = linePoint(x1, y1, x3, y3, closestXl, closestYl);
 	bool onSegmentr = linePoint(x2, y2, x4, y4, closestXr, closestYr);
-
-	if (!onSegment && !onSegmentl && !onSegmentr)
+	if (onSegment == false && onSegmentl == false && onSegmentr == false)
 		return false;
+	
 
 	// get distance to the closest pt
 	linedistx = closestX - cx;
@@ -118,17 +118,27 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	float distancel = sqrt((linedistxl * linedistxl) + (linedistyl * linedistyl));
 	float distancer = sqrt((linedistxr * linedistxr) + (linedistyr * linedistyr));
 
-	if (distance <= radius)
+	if (distance <= radius && (distance - radius == 0 && distancel - radius != 0 && distancer - radius != 0))
 	{
 		std::cout << "this is hitting" << std::endl;
+		right = false;
+		left = false;
+		bottom = true;
 		return true;
 	}
-	else if (distancel <= radius)
+	else if (distancel <= radius && (distancel - radius == 0 && distance - radius != 0 && distancer - radius != 0))
 	{
+		left = true;
+		right = false;
+		bottom = false;
+		std::cout << "hitting left" << std::endl;
 		return true;
 	}
-	else if (distancer <= radius)
+	else if (distancer <= radius && (distancer - radius == 0 && distancel - radius != 0 && distance - radius != 0))
 	{
+		bottom = false;
+		left = false;
+		right = true;
 		return true;
 	}
 	return false;
@@ -147,12 +157,12 @@ bool Collision::linePoint(float x1, float y1, float x2, float y2, float closeX, 
 	
 	// since floats are so minutely accurate, add
 	// a little buffer zone that will give collision
-	float buffer = 0.1f;    // higher # = less accurate
+	//float buffer = 0.01f;    // higher # = less accurate
 	
 	// if the two distances are equal to the line's length, the
 	// point is on the line!
 	// note we use the buffer here to give a range, rather than one #
-	if (d1 + d2 >= lineLen - buffer && d1 + d2 <= lineLen + buffer) 
+	if (d1 + d2 >= lineLen /*- buffer*/ && d1 + d2 <= lineLen /*+ buffer*/) 
 	{
 		return true;
 	}
