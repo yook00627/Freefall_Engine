@@ -33,7 +33,7 @@ int main(int argc, char *argv)
 	Line box(-0.08f, -0.5f, 0.08f, -0.5f, -0.08f, -0.3f, 0.08f, -0.3f);
 	Collision test(ball, box);
 	bool sw = false;
-	ball.vectors.vel.x = 0.5f;
+	ball.vectors.vel.x = 0.2f;
 	int score = 0;
 	float dif = 0;
 
@@ -104,6 +104,7 @@ int main(int argc, char *argv)
 		if (test.lineCircle(ball, box))
 		{
 			std::cout << "I HIT SOMETHING" << std::endl;
+			ball.vectors.resolve_collision(ball, box, test);
 		}
 
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))

@@ -75,6 +75,7 @@ public:
 	float closeyl;
 	float closexr;
 	float closeyr;
+	bool left = false, right = false, bottom = false;
 	Collision();
 	Collision(Circle &obj, Line &lobj);
 	bool lineCircle(Circle &obj, Line &lobj);
