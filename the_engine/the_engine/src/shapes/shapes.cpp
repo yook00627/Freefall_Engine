@@ -15,4 +15,12 @@ namespace shapes
 	{
 
 	}
+	namespace Line
+	{
+
+	}
+	namespace Collision
+	{
+
+	}
 }

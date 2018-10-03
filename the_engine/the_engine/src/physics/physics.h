@@ -17,16 +17,20 @@ struct AABB
 	glm::vec2 max;
 };
 #endif
+
+class Circle;
+class Line;
+class Collision;
 class physics {
 public:
 	glm::vec2 accel;
 	glm::vec2 vel;
 	glm::vec2 pos;
+ 
 	//constructor
 	physics();
 
 	void update_position(float deltat);
 	void reset(float new_x, float new_y, float new_vx, float new_vy, float new_ax, float new_ay);
-	void resolve_collision(Circle a, Circle b);
-
+	void resolve_collision(Circle &a, Line &b, Collision test);
 };

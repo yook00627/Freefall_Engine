@@ -33,8 +33,10 @@ int main(int argc, char *argv)
 	//IMPORTANT CREATE OBJECTS OUTSIDE OF LOOP, VECTOR CONSTRUCTOR REFRESHES VECTORS OTHERWISE
 	//Square r(0.5f, 0.0f, 0.0f);
 	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
+	Line box(-0.08f, -0.5f, 0.08f, -0.5f, -0.08f, -0.3f, 0.08f, -0.3f);
+	Collision test(ball, box);
 	bool sw = false;
-	ball.vectors.vel.x = 1.0f;
+	ball.vectors.vel.x = 0.000005f;
 	int score = 0;
 	float dif = 0;
 
@@ -69,6 +71,11 @@ int main(int argc, char *argv)
 		old_time = new_time;
 		new_time = glfwGetTime();
 		//std::cout << new_time << std::endl;
+		//r.draw_rectangle();
+		box.drawline();
+		ball.drawCircle();
+		test.lineCircle(ball, box);
+
 
 		
 
@@ -88,15 +95,20 @@ int main(int argc, char *argv)
 		{
 			//r.vectors.update_position(new_time - old_time);
 			ball.vectors.vel.x = 0.0f;
-			ball.vectors.accel.y = -9.8f;
+			ball.vectors.accel.y = -3.0f;
 			ball.vectors.update_position(new_time - old_time);
 			sw = false;
+			
+		}
+		if (test.lineCircle(ball, box))
+		{
+			std::cout << "I HIT SOMETHING" << std::endl;
 		}
 
 		if (input_keys.key_pressed(GLFW_KEY_SPACE))
 		{
 			sw = true;
-			dif += 0.0005f;
+			dif += 0.00000002f;
 		}
 
 		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
@@ -121,6 +133,7 @@ int main(int argc, char *argv)
 
 		Text->RenderText("Lives:" + std::to_string(score), 5.0f, 5.0f, 1.0f);
 		Text->RenderText("PRESS ENTER TO START", SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.2, 2.0f, glm::vec3(1.0, 1.0, 0.0));
+
 
 		}
 		window.update();
