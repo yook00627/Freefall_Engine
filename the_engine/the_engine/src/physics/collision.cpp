@@ -97,11 +97,8 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 
 	//function call to check if the point is on the line segment
 	bool onSegment = linePoint(x1, y1, x2, y2, closestX, closestY);
-	bottom = onSegment;
 	bool onSegmentl = linePoint(x1, y1, x3, y3, closestXl, closestYl);
-	left = onSegmentl;
 	bool onSegmentr = linePoint(x2, y2, x4, y4, closestXr, closestYr);
-	right = onSegmentr;
 	if (onSegment == false && onSegmentl == false && onSegmentr == false)
 		return false;
 	
@@ -121,8 +118,7 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	float distancel = sqrt((linedistxl * linedistxl) + (linedistyl * linedistyl));
 	float distancer = sqrt((linedistxr * linedistxr) + (linedistyr * linedistyr));
 
-	if (distance <= radius && distancel <= radius
-		)
+	if (distance <= radius && (distance - radius == 0 && distancel - radius != 0 && distancer - radius != 0))
 	{
 		std::cout << "this is hitting" << std::endl;
 		right = false;
@@ -130,7 +126,7 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 		bottom = true;
 		return true;
 	}
-	else if (distancel <= radius)
+	else if (distancel <= radius && (distancel - radius == 0 && distance - radius != 0 && distancer - radius != 0))
 	{
 		left = true;
 		right = false;
@@ -138,7 +134,7 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 		std::cout << "hitting left" << std::endl;
 		return true;
 	}
-	else if (distancer <= radius)
+	else if (distancer <= radius && (distancer - radius == 0 && distancel - radius != 0 && distance - radius != 0))
 	{
 		bottom = false;
 		left = false;
