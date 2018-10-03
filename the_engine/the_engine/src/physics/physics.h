@@ -2,7 +2,6 @@
 #include <glew/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include "../shapes/shapes.h"
 
 #if 0
 struct Circle
@@ -32,5 +31,5 @@ public:
 
 	void update_position(float deltat);
 	void reset(float new_x, float new_y, float new_vx, float new_vy, float new_ax, float new_ay);
-	void resolve_collision(Circle &a, Line &b, Collision test);
+	void resolve_collision(Circle &a, Line &b, Collision &test);
 };

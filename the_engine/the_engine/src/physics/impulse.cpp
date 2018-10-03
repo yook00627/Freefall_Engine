@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../shapes/shapes.h"
 
-void physics::resolve_collision(Circle &a, Line &b)
+void physics::resolve_collision(Circle &a, Line &b, Collision &test)
 {
 
 	/*if (bottom)

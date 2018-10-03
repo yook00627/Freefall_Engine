@@ -96,5 +96,5 @@ private:
 
 public:
 	Triangle(float width, float height);
-	void create_triangle(double deltat);
+	void create_triangle(float deltat);
 };
