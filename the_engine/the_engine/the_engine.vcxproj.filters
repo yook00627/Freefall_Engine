@@ -80,6 +80,9 @@
     <ClInclude Include="src\window\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\window\printer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\window\arial.ttf" />

@@ -9,8 +9,8 @@ namespace engine
 {
 	namespace input
 	{
-		constexpr auto MAX_KEYS = 1024;
-		constexpr auto MAX_MOUSE_BUTTONS = 1024;
+		constexpr auto MAX_KEYS = 1024; //buffor for keyboard holder
+		constexpr auto MAX_MOUSE_BUTTONS = 1024; //buffor for mouse holder
 		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 		void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
@@ -28,6 +28,7 @@ namespace engine
 			static bool mouse_button_pressed(unsigned int mousebutton);
 			static void get_mouse_position(double &x, double &y);
 		private:
+			//friending all callbacks to be able to use private variable of the class
 			friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 			friend void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 			friend void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);

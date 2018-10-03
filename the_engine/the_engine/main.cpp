@@ -5,6 +5,7 @@
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
 #include "src/window/text.h"
+#include "src/window/printer.h"
 
 
 #if 1
@@ -32,7 +33,7 @@ int main(int argc, char *argv)
 
 	bool sw = false;
 	ball.vectors.vel.x = 0.5f;
-	int score = 0;
+	int tries = 4;
 	float dif = 0;
 
 	bool start = false;
@@ -48,52 +49,14 @@ int main(int argc, char *argv)
 	while (!window.closed())
 	{
 		window.clear();
+		if (tries == 0)
+		{
+			break;
+		}
 
 		if (!start)
 		{
-			float space = 0.0f;
-			//P
-			glLineWidth(2);
-			glBegin(GL_LINES);
-			glVertex2f(0.0f + space / 1.7, 0.0f);
-			glVertex2f(0.03f + space /1.7, 0.0f);
-			glEnd();
-			glBegin(GL_LINES);
-			glVertex2f(0.03f + space / 1.7, 0.0f);
-			glVertex2f(0.03f + space / 1.7, -0.03f);
-			glEnd();
-			glBegin(GL_LINES);
-			glVertex2f(0.03f + space / 1.7, -0.03f);
-			glVertex2f(0.0f + space / 1.7, -0.03f);
-			glEnd();
-			glBegin(GL_LINES);
-			glVertex2f(0.0f + space / 1.7, 0.0f);
-			glVertex2f(0.0f + space / 1.7, -0.06f);
-			glEnd();
-
-			//R
-			space = 0.06f;
-			glBegin(GL_LINES);
-			glVertex2f(0.0f + space / 1.7, 0.0f);
-			glVertex2f(0.03f + space / 1.7, 0.0f);
-			glEnd();
-			glBegin(GL_LINES);
-			glVertex2f(0.03f + space / 1.7, 0.0f);
-			glVertex2f(0.03f + space / 1.7, -0.03f);
-			glEnd();
-			glBegin(GL_LINES);
-			glVertex2f(0.03f + space / 1.7, -0.03f);
-			glVertex2f(0.0f + space / 1.7, -0.03f);
-			glEnd();
-			glBegin(GL_LINES);
-			glVertex2f(0.0f + space / 1.7, 0.0f);
-			glVertex2f(0.0f + space / 1.7, -0.06f);
-			glEnd();
-			glBegin(GL_LINES);
-			glVertex2f(0.0f + space / 1.7, -0.03f);
-			glVertex2f(0.03f + space / 1.7, -0.06f);
-			glEnd();
-
+			print_enter(5, -0.5f, 0.1f);
 			//Text->RenderText("PRESS ENTER TO START", SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.2, 2.0f, glm::vec3(1.0, 1.0, 0.0));
 		}
 		if (input_keys.key_pressed(GLFW_KEY_ENTER) && start == false)
@@ -109,9 +72,10 @@ int main(int argc, char *argv)
 				glfwWaitEvents();
 			}
 
-			//drawing circle game
-
 			//Text->RenderText("Lives:" + std::to_string(score), 5.0f, 5.0f, 1.0f);
+			print_tries(3, -1.6f, 0.9f, tries);
+
+			//drawing circle game
 #if 1
 			old_time = new_time;
 			new_time = glfwGetTime();
@@ -127,8 +91,7 @@ int main(int argc, char *argv)
 			if (ball.vectors.pos.y < -1.2f)
 			{
 				ball.vectors.reset(0.0f, 0.8f, 1.0f + dif, 0.0f, 0.0f, 0.0f);
-				score++;
-				std::cout << score << std::endl;
+				tries--;
 			}
 		
 			ball.vectors.update_position(new_time - old_time);
@@ -145,6 +108,7 @@ int main(int argc, char *argv)
 			if (test.lineCircle(ball, box))
 			{
 				std::cout << "I HIT SOMETHING" << std::endl;
+				ball.vectors.resolve_collision(ball, box, test);
 			}
 
 			if (input_keys.key_pressed(GLFW_KEY_SPACE))
@@ -170,6 +134,21 @@ int main(int argc, char *argv)
 				std::cout << "x postion: " << x << " y position: " << y << std::endl;
 			}
 #endif
+		}
+		window.update();
+	}
+
+	while (!window.closed())
+	{
+		window.clear();
+		TextRenderer *Text = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+		Text->Load("src/window/arial.ttf", 24);
+		Text->RenderText("WHAT ARE YOU DOING!!", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0, 1.0, 0.0));
+		Text->RenderText("ANDREW!!!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0, 1.0, 0.0));
+		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
+		{
+			window.~Window();
+			exit(0);
 		}
 		window.update();
 	}
