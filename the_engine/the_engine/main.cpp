@@ -1,4 +1,4 @@
-#if 1
+
 #include <iostream>
 #include <math.h>
 
@@ -15,23 +15,21 @@ int main(int argc, char *argv)
 	using namespace graphics;
 	using namespace input;
 
-	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
-	glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
-	KeyboardMouse input_keys;
-	GLuint var;
-
 	float old_time = 0.0f;
 	float new_time = 0.0f;
 
-	glGenVertexArrays(1, &var);
-	glBindVertexArray(var);
+	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glClearColor(0.5f, 0.5f, 0.5f, -0.5f);
+	KeyboardMouse input_keys;
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//GLuint var;
+	//glGenVertexArrays(1, &var);
+	//glBindVertexArray(var);
 
 	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
 	Line box(-0.08f, -0.5f, 0.08f, -0.5f, -0.08f, -0.3f, 0.08f, -0.3f);
 	Collision test(ball, box);
+
 	bool sw = false;
 	ball.vectors.vel.x = 0.5f;
 	int score = 0;
@@ -39,17 +37,63 @@ int main(int argc, char *argv)
 
 	bool start = false;
 
-	TextRenderer *Text;
+#if 0
+	TextRenderer *Text = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+	Text->Load("src/window/arial.ttf", 24);
+#endif
 
-	//Text = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
-	//Text->Load("src/window/arial.ttf", 24);
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	while (!window.closed())
 	{
 		window.clear();
+
 		if (!start)
 		{
+			float space = 0.0f;
+			//P
+			glLineWidth(2);
+			glBegin(GL_LINES);
+			glVertex2f(0.0f + space / 1.7, 0.0f);
+			glVertex2f(0.03f + space /1.7, 0.0f);
+			glEnd();
+			glBegin(GL_LINES);
+			glVertex2f(0.03f + space / 1.7, 0.0f);
+			glVertex2f(0.03f + space / 1.7, -0.03f);
+			glEnd();
+			glBegin(GL_LINES);
+			glVertex2f(0.03f + space / 1.7, -0.03f);
+			glVertex2f(0.0f + space / 1.7, -0.03f);
+			glEnd();
+			glBegin(GL_LINES);
+			glVertex2f(0.0f + space / 1.7, 0.0f);
+			glVertex2f(0.0f + space / 1.7, -0.06f);
+			glEnd();
+
+			//R
+			space = 0.06f;
+			glBegin(GL_LINES);
+			glVertex2f(0.0f + space / 1.7, 0.0f);
+			glVertex2f(0.03f + space / 1.7, 0.0f);
+			glEnd();
+			glBegin(GL_LINES);
+			glVertex2f(0.03f + space / 1.7, 0.0f);
+			glVertex2f(0.03f + space / 1.7, -0.03f);
+			glEnd();
+			glBegin(GL_LINES);
+			glVertex2f(0.03f + space / 1.7, -0.03f);
+			glVertex2f(0.0f + space / 1.7, -0.03f);
+			glEnd();
+			glBegin(GL_LINES);
+			glVertex2f(0.0f + space / 1.7, 0.0f);
+			glVertex2f(0.0f + space / 1.7, -0.06f);
+			glEnd();
+			glBegin(GL_LINES);
+			glVertex2f(0.0f + space / 1.7, -0.03f);
+			glVertex2f(0.03f + space / 1.7, -0.06f);
+			glEnd();
+
 			//Text->RenderText("PRESS ENTER TO START", SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.2, 2.0f, glm::vec3(1.0, 1.0, 0.0));
 		}
 		if (input_keys.key_pressed(GLFW_KEY_ENTER) && start == false)
@@ -65,76 +109,67 @@ int main(int argc, char *argv)
 				glfwWaitEvents();
 			}
 
-		//drawing circle game
+			//drawing circle game
 
 			//Text->RenderText("Lives:" + std::to_string(score), 5.0f, 5.0f, 1.0f);
 #if 1
-		old_time = new_time;
-		new_time = glfwGetTime();
-		//std::cout << new_time << std::endl;
-		//r.draw_rectangle();
-		box.drawline();
-		ball.drawCircle();
-		test.lineCircle(ball, box);
+			old_time = new_time;
+			new_time = glfwGetTime();
+			//std::cout << new_time << std::endl;
 
+			box.drawline();
+			ball.drawCircle();
+			test.lineCircle(ball, box);
 
+			if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
+				ball.vectors.vel.x = (ball.vectors.pos.x>0?-1:1)*abs(ball.vectors.vel.x);
+
+			if (ball.vectors.pos.y < -1.2f)
+			{
+				ball.vectors.reset(0.0f, 0.8f, 1.0f + dif, 0.0f, 0.0f, 0.0f);
+				score++;
+				std::cout << score << std::endl;
+			}
 		
-
-		if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
-			ball.vectors.vel.x = (ball.vectors.pos.x>0?-1:1)*abs(ball.vectors.vel.x);
-
-		if (ball.vectors.pos.y < -1.2f)
-		{
-			ball.vectors.reset(0.0f, 0.8f, 1.0f + dif, 0.0f, 0.0f, 0.0f);
-			score++;
-			std::cout << score << std::endl;
-		}
-		
-		ball.vectors.update_position(new_time - old_time);
-
-		if (sw)
-		{
-			//r.vectors.update_position(new_time - old_time);
-			ball.vectors.vel.x = 0.0f;
-			ball.vectors.accel.y = -9.8f;
 			ball.vectors.update_position(new_time - old_time);
-			sw = false;
+
+			if (sw)
+			{
+				//r.vectors.update_position(new_time - old_time);
+				ball.vectors.vel.x = 0.0f;
+				ball.vectors.accel.y = -9.8f;
+				ball.vectors.update_position(new_time - old_time);
+				sw = false;
 			
-		}
-		if (test.lineCircle(ball, box))
-		{
-			std::cout << "I HIT SOMETHING" << std::endl;
-		}
+			}
+			if (test.lineCircle(ball, box))
+			{
+				std::cout << "I HIT SOMETHING" << std::endl;
+			}
 
-		if (input_keys.key_pressed(GLFW_KEY_SPACE))
-		{
-			sw = true;
-			dif += 0.002f;
-		}
+			if (input_keys.key_pressed(GLFW_KEY_SPACE))
+			{
+				sw = true;
+				dif += 0.002f;
+			}
 
-		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
-		{
-			window.~Window();
-			exit(0);
-		}
-		if (input_keys.key_pressed(GLFW_KEY_F11))
-		{
-			window.windowSizeToggle();
-		}
+			if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
+			{
+				window.~Window();
+				exit(0);
+			}
+			if (input_keys.key_pressed(GLFW_KEY_F11))
+			{
+				window.windowSizeToggle();
+			}
 
-		if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
-		{
-
-		}
-		
-		//double x, y;
-		//input_keys.get_mouse_position(x, y);
-		//std::cout << "x postion: " << x << " y position: " << y << std::endl;
+			if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
+			{
+				double x, y;
+				input_keys.get_mouse_position(x, y);
+				std::cout << "x postion: " << x << " y position: " << y << std::endl;
+			}
 #endif
-
-
-
-
 		}
 		window.update();
 	}
@@ -143,7 +178,7 @@ int main(int argc, char *argv)
 }
 #endif
 
-#endif
+
 
 
 
