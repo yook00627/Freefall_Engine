@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <math.h>
+#include <windows.h>
+#include <mmsystem.h>
 
 #include "src/window/window.h"
 #include "src/shapes/shapes.h"
@@ -8,7 +10,7 @@
 #include "src/window/printer.h"
 
 
-#if 1
+
 int main(int argc, char *argv)
 {
 	using namespace engine;
@@ -18,7 +20,7 @@ int main(int argc, char *argv)
 	float old_time = 0.0f;
 	float new_time = 0.0f;
 
-
+	
 	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
 	begin:
 		glClearColor(0.5f, 0.5f, 0.5f, -0.5f);
@@ -28,8 +30,8 @@ int main(int argc, char *argv)
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
+		Line linel(-0.08f, -0.5f, -0.08f, -0.7f);
 		Line lineb(-0.08f, -0.7f, 0.08f, -0.7f);
-		Line linel(-0.08f, -0.7f, -0.08f, -0.5f);
 		Line liner(0.08f, -0.7f, 0.08f, -0.5f);
 		Collision testb(ball, lineb);
 		Collision testl(ball, linel);
@@ -41,8 +43,10 @@ int main(int argc, char *argv)
 		float dif = 0;
 		bool start = false;
 		bool started = false;
-
-		
+		bool level1 = true;
+		bool level2 = false;
+		bool level3 = false;
+		PlaySound("sound.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
 		while (!window.closed())
 		{
@@ -60,6 +64,13 @@ int main(int argc, char *argv)
 				goto begin;
 			}
 
+			if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
+			{
+				window.~Window();
+				exit(0);
+			}
+
+
 			if (tries == 0)
 			{
 				goto end;
@@ -67,6 +78,7 @@ int main(int argc, char *argv)
 
 			if (!start)
 			{
+				
 				print_enter(5, -0.4f, 0.1f);
 				if (input_keys.key_pressed(GLFW_KEY_ENTER) && start == false)
 				{
@@ -84,16 +96,16 @@ int main(int argc, char *argv)
 
 			if (start)
 			{
-				if (input_keys.key_pressed(GLFW_KEY_P) )
+				
+				if (input_keys.key_pressed(GLFW_KEY_P))
 				{
 					start = false;
 					glfwWaitEvents();
 				}
 
 				print_tries(3, -1.6f, 0.9f, tries);
-
+				
 				//drawing circle game with line colision
-#if 1
 				lineb.drawline();
 				liner.drawline();
 				linel.drawline();
@@ -113,6 +125,12 @@ int main(int argc, char *argv)
 		
 				ball.vectors.update_position(new_time - old_time);
 
+				if (input_keys.key_pressed(GLFW_KEY_SPACE))
+				{
+					sw = true;
+					dif += 0.002f;
+				}
+
 				if (sw)
 				{
 					//r.vectors.update_position(new_time - old_time);
@@ -131,24 +149,13 @@ int main(int argc, char *argv)
 					ball.vectors.resolve_collision(ball, linel, testl);
 				}
 
-				if (input_keys.key_pressed(GLFW_KEY_SPACE))
-				{
-					sw = true;
-					dif += 0.002f;
-				}
 
-				if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
-				{
-					window.~Window();
-					exit(0);
-				}
-
-				if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
-				{
-					double x, y;
-					input_keys.get_mouse_position(x, y);
-				}
-#endif
+				
+				//if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
+				//{
+				//	double x, y;
+				//	input_keys.get_mouse_position(x, y);
+				//}
 				if (ball.vectors.vel.x == 0 && ball.vectors.vel.y == 0 &&
 					ball.vectors.accel.x == 0 && ball.vectors.accel.y == 0)
 				{
@@ -160,6 +167,10 @@ int main(int argc, char *argv)
 	end:
 		TextRenderer Text(SCREEN_WIDTH, SCREEN_HEIGHT);
 		Text.Load("src/window/arial.ttf", 24);
+		if (tries > 0)
+			PlaySound("win.wav", NULL, SND_ASYNC | SND_FILENAME);
+		else
+			PlaySound("lose.wav", NULL, SND_ASYNC | SND_FILENAME);
 		while (!window.closed())
 		{
 			window.clear();
@@ -188,7 +199,7 @@ int main(int argc, char *argv)
 
 	return 0;
 }
-#endif
+
 
 
 #if 0
