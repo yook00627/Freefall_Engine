@@ -53,20 +53,15 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	if (inside1 || inside2)
 	{
 		if (inside1 == true)
-		{
-			normal = glm::vec2(left, cy - y1);
-		}
-		//	if (left <= 0)
-		//		normal = glm::vec2(left, abs(cy - y1));
-		//	else
-		//		normal = glm::vec2(-left, abs(cy - y1));
+			//if (left <= 0)
+				normal = glm::vec2(left, (cy - y1));
+			//else
+			//	normal = glm::vec2(-left, (cy - y1));
 		else
-			//	if (right >= 0)
-		{
-			normal = glm::vec2(right, cy - y2);
-		}
-		//	else
-		//		normal = glm::vec2(-right, abs(cy - y2));
+			//if (right >= 0)
+				normal = glm::vec2(right, (cy - y2));
+			//else
+			//	normal = glm::vec2(-right, (cy - y2));
 		obj.norms = normal;
 		bottom = true;
 		return true;
@@ -101,9 +96,8 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	closex = cbx;
 	closey = cby;
 
-
 	float mid = cx - closex;
-	normal = glm::vec2(abs(mid), abs(cy - closey));
+	normal = glm::vec2(mid, abs(cy - closey));
 	obj.norms = normal;
 
 	////find closest point on the left line
@@ -133,9 +127,9 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 			std::cout << "not near left " << onSegl << std::endl;
 			if (onSegr == false)
 			{*/
-		/*		std::cout << "not near right " << onSegr << std::endl;*/
-			/*}
-		}*/
+			/*		std::cout << "not near right " << onSegr << std::endl;*/
+				/*}
+			}*/
 	}
 
 	//getting distance to the closest point on the line segment to the circle
@@ -186,9 +180,8 @@ bool Collision::pointCircle(float px, float py, float cix, float ciy, float r)
 	float distance = sqrt((distx * distx) + (disty * disty));
 
 	// if distance is less than radius point is inside
-	if (distance == r)
+	if (distance <= r)
 	{
-		
 		return true;
 	}
 	return false;

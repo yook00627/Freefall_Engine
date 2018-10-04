@@ -31,7 +31,7 @@ class Line : public BaseShape
 public:
 	float x_1 = 0.0f;
 	float y_1 = 0.0f;
-	float x_2 = 0.0f; 
+	float x_2 = 0.0f;
 	float y_2 = 0.0f;
 	//float x_3 = 0.0f;
 	//float y_3 = 0.0f;

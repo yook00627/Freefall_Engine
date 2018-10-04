@@ -29,8 +29,8 @@ int main(int argc, char *argv)
 
 		Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
 		Line lineb(-0.08f, -0.7f, 0.08f, -0.7f);
-		Line linel(-0.08f, -0.5f, -0.08f, -0.7f);
-		Line liner(0.08f, -0.5f, 0.08f, -0.7f);
+		Line linel(-0.08f, -0.7f, -0.08f, -0.5f);
+		Line liner(0.08f, -0.7f, 0.08f, -0.5f);
 		Collision testb(ball, lineb);
 		Collision testl(ball, linel);
 		Collision testr(ball, liner);
