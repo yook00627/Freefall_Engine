@@ -33,12 +33,12 @@ public:
 	float y_1 = 0.0f;
 	float x_2 = 0.0f; 
 	float y_2 = 0.0f;
-	float x_3 = 0.0f;
-	float y_3 = 0.0f;
-	float x_4 = 0.0f;
-	float y_4 = 0.0f;
+	//float x_3 = 0.0f;
+	//float y_3 = 0.0f;
+	/*float x_4 = 0.0f;
+	float y_4 = 0.0f;*/
 	Line();
-	Line(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+	Line(float x1, float y1, float x2, float y2/*, float x3, float y3, float x4, float y4*/);
 	void drawline();
 };
 
@@ -78,12 +78,9 @@ public:
 	bool left = false, right = false, bottom = false;
 	Collision();
 	Collision(Circle &obj, Line &lobj);
-	bool linePointr(float x1, float y1, float x2, float y2, float closeX, float closeY);
 	bool linePoint(float x1, float y1, float x2, float y2, float closeX, float closeY);
-
 	bool lineCircle(Circle &obj, Line &lobj);
 	bool pointCircle(float px, float py, float cx, float cy, float r);
-	float distr(float x, float y, float x1, float y1);
 	float dist(float x, float y, float x1, float y1);
 	//bool pointCircle(float px, float py, float cix, float ciy, float r);
 	//bool linePoint(float ax, float ay, float bx, float by, float ptx, float pty);

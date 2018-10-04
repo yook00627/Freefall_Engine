@@ -28,211 +28,158 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	radius = obj.radius;
 	x1 = lobj.x_1;	y1 = lobj.y_1;
 	x2 = lobj.x_2;	y2 = lobj.y_2;
-	x3 = lobj.x_3;	y3 = lobj.y_3;
-	x4 = lobj.x_4;	y4 = lobj.y_4;
+	/*x3 = lobj.x_3;	y3 = lobj.y_3;
+	x4 = lobj.x_4;	y4 = lobj.y_4;*/
 
 
-	//BOTTOM LINE TESTING
-
-	//bool inside1 = pointCircle(x1, y1, cx, cy, radius);
-	//bool inside2 = pointCircle(x2, y2, cx, cy, radius);
-
-	//LEFT LINE TOP TESTING
-	bool inside3 = pointCircle(x3, y3, cx, cy, radius);
-
-	////RIGHT LINE TOP TESTING
+	//Checking if either end at top is inside the circle, return true immediately
+	/*bool inside3 = pointCircle(x3, y3, cx, cy, radius);
 	bool inside4 = pointCircle(x4, y4, cx, cy, radius);
 
-	if (inside4 || inside3)
+	if (inside3 || inside4)
 	{
 		glm::vec2 normal;
 		if (inside3 == true)
-			normal = glm::vec2(x3 - cx, y3 - cy);
+			normal = glm::vec2(cx - x3, cy - y3);
 		else
-			normal = glm::vec2(x4 -cx, y4 - cx);
+			normal = glm::vec2(cx - x4, cy - y4);
 		return true;
-	}
-
-	//segv =  seg_b - seg_b
-	//distance between 2 pts bottom
-	float linedistx = x2 - x1;
-	float linedisty = y2 - y1;
-
-	float linedistxl = x1 - x3;
-	float linedistyl = y1 - y3;
-
-	float linedistxr = x2 - x4;
-	float linedistyr = y2 - y4;
-
-	//left line distance
-	float lenl = sqrt((linedistxl * linedistxl) + (linedistyl * linedistyl));
-
-	//right line distance
-	float lenr = sqrt((linedistxr * linedistxr) + (linedistyr * linedistyr));
-
-	//bottom line distance
-	float len = sqrt((linedistx * linedistx) + (linedisty * linedisty));
-
-	//getting dot product between the line and the circle to find the closest
-	// point to the circle's center on the line segment
-	float dot = (((cx - x1)*(x2 - x1)) + ((cy - y1)*(y2 - y1))) / pow(len, 2);
-	float closestX = x1 + (dot * (x2 - x1));
-	float closestY = y1 + (dot * (y2 - y1));
-	closex = closestX;
-	closey = closestY;
-
-	//line left
-	float dotl = (((cx - x1) * (x3 - x1)) + ((cy - y1) * (y3 - y1))) / pow(lenl, 2);
-	float closestXl = x1 + (dotl * (x3 - x1));
-	float closestYl = y1 + (dotl * (y3 - y1));
-	closexl = closestXl;
-	closexl = closestYl;
-
-	//line right
-	float dotr = (((cx - x2) * (x4 - x2)) + ((cy - y2) * (y4 - y2))) / pow(lenr, 2);
-	float closestXr = x2 + (dotr * (x4 - x2));
-	float closestYr = y2 + (dotr * (y4 - y2));
-	closexr = closestXr;
-	closeyr = closestYr;
-
-	//function call to check if the point is on the line segment
-	bool onSegment = linePoint(x1, y1, x2, y2, closestX, closestY);
-	bool onSegmentl = linePoint(x1, y1, x3, y3, closestXl, closestYl);
-	bool onSegmentr = linePoint(x2, y2, x4, y4, closestXr, closestYr);
-	if (!onSegment)
+	}*/
+	bool inside1 = pointCircle(x1, y1, cx, cy, radius);
+	bool inside2 = pointCircle(x2, y2, cx, cy, radius);
+	float left = cx - x1;
+	float right = cx - x2;
+	glm::vec2 normal(0.0f, 0.0f);
+	if (inside1 || inside2)
 	{
-		if (!onSegmentl)
-		{
-			if (!onSegmentr)
-			return false;
-		}
-	}
-
-
-	// get distance to the closest pt
-	linedistx = closestX - cx;
-	linedisty = closestY - cy;
-
-	linedistxl = closestXl - cx;
-	linedistyl = closestYl - cy;
-
-	linedistxr = closestXr - cx;
-	linedistyr = closestYr - cy;
-
-
-	float distance = sqrt((linedistx * linedistx) + (linedisty * linedisty));
-	float distancel = sqrt((linedistxl * linedistxl) + (linedistyl * linedistyl));
-	float distancer = sqrt((linedistxr * linedistxr) + (linedistyr * linedistyr));
-
-	if (distance <= radius)
-	{
-		std::cout << "this is hitting" << std::endl;
-		right = false;
-		left = false;
+		if (inside1 == true)
+			if (left <= 0)
+				normal = glm::vec2(left, abs(cy - y1));
+			else
+				normal = glm::vec2(-left, abs(cy - y1));
+		else
+			if (right >= 0)
+				normal = glm::vec2(right, abs(cy - y2));
+			else
+				normal = glm::vec2(-right, abs(cy - y2));
+		obj.norms = normal;
 		bottom = true;
 		return true;
 	}
-	else if (distancel <= radius)
+	//get lengths of the bottom line
+	float distbottomx = x1 - x2;
+	float distbottomy = y1 - y2;
+	float lenbottom = sqrt((distbottomx*distbottomx) + (distbottomy*distbottomy));
+
+	////get length of the left line
+	//float distleftx = x3 - x1;
+	//float distlefty = y3 - y1;
+	//float lenleft = sqrt((distleftx*distleftx) + (distlefty * distlefty));
+
+	////get length of the right line
+	//float distrightx = x4 - x2;
+	//float distrighty = y4 - y2;
+	//float lenright = sqrt((distrightx*distrightx) + (distrighty * distrighty));
+
+	//dot product of bottom line and circle
+	float dotb = (((cx - x1)*(x2 - x1)) + ((cy - y1)*(y2 - y1))) / pow(lenbottom, 2);
+
+	////dot product of bottom left and circle
+	//float dotl = (((cx - x1)*(x3 - x1)) + ((cy - y1)*(y3 - y1))) / pow(lenleft, 2);
+
+	////dot product of bottom right and circle
+	//float dotr = (((cx - x4)*(x2 - x4)) + ((cy - y4)*(y2 - y4))) / pow(lenright, 2);
+
+	//find closest point on the bottom line
+	float cbx = x1 + (dotb * (x2 - x1));
+	float cby = y1 + (dotb * (y2 - y1));
+	closex = cbx;
+	closey = cby;
+
+	float mid = cx - closex;
+	normal = glm::vec2(0.0f, abs(cy - closey));
+	obj.norms = normal;
+
+	////find closest point on the left line
+	//float clx = x1 + (dotb * (x3 - x1));
+	//float cly = y1 + (dotb * (y3 - y1));
+	//closexl = clx;
+	//closeyl = cly;
+
+	////find closest point on the right line
+	//float crx = x4 + (dotb * (x2 - x4));
+	//float cry = y4 + (dotb * (y2 - y4));
+	//closexr = crx;
+	//closeyr = cry;
+
+	//Check if the closest point is on the line segment if yes keep true else false
+	bool onSegb = linePoint(x1, y1, x2, y2, cbx, cby);
+	/*bool onSegl = false;
+	onSegl = linePoint(x1, y1, x3, y3, clx, cly);
+	bool onSegr = false;
+	onSegr = linePoint(x4, y4, x2, y2, crx, cry);*/
+	if (!onSegb)
 	{
-		left = true;
-		right = false;
-		bottom = false;
-		std::cout << "hitting left" << std::endl;
+		return false;
+		/*std::cout << "not near bottom " << onSegb << std::endl;
+		if (onSegl == false)
+		{
+			std::cout << "not near left " << onSegl << std::endl;
+			if (onSegr == false)
+			{*/
+		/*		std::cout << "not near right " << onSegr << std::endl;*/
+			/*}
+		}*/
+	}
+
+	//getting distance to the closest point on the line segment to the circle
+
+	//bottom
+	distbottomx = cbx - cx;
+	distbottomy = cby - cy;
+	float db = sqrt((distbottomx*distbottomx) + (distbottomy*distbottomy));
+
+	////left
+	//distleftx = clx - cx;
+	//distlefty = cly - cy;
+	//float dl = sqrt((distleftx*distleftx) + (distlefty*distlefty));
+
+	////right
+	//distrightx = crx - cx;
+	//distrighty = cry - cy;
+	//float dr = sqrt((distrightx*distrightx) + (distrighty*distrighty));
+
+	if (db <= radius)
+	{
+		std::cout << "touching bottom" << std::endl;
+		bottom = true;
 		return true;
 	}
-	else if (distancer <= radius)
+	bottom = false;
+	/*else if (dl < radius)
 	{
-		std::cout << "hitting right" << std::endl;
-		bottom = false;
-		left = false;
+		std::cout << "touching left" << std::endl;
+		left = true;
+		return true;
+	}
+	else if (dr < radius)
+	{
+		std::cout << "touching right" << std::endl;
 		right = true;
 		return true;
-	}
+	}*/
 	return false;
 }
 
-
-bool Collision::linePoint(float x1, float y1, float x2, float y2, float closeX, float closeY)
+/* point to circle calculation*/
+bool Collision::pointCircle(float px, float py, float cix, float ciy, float r)
 {
+	//getting distance between point and circle's center using pythagorean theorem
+	float distx = px - cix;
+	float disty = py - ciy;
+	float distance = sqrt((distx * distx) + (disty * disty));
 
-	// get distance from the point to the two ends of the line
-	float d1 = dist(closeX, closeY, x1, y1);
-	float d2 = dist(closeX, closeY, x2, y2);
-
-	// get the length of the line
-	float lineLen = dist(x1, y1, x2, y2);
-
-	// since floats are so minutely accurate, add
-	// a little buffer zone that will give collision
-	float buffer = 0.01f;    // higher # = less accurate
-
-	// if the two distances are equal to the line's length, the
-	// point is on the line!
-	// note we use the buffer here to give a range, rather than one #
-	if (d1 + d2 >= lineLen - buffer && d1 + d2 <= lineLen + buffer)
-	{
-		return true;
-	}
-	return false;
-}
-
-bool Collision::linePointr(float x1, float y1, float x2, float y2, float closeX, float closeY)
-{
-
-	// get distance from the point to the two ends of the line
-	float d1 = distr(closeX, closeY, x1, y1);
-	float d2 = distr(closeX, closeY, x2, y2);
-
-	// get the length of the line
-	float lineLen = distr(x1, y1, x2, y2);
-
-	// since floats are so minutely accurate, add
-	// a little buffer zone that will give collision
-	float buffer = 0.01f;    // higher # = less accurate
-
-	// if the two distances are equal to the line's length, the
-	// point is on the line!
-	// note we use the buffer here to give a range, rather than one #
-	if (d1 + d2 >= lineLen - buffer && d1 + d2 <= lineLen + buffer)
-	{
-		return true;
-	}
-	return false;
-}
-
-float Collision::distr(float x, float y, float x1, float y1)
-{
-	float distancex = (x - x1) * (x - x1);
-	float distancey = (y - y1) * (y - y1);
-
-	float distance = sqrt(distancex + distancey);
-
-	return (distance);
-}
-
-float Collision::dist(float x, float y, float x1, float y1)
-{
-	float distancex = (x1 - x) * (x1 - x);
-	float distancey = (y1 - y) * (y1 - y);
-
-	float distance = sqrt(distancex - distancey);
-
-	return (distance);
-}
-
-
-// finding the distance between the point and the circle
-bool Collision::pointCircle(float px, float py, float cx, float cy, float r)
-{
-
-	//get distance between the point and circle's center
-	// using the Pythagorean Theorem
-	float distX = px - cx;
-	float distY = py - cy;
-	float distance = sqrt((distX*distX) + (distY*distY));
-
-	//if the distance is less than the circle's 
-	//radius the point is inside!
+	// if distance is less than radius point is inside
 	if (distance <= r)
 	{
 		return true;
@@ -240,3 +187,40 @@ bool Collision::pointCircle(float px, float py, float cx, float cy, float r)
 	return false;
 }
 
+/*function to check if the point is on the line segment*/
+bool Collision::linePoint(float ax, float ay, float bx, float by, float ptx, float pty)
+{
+	//get distance from point to the two ends of the line
+	float d1 = dist(ptx, pty, ax, ay);
+	//float d1x = ptx - ax;
+	//float d1y = pty - ay;
+	//float d1 = sqrt((d1x * d1x) + (d1y * d1y));
+	float d2 = dist(ptx, pty, bx, by);
+	/*float d2x = ptx - bx;
+	float d2y = ptx - by;
+	float d2 = sqrt((d2x * d2x) + (d2y * d2y));*/
+
+	//get line length
+	//float lx = bx - ax;
+	//float ly = by - ay;
+	//float l = sqrt((lx * lx) + (ly * ly));
+	float l = dist(ax, ay, bx, by);
+
+	//float are minutely accurate adding buffer that will give collision
+	float buffer = 0.0005f;
+
+	//if two distances are equal to the line's length then the point is on the line
+	if (d1 + d2 >= l - buffer && d1 + d2 <= l + buffer)
+	{
+		return true;
+	}
+	return false;
+}
+
+float Collision::dist(float x, float y, float x1, float y1)
+{
+	float distancex = (x1 - x) * (x1 - x);
+	float distancey = (y1 - y) * (y1 - y);
+	float distance = sqrt(distancex + distancey);
+	return (distance);
+}
