@@ -70,7 +70,7 @@ void physics::resolve_collision(Circle &a, Line &b, Collision &test)
 		//if (norm > 0)
 		//	return;
 
-		float imp_scalar = -1.6 * norm;
+		float imp_scalar = -1.5f * norm;
 		imp_scalar /= 1 / a.mass;
 
 		glm::vec2 impulse(a.norms.x * imp_scalar, a.norms.y * imp_scalar);
