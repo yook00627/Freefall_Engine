@@ -11,7 +11,6 @@
 #if 1
 int main(int argc, char *argv)
 {
-
 	using namespace engine;
 	using namespace graphics;
 	using namespace input;
@@ -19,147 +18,177 @@ int main(int argc, char *argv)
 	float old_time = 0.0f;
 	float new_time = 0.0f;
 
+
 	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
-	glClearColor(0.5f, 0.5f, 0.5f, -0.5f);
-	KeyboardMouse input_keys;
+	begin:
+		glClearColor(0.5f, 0.5f, 0.5f, -0.5f);
+		KeyboardMouse input_keys;
 
-	//GLuint var;
-	//glGenVertexArrays(1, &var);
-	//glBindVertexArray(var);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
-	Line box(-0.08f, -0.5f, 0.08f, -0.5f, -0.08f, -0.3f, 0.08f, -0.3f);
-	Collision test(ball, box);
+		Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
+		Line lineb(-0.08f, -0.7f, 0.08f, -0.7f);
+		Line linel(-0.08f, -0.5f, -0.08f, -0.7f);
+		Line liner(0.08f, -0.5f, 0.08f, -0.7f);
+		Collision testb(ball, lineb);
+		Collision testl(ball, linel);
+		Collision testr(ball, liner);
 
-	bool sw = false;
-	ball.vectors.vel.x = 0.5f;
-	int tries = 4;
-	float dif = 0;
+		bool sw = false;
+		ball.vectors.vel.x = 0.5f;
+		int tries = 4;
+		float dif = 0;
+		bool start = false;
+		bool started = false;
 
-	bool start = false;
+		
 
-#if 0
-	TextRenderer *Text = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
-	Text->Load("src/window/arial.ttf", 24);
-#endif
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	while (!window.closed())
-	{
-		window.clear();
-		if (tries == 0)
+		while (!window.closed())
 		{
-			break;
-		}
-
-		if (!start)
-		{
-			print_enter(5, -0.5f, 0.1f);
-			//Text->RenderText("PRESS ENTER TO START", SCREEN_WIDTH / 3.5, SCREEN_HEIGHT / 2.2, 2.0f, glm::vec3(1.0, 1.0, 0.0));
-		}
-		if (input_keys.key_pressed(GLFW_KEY_ENTER) && start == false)
-		{
-			start = true;
-			glfwWaitEvents();
-		}
-		if (start)
-		{
-			if (input_keys.key_pressed(GLFW_KEY_ENTER) )
-			{
-				start = true;
-				glfwWaitEvents();
-			}
-
-			//Text->RenderText("Lives:" + std::to_string(score), 5.0f, 5.0f, 1.0f);
-			print_tries(3, -1.6f, 0.9f, tries);
-
-			//drawing circle game
-#if 1
+			window.clear();
 			old_time = new_time;
 			new_time = glfwGetTime();
-			//std::cout << new_time << std::endl;
 
-			box.drawline();
-			ball.drawCircle();
-			test.lineCircle(ball, box);
-
-			if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
-				ball.vectors.vel.x = (ball.vectors.pos.x>0?-1:1)*abs(ball.vectors.vel.x);
-
-			if (ball.vectors.pos.y < -1.2f)
-			{
-				ball.vectors.reset(0.0f, 0.8f, 1.0f + dif, 0.0f, 0.0f, 0.0f);
-				tries--;
-			}
-		
-			ball.vectors.update_position(new_time - old_time);
-
-			if (sw)
-			{
-				//r.vectors.update_position(new_time - old_time);
-				ball.vectors.vel.x = 0.0f;
-				ball.vectors.accel.y = -9.8f;
-				ball.vectors.update_position(new_time - old_time);
-				sw = false;
-			
-			}
-			if (test.lineCircle(ball, box))
-			{
-				std::cout << "I HIT SOMETHING" << std::endl;
-				ball.vectors.resolve_collision(ball, box, test);
-			}
-
-			if (input_keys.key_pressed(GLFW_KEY_SPACE))
-			{
-				sw = true;
-				dif += 0.002f;
-			}
-
-			if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
-			{
-				window.~Window();
-				exit(0);
-			}
 			if (input_keys.key_pressed(GLFW_KEY_F11))
 			{
 				window.windowSizeToggle();
 			}
 
-			if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
+			if (input_keys.key_pressed(GLFW_KEY_R))
 			{
-				double x, y;
-				input_keys.get_mouse_position(x, y);
-				std::cout << "x postion: " << x << " y position: " << y << std::endl;
+				goto begin;
 			}
-#endif
-		}
-		window.update();
-	}
 
-	while (!window.closed())
-	{
-		window.clear();
-		TextRenderer *Text = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
-		Text->Load("src/window/arial.ttf", 24);
-		Text->RenderText("WHAT ARE YOU DOING!!", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0, 1.0, 0.0));
-		Text->RenderText("ANDREW!!!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0, 1.0, 0.0));
-		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
-		{
-			window.~Window();
-			exit(0);
+			if (tries == 0)
+			{
+				goto end;
+			}
+
+			if (!start)
+			{
+				print_enter(5, -0.4f, 0.1f);
+				if (input_keys.key_pressed(GLFW_KEY_ENTER) && start == false)
+				{
+					start = true;
+					started = true;
+					glfwWaitEvents();
+				}
+			}
+
+			if (input_keys.key_pressed(GLFW_KEY_P) && !start)
+			{
+				start = true;
+				glfwWaitEvents();
+			}
+
+			if (start)
+			{
+				if (input_keys.key_pressed(GLFW_KEY_P) )
+				{
+					start = false;
+					glfwWaitEvents();
+				}
+
+				print_tries(3, -1.6f, 0.9f, tries);
+
+				//drawing circle game with line colision
+#if 1
+				lineb.drawline();
+				liner.drawline();
+				linel.drawline();
+				ball.drawCircle();
+				testb.lineCircle(ball, lineb);
+				testr.lineCircle(ball, liner);
+				testl.lineCircle(ball, linel);
+
+				if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
+					ball.vectors.vel.x = (ball.vectors.pos.x>0?-1:1)*abs(ball.vectors.vel.x);
+
+				if (ball.vectors.pos.y < -1.2f)
+				{
+					ball.vectors.reset(0.0f, 0.8f, 1.0f + dif, 0.0f, 0.0f, 0.0f);
+					tries--;
+				}
+		
+				ball.vectors.update_position(new_time - old_time);
+
+				if (sw)
+				{
+					//r.vectors.update_position(new_time - old_time);
+					ball.vectors.vel.x = 0.0f;
+					ball.vectors.accel.y = -9.8f;
+					ball.vectors.update_position(new_time - old_time);
+					sw = false;
+			
+				}
+				if (testb.lineCircle(ball, lineb) || testr.lineCircle(ball, liner) ||
+					testl.lineCircle(ball, linel))
+				{
+					std::cout << "I HIT SOMETHING" << std::endl;
+					ball.vectors.resolve_collision(ball, lineb, testb);
+					ball.vectors.resolve_collision(ball, liner, testr);
+					ball.vectors.resolve_collision(ball, linel, testl);
+				}
+
+				if (input_keys.key_pressed(GLFW_KEY_SPACE))
+				{
+					sw = true;
+					dif += 0.002f;
+				}
+
+				if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
+				{
+					window.~Window();
+					exit(0);
+				}
+
+				if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
+				{
+					double x, y;
+					input_keys.get_mouse_position(x, y);
+				}
+#endif
+				if (ball.vectors.vel.x == 0 && ball.vectors.vel.y == 0 &&
+					ball.vectors.accel.x == 0 && ball.vectors.accel.y == 0)
+				{
+					goto end;
+				}
+			}
+			window.update();
 		}
-		window.update();
-	}
+	end:
+		TextRenderer Text(SCREEN_WIDTH, SCREEN_HEIGHT);
+		Text.Load("src/window/arial.ttf", 24);
+		while (!window.closed())
+		{
+			window.clear();
+			if (tries > 0)
+			{
+				Text.RenderText("THANK YOU FOR PLAYING", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+				Text.RenderText("!!!!! \\ (^_^) / !!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+			}
+			else
+			{
+				Text.RenderText("TOO BAD NO GAME FOR YOU", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+				Text.RenderText("!!!!! (;-_-) /!!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+			}
+			if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
+			{
+				window.~Window();
+				exit(0);
+			}
+			if (input_keys.key_pressed(GLFW_KEY_R))
+			{
+				glUseProgramObjectARB(0);
+				goto begin;
+			}
+			window.update();
+		}
 
 	return 0;
 }
 #endif
-
-
-
-
 
 
 #if 0

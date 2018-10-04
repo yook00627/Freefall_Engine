@@ -53,15 +53,20 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	if (inside1 || inside2)
 	{
 		if (inside1 == true)
-			if (left <= 0)
-				normal = glm::vec2(left, abs(cy - y1));
-			else
-				normal = glm::vec2(-left, abs(cy - y1));
+		{
+			normal = glm::vec2(left, cy - y1);
+		}
+		//	if (left <= 0)
+		//		normal = glm::vec2(left, abs(cy - y1));
+		//	else
+		//		normal = glm::vec2(-left, abs(cy - y1));
 		else
-			if (right >= 0)
-				normal = glm::vec2(right, abs(cy - y2));
-			else
-				normal = glm::vec2(-right, abs(cy - y2));
+			//	if (right >= 0)
+		{
+			normal = glm::vec2(right, cy - y2);
+		}
+		//	else
+		//		normal = glm::vec2(-right, abs(cy - y2));
 		obj.norms = normal;
 		bottom = true;
 		return true;
@@ -96,8 +101,9 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	closex = cbx;
 	closey = cby;
 
+
 	float mid = cx - closex;
-	normal = glm::vec2(0.0f, abs(cy - closey));
+	normal = glm::vec2(mid, abs(cy - closey));
 	obj.norms = normal;
 
 	////find closest point on the left line
@@ -207,7 +213,7 @@ bool Collision::linePoint(float ax, float ay, float bx, float by, float ptx, flo
 	float l = dist(ax, ay, bx, by);
 
 	//float are minutely accurate adding buffer that will give collision
-	float buffer = 0.0005f;
+	float buffer = 0.0001f;
 
 	//if two distances are equal to the line's length then the point is on the line
 	if (d1 + d2 >= l - buffer && d1 + d2 <= l + buffer)

@@ -13,6 +13,7 @@ void print_enter(int fontsize, float x, float y)
 	float s = 0.07f;
 	float space;
 	glLineWidth(5);
+	glColor3f(1.0f, 1.0f, 1.0f);
 
 	//P
 	space = s * 0;
@@ -220,6 +221,7 @@ void print_tries(int fontsize, float x, float y, int tries)
 	float s = 0.06f;
 	float space;
 	glLineWidth(3);
+	glColor3f(1.0f, 1.0f, 1.0f);
 
 	//T
 	space = s * 0;

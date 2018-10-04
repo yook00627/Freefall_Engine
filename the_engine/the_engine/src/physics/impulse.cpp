@@ -66,12 +66,11 @@ void physics::resolve_collision(Circle &a, Line &b, Collision &test)
 		a.norms.y /= len4norm;
 
 		float norm = glm::dot(rel_vel, a.norms);
-
 		//if (norm > 0)
 		//	return;
 
 		float imp_scalar = -1.5f * norm;
-		imp_scalar /= 1 / a.mass;
+		imp_scalar /= a.mass;
 
 		glm::vec2 impulse(a.norms.x * imp_scalar, a.norms.y * imp_scalar);
 
@@ -87,8 +86,7 @@ void physics::resolve_collision(Circle &a, Line &b, Collision &test)
 			a.vectors.vel.x -= (impulse.x * (1 / a.mass));
 			a.vectors.vel.y -= (impulse.y * (1 / a.mass));
 		}
-
-		if (abs(a.vectors.vel.y) < 0.068)
+		if (abs(a.vectors.vel.y) < 0.04)
 		{
 			a.vectors.pos.y += 0.00001f;
 			a.vectors.vel.x = 0.0f;
