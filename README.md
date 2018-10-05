@@ -15,6 +15,9 @@
 	
 	A 2D game engine that emulates physics. All dependencies and libraries are stored in the Dependencies folder.
 
+### Warning
+	The game currently is not framerate locked so the game speed may run diffrently on diffrent systems.
+
 
 ### Files in This Repository
 
@@ -115,7 +118,7 @@ After the collision has been resolved, you must run every object's update_positi
 ### Technologies Used
 * Language: C++, OpenGL
 * Operating System: Windows
-* CPU supported: Intel I7 5500
+* CPU supported: Intel I7
 ---
 
 ### Authors
