@@ -1,5 +1,7 @@
 #include "physics.h"
 #include <iostream>
+
+//default constructor
 physics::physics()
 {
 	accel = glm::vec2(0.0f, 0.0f);
@@ -7,11 +9,12 @@ physics::physics()
 	pos = glm::vec2(0.0f, 0.0f);
 };
 
+//calculates new position based on current velocity and acceleration and updates velocity and acceleration
 void physics::update_position(float deltat)
 {
-	if (deltat > 0.016)
+	if (deltat > 0.016f)
 	{
-		deltat = (float)0.016;
+		deltat = 0.016f;
 	};
 	//deltat *= 1000;
 
@@ -26,6 +29,7 @@ void physics::update_position(float deltat)
 	//accel = glm::vec2(0.0, 0.0);
 };
 
+//how to change the position, velocity, and acceleration parameters
 void physics::reset(float new_x, float new_y, float new_vx, float new_vy, float new_ax, float new_ay)
 {
 	pos.x = new_x;

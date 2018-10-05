@@ -75,6 +75,10 @@ public:
 	float closeyl;
 	float closexr;
 	float closeyr;
+	float offset;
+	float point_x_offset;
+	float point_y_offset;
+	bool is_point;
 	bool left = false, right = false, bottom = false;
 	Collision();
 	Collision(Circle &obj, Line &lobj);

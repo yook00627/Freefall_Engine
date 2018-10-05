@@ -173,13 +173,77 @@ begin:
 				}
 
 				//collision activation
-				if (testb.lineCircle(ball, lineb) || testr.lineCircle(ball, liner) ||
-					testl.lineCircle(ball, linel))
+				if (testb.lineCircle(ball, lineb))
 				{
-					std::cout << "I HIT SOMETHING" << std::endl;
+					std::cout << "I HIT Bottom" << std::endl;
 					ball.vectors.resolve_collision(ball, lineb, testb);
+					std::cout << "new vel " << ball.vectors.vel.x << " " << ball.vectors.vel.y << " " << ball.vectors.accel.y << std::endl;
+					ball.vectors.pos.y += (ball.radius - testb.offset);
+					std::cout << "bottom offset" << testb.offset << std::endl;
+					if (ball.vectors.vel.y < 0)
+						ball.vectors.vel.y = -ball.vectors.vel.y;
+				}
+				else if (testr.lineCircle(ball, liner))
+				{
+					std::cout << "I HIT right" << std::endl;
+					std::cout << "Ball radius" << ball.radius << std::endl;
 					ball.vectors.resolve_collision(ball, liner, testr);
+					if (testr.is_point)
+					{
+						if (ball.vectors.pos.x < 0.08f)
+						{
+							ball.vectors.pos.x -= 0.2f * (ball.radius - testr.point_x_offset);
+							ball.vectors.pos.y -= 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						else if (ball.vectors.pos.x > 0.08f)
+						{
+							ball.vectors.pos.x += 0.2f * (ball.radius - testr.point_x_offset);
+							ball.vectors.pos.y += 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						else if (ball.vectors.pos.x == 0.08f && ball.vectors.pos.y < -0.45f)
+						{
+							ball.vectors.pos.y += 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						testl.is_point = false;
+					}
+					else
+					{
+						std::cout << "offset" << testr.offset << std::endl;
+						ball.vectors.pos.x -= (ball.radius - testr.offset);
+					}
+					if (ball.vectors.vel.y = 0.0f)
+						ball.vectors.accel.y = -9.8f;
+				}
+				else if (testl.lineCircle(ball, linel))
+				{
+					std::cout << "I HIT left" << std::endl;
 					ball.vectors.resolve_collision(ball, linel, testl);
+					if (testl.is_point)
+					{
+						std::cout << "offset " << testl.point_x_offset << " " << testl.point_y_offset << std::endl;
+						if (ball.vectors.pos.x < -0.08f)
+						{
+							ball.vectors.pos.x -= 0.2f * (ball.radius - testl.point_x_offset);
+							ball.vectors.pos.y -= 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						else if (ball.vectors.pos.x > -0.08f)
+						{
+							ball.vectors.pos.x += 0.2f * (ball.radius - testl.point_x_offset);
+							ball.vectors.pos.y += 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						else if (ball.vectors.pos.x == -0.08f && ball.vectors.pos.y == -0.45f)
+						{
+							ball.vectors.pos.y += 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						testl.is_point = false;
+					}
+					else
+					{
+						std::cout << "offset" << testl.offset << std::endl;
+						ball.vectors.pos.x += (ball.radius - testl.offset);
+					}
+					if (ball.vectors.vel.y = 0.0f)
+						ball.vectors.accel.y = -9.8f;
 				}
 
 				//win condition detected

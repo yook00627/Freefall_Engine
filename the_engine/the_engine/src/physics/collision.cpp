@@ -45,23 +45,48 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 			normal = glm::vec2(cx - x4, cy - y4);
 		return true;
 	}*/
+	//bool inside1 = pointCircle(x1, y1, cx, cy, radius);
+	//bool inside2 = pointCircle(x2, y2, cx, cy, radius);
+	//float left = cx - x1;
+	//float right = cx - x2;
+	//glm::vec2 normal(0.0f, 0.0f);
+	//if (inside1 || inside2)
+	//{
+	//	if (inside1 == true)
+	//		//if (left <= 0)
+	//			normal = glm::vec2(left, (cy - y1));
+	//		//else
+	//		//	normal = glm::vec2(-left, (cy - y1));
+	//	else
+	//		//if (right >= 0)
+	//			normal = glm::vec2(right, (cy - y2));
+	//		//else
+	//		//	normal = glm::vec2(-right, (cy - y2));
+	//	obj.norms = normal;
+	//	bottom = true;
+	//	return true;
+	//}
 	bool inside1 = pointCircle(x1, y1, cx, cy, radius);
-	bool inside2 = pointCircle(x2, y2, cx, cy, radius);
 	float left = cx - x1;
-	float right = cx - x2;
 	glm::vec2 normal(0.0f, 0.0f);
-	if (inside1 || inside2)
+	if (inside1 == true)
 	{
-		if (inside1 == true)
-			//if (left <= 0)
-				normal = glm::vec2(left, (cy - y1));
-			//else
-			//	normal = glm::vec2(-left, (cy - y1));
-		else
-			//if (right >= 0)
-				normal = glm::vec2(right, (cy - y2));
-			//else
-			//	normal = glm::vec2(-right, (cy - y2));
+		//if (left <= 0)
+		normal = glm::vec2(left, (cy - y1));
+		//else
+		//	normal = glm::vec2(-left, (cy - y1));
+		obj.norms = normal;
+		bottom = true;
+		return true;
+	}
+	bool inside2 = pointCircle(x2, y2, cx, cy, radius);
+	float right = cx - x2;
+	if (inside2 == true)
+	{
+		//if (right >= 0)
+		normal = glm::vec2(right, (cy - y2));
+		//else
+		//	normal = glm::vec2(-right, (cy - y2));
 		obj.norms = normal;
 		bottom = true;
 		return true;
@@ -149,8 +174,12 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	//distrighty = cry - cy;
 	//float dr = sqrt((distrightx*distrightx) + (distrighty*distrighty));
 
-	if (db <= radius)
+	/*Lowers the detection radius of the end point on the line*/
+	db += 0.002f;
+	if (db <= 0.05f)
 	{
+		std::cout << "this is db: " << db << std::endl;
+		offset = db;
 		std::cout << "touching bottom" << std::endl;
 		bottom = true;
 		return true;
@@ -177,11 +206,16 @@ bool Collision::pointCircle(float px, float py, float cix, float ciy, float r)
 	//getting distance between point and circle's center using pythagorean theorem
 	float distx = px - cix;
 	float disty = py - ciy;
+	point_x_offset = distx;
+	point_y_offset = disty;
 	float distance = sqrt((distx * distx) + (disty * disty));
+	/*decreased detection buffer radius*/
+	distance -= 0.01f;
 
 	// if distance is less than radius point is inside
-	if (distance <= r)
+	if (distance <= 0.05f)
 	{
+		is_point = true;
 		return true;
 	}
 	return false;
