@@ -26,8 +26,8 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	cy = obj.vectors.pos.y;
 	cx = obj.vectors.pos.x;
 	radius = obj.radius;
-	x1 = lobj.x_1;	y1 = lobj.y_1;
-	x2 = lobj.x_2;	y2 = lobj.y_2;
+	x1 = lobj.x_1 + lobj.vectors.pos.x;	y1 = lobj.y_1 + lobj.vectors.pos.y;
+	x2 = lobj.x_2 + lobj.vectors.pos.x;	y2 = lobj.y_2 + lobj.vectors.pos.y;
 	/*x3 = lobj.x_3;	y3 = lobj.y_3;
 	x4 = lobj.x_4;	y4 = lobj.y_4;*/
 

@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <math.h>
 #include <windows.h>
@@ -10,102 +9,131 @@
 #include "src/window/printer.h"
 
 
-
+//main program to run game
 int main(int argc, char *argv)
 {
+	//using namespaces for winows and input
 	using namespace engine;
 	using namespace graphics;
 	using namespace input;
+	
+	//create window
+	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	//got to begin when reset is happend
+begin:
+	glClearColor(0.5f, 0.5f, 0.5f, -0.5f); //color of screen
+
+	//added to blend the text
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//initializing objects to be used
+	//circle object
+	Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
+	//box object
+	Line linel(-0.08f, -0.5f, -0.08f, -0.7f);
+	Line lineb(-0.08f, -0.7f, 0.08f, -0.7f);
+	Line liner(0.08f, -0.7f, 0.08f, -0.5f);
+	//collision detection for box object
+	Collision testb(ball, lineb);
+	Collision testl(ball, linel);
+	Collision testr(ball, liner);
+	//lines for 3rd level
+	Line line1(-0.1f, 0.5f, 0.1f, 0.4f);
+	Line line2(-0.4f, 0.0f, -0.6f, 0.2f);
+	Line line3(0.2f, -0.3f, 0.4f, -0.2f);
+	Line line4(0.6f, 0.4f, 0.8f, 0.5f);
+	//collision for lines
+	Collision test1(ball, line1);
+	Collision test2(ball, line2);
+	Collision test3(ball, line3);
+	Collision test4(ball, line4);
+
+	//input detection object
+	KeyboardMouse input_keys;
+
+	//initalizing variables
 	float old_time = 0.0f;
 	float new_time = 0.0f;
+	bool sw = false;
+	float difficulty = 1.0f;
+	ball.vectors.vel.x = difficulty;
+	int tries = 4;
+	int level = 1;
+	bool start = false;
+	bool started = false;
+	bool level0 = false;
+	bool level1 = true;
+	bool level2 = false;
+	bool level3 = false;
+	bool level4 = false;
 
-	
-	Window window(SCREEN_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
-	begin:
-		glClearColor(0.5f, 0.5f, 0.5f, -0.5f);
-		KeyboardMouse input_keys;
+	//impletment sound
+	PlaySound("sound.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		Circle ball(0.05f, 0.0f, 0.8f, 1.0f);
-		Line linel(-0.08f, -0.5f, -0.08f, -0.7f);
-		Line lineb(-0.08f, -0.7f, 0.08f, -0.7f);
-		Line liner(0.08f, -0.7f, 0.08f, -0.5f);
-		Collision testb(ball, lineb);
-		Collision testl(ball, linel);
-		Collision testr(ball, liner);
-
-		bool sw = false;
-		ball.vectors.vel.x = 0.5f;
-		int tries = 4;
-		float dif = 0;
-		bool start = false;
-		bool started = false;
-		bool level1 = true;
-		bool level2 = false;
-		bool level3 = false;
-		PlaySound("sound.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
-
-		while (!window.closed())
+	//game loop
+	while (!window.closed())
+	{
+		window.clear(); //clearing the screen preveiose loop
+		//setting values to create delta time
+		old_time = new_time;
+		new_time = (float)glfwGetTime();
+		//input detection to make window full screen or windowed
+		if (input_keys.key_pressed(GLFW_KEY_F11))
 		{
-			window.clear();
-			old_time = new_time;
-			new_time = glfwGetTime();
-
-			if (input_keys.key_pressed(GLFW_KEY_F11))
-			{
-				window.windowSizeToggle();
-			}
-
-			if (input_keys.key_pressed(GLFW_KEY_R))
-			{
-				goto begin;
-			}
-
-			if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
-			{
-				window.~Window();
-				exit(0);
-			}
-
-
-			if (tries == 0)
-			{
-				goto end;
-			}
-
-			if (!start)
-			{
-				
-				print_enter(5, -0.4f, 0.1f);
-				if (input_keys.key_pressed(GLFW_KEY_ENTER) && start == false)
-				{
-					start = true;
-					started = true;
-					glfwWaitEvents();
-				}
-			}
-
-			if (input_keys.key_pressed(GLFW_KEY_P) && !start)
+			window.windowSizeToggle();
+		}
+		//input detection to reset game
+		if (input_keys.key_pressed(GLFW_KEY_R))
+		{
+			goto begin;
+		}
+		//input detection to exit game
+		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
+		{
+			window.~Window();
+			exit(0);
+		}
+		//goto game over
+		if (tries == 0)
+		{
+			goto end;
+		}
+		//check for starting the game 
+		if (!start)
+		{
+			print_enter(5, -0.35f, 0.1f);
+			if (input_keys.key_pressed(GLFW_KEY_ENTER) && start == false)
 			{
 				start = true;
+				started = true;
+				glfwWaitEvents();
+			}
+		}
+		//check to pause the game used for testing
+		if (input_keys.key_pressed(GLFW_KEY_P) && !start)
+		{
+			start = true;
+			glfwWaitEvents();
+		}
+
+		//game starting point
+		if (start)
+		{
+			if (input_keys.key_pressed(GLFW_KEY_P))
+			{
+				start = false;
 				glfwWaitEvents();
 			}
 
-			if (start)
-			{
-				
-				if (input_keys.key_pressed(GLFW_KEY_P))
-				{
-					start = false;
-					glfwWaitEvents();
-				}
+			print_tries(3, -1.6f, 0.95f, tries);
+			print_level(3, 1.0f, 0.95f, level);
 
-				print_tries(3, -1.6f, 0.9f, tries);
-				
-				//drawing circle game with line colision
+			//level 1 of game
+			if (level1)
+			{
+				//drawing level 1 objects
 				lineb.drawline();
 				liner.drawline();
 				linel.drawline();
@@ -114,32 +142,37 @@ int main(int argc, char *argv)
 				testr.lineCircle(ball, liner);
 				testl.lineCircle(ball, linel);
 
-				if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
-					ball.vectors.vel.x = (ball.vectors.pos.x>0?-1:1)*abs(ball.vectors.vel.x);
 
+				//limiting movement ball
+				if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
+					ball.vectors.vel.x = (ball.vectors.pos.x > 0 ? -1 : 1)*abs(ball.vectors.vel.x);
+
+				//reseting ball when miss
 				if (ball.vectors.pos.y < -1.2f)
 				{
-					ball.vectors.reset(0.0f, 0.8f, 1.0f + dif, 0.0f, 0.0f, 0.0f);
+					ball.vectors.reset(0.0f, 0.8f, difficulty, 0.0f, 0.0f, 0.0f);
 					tries--;
 				}
-		
+
+				//updating position of ball
 				ball.vectors.update_position(new_time - old_time);
 
+				//switch for dropping the ball
 				if (input_keys.key_pressed(GLFW_KEY_SPACE))
 				{
 					sw = true;
-					dif += 0.002f;
 				}
 
+				//dropping the ball
 				if (sw)
 				{
-					//r.vectors.update_position(new_time - old_time);
 					ball.vectors.vel.x = 0.0f;
 					ball.vectors.accel.y = -9.8f;
 					ball.vectors.update_position(new_time - old_time);
 					sw = false;
-			
 				}
+
+				//collision activation
 				if (testb.lineCircle(ball, lineb) || testr.lineCircle(ball, liner) ||
 					testl.lineCircle(ball, linel))
 				{
@@ -149,59 +182,248 @@ int main(int argc, char *argv)
 					ball.vectors.resolve_collision(ball, linel, testl);
 				}
 
+				//win condition detected
+				if (ball.vectors.vel.x == 0 && ball.vectors.vel.y == 0 &&
+					ball.vectors.accel.x == 0 && ball.vectors.accel.y == 0)
+				{
+					level1 = false;
+					level2 = true;
+					difficulty = 2.0f;
+					ball.vectors.reset(0.0f, 0.8f, difficulty, 0.0f, 0.0f, 0.0f);
+					lineb.vectors.vel.x = 1.0f;
+					liner.vectors.vel.x = 1.0f;
+					linel.vectors.vel.x = 1.0f;
+					level++;
+					tries = 4;
+				}
+			}
+			//level 2 of game
+			if (level2)
+			{
+				//drawing level 1 objects
+				lineb.drawline();
+				liner.drawline();
+				linel.drawline();
+				ball.drawCircle();
+				testb.lineCircle(ball, lineb);
+				testr.lineCircle(ball, liner);
+				testl.lineCircle(ball, linel);
 
-				
-				//if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
-				//{
-				//	double x, y;
-				//	input_keys.get_mouse_position(x, y);
-				//}
+				//limiting movement ball and box
+				if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
+				{
+					ball.vectors.vel.x = (ball.vectors.pos.x > 0 ? -1 : 1)*abs(ball.vectors.vel.x);
+				}
+				if (lineb.vectors.pos.x > 0.8f || lineb.vectors.pos.x < -0.8f)
+				{
+					lineb.vectors.vel.x = (lineb.vectors.pos.x > 0 ? -1 : 1)*abs(lineb.vectors.vel.x);
+				}
+				if (liner.vectors.pos.x > 0.8f || liner.vectors.pos.x < -0.8f)
+				{
+					liner.vectors.vel.x = (liner.vectors.pos.x > 0 ? -1 : 1)*abs(liner.vectors.vel.x);
+				}
+				if (linel.vectors.pos.x > 0.8f || linel.vectors.pos.x < -0.8f)
+				{
+					linel.vectors.vel.x = (linel.vectors.pos.x > 0 ? -1 : 1)*abs(linel.vectors.vel.x);
+				}
+
+				//reseting ball when miss
+				if (ball.vectors.pos.y < -1.2f)
+				{
+					ball.vectors.reset(0.0f, 0.8f, difficulty, 0.0f, 0.0f, 0.0f);
+					tries--;
+				}
+
+				//updating position of ball and box
+				ball.vectors.update_position(new_time - old_time);
+				lineb.vectors.update_position(new_time - old_time);
+				liner.vectors.update_position(new_time - old_time);
+				linel.vectors.update_position(new_time - old_time);
+
+				//switch for dropping the ball
+				if (input_keys.key_pressed(GLFW_KEY_SPACE))
+				{
+					sw = true;
+				}
+
+				//dropping the ball
+				if (sw)
+				{
+					ball.vectors.vel.x = 0.0f;
+					ball.vectors.accel.y = -9.8f;
+					ball.vectors.update_position(new_time - old_time);
+					sw = false;
+				}
+
+				//collision activation
+				if (testb.lineCircle(ball, lineb) || testr.lineCircle(ball, liner) ||
+					testl.lineCircle(ball, linel))
+				{
+					std::cout << "I HIT SOMETHING" << std::endl;
+					ball.vectors.resolve_collision(ball, lineb, testb);
+					ball.vectors.resolve_collision(ball, liner, testr);
+					ball.vectors.resolve_collision(ball, linel, testl);
+				}
+
+				//win condition detected
+				if (ball.vectors.vel.x == 0 && ball.vectors.vel.y == 0 &&
+					ball.vectors.accel.x == 0 && ball.vectors.accel.y == 0)
+				{
+					level2 = false;
+					level3 = true;
+					difficulty = 1.5f;
+					ball.vectors.reset(0.0f, 0.8f, 1.0f, 0.0f, 0.0f, 0.0f);
+					linel.vectors.reset(0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f);
+					lineb.vectors.reset(0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f);
+					liner.vectors.reset(0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f);
+					level++;
+					tries = 4;
+				}
+			}
+			if (level3)
+			{
+				//drawing level 1 objects
+				lineb.drawline();
+				liner.drawline();
+				linel.drawline();
+				ball.drawCircle();
+				testb.lineCircle(ball, lineb);
+				testr.lineCircle(ball, liner);
+				testl.lineCircle(ball, linel);
+
+				//draw lines for obstacle
+				line1.drawline();
+				line2.drawline();
+				line3.drawline();
+				line4.drawline();
+				test1.lineCircle(ball, line1);
+				test2.lineCircle(ball, line2);
+				test3.lineCircle(ball, line4);
+				test4.lineCircle(ball, line4);
+
+				//limiting movement ball and box
+				if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
+				{
+					ball.vectors.vel.x = (ball.vectors.pos.x > 0 ? -1 : 1)*abs(ball.vectors.vel.x);
+				}
+				if (lineb.vectors.pos.x > 0.8f || lineb.vectors.pos.x < -0.8f)
+				{
+					lineb.vectors.vel.x = (lineb.vectors.pos.x > 0 ? -1 : 1)*abs(lineb.vectors.vel.x);
+				}
+				if (liner.vectors.pos.x > 0.8f || liner.vectors.pos.x < -0.8f)
+				{
+					liner.vectors.vel.x = (liner.vectors.pos.x > 0 ? -1 : 1)*abs(liner.vectors.vel.x);
+				}
+				if (linel.vectors.pos.x > 0.8f || linel.vectors.pos.x < -0.8f)
+				{
+					linel.vectors.vel.x = (linel.vectors.pos.x > 0 ? -1 : 1)*abs(linel.vectors.vel.x);
+				}
+
+				//reseting ball when miss
+				if (ball.vectors.pos.y < -1.2f)
+				{
+					ball.vectors.reset(0.0f, 0.8f, difficulty, 0.0f, 0.0f, 0.0f);
+					tries--;
+				}
+
+				//updating position of ball and box
+				ball.vectors.update_position(new_time - old_time);
+				lineb.vectors.update_position(new_time - old_time);
+				liner.vectors.update_position(new_time - old_time);
+				linel.vectors.update_position(new_time - old_time);
+
+				//switch for dropping the ball
+				if (input_keys.key_pressed(GLFW_KEY_SPACE))
+				{
+					sw = true;
+				}
+
+				//dropping the ball
+				if (sw)
+				{
+					ball.vectors.vel.x = 0.0f;
+					ball.vectors.accel.y = -9.8f;
+					ball.vectors.update_position(new_time - old_time);
+					sw = false;
+				}
+
+				//collision activation
+				if (testb.lineCircle(ball, lineb) || testr.lineCircle(ball, liner) ||
+					testl.lineCircle(ball, linel) || test1.lineCircle(ball, line1) ||
+					test2.lineCircle(ball, line2) || test3.lineCircle(ball, line3) | \
+					test4.lineCircle(ball, line4))
+				{
+					std::cout << "I HIT SOMETHING" << std::endl;
+					ball.vectors.resolve_collision(ball, lineb, testb);
+					ball.vectors.resolve_collision(ball, liner, testr);
+					ball.vectors.resolve_collision(ball, linel, testl);
+					ball.vectors.resolve_collision(ball, line1, test1);
+					ball.vectors.resolve_collision(ball, line2, test2);
+					ball.vectors.resolve_collision(ball, line3, test3);
+					ball.vectors.resolve_collision(ball, line4, test4);
+				}
+
+				//win condition detected
 				if (ball.vectors.vel.x == 0 && ball.vectors.vel.y == 0 &&
 					ball.vectors.accel.x == 0 && ball.vectors.accel.y == 0)
 				{
 					goto end;
 				}
 			}
-			window.update();
 		}
-	end:
-		TextRenderer Text(SCREEN_WIDTH, SCREEN_HEIGHT);
-		Text.Load("src/window/arial.ttf", 24);
+		//input mouse testing
+		//if (input_keys.mouse_button_pressed(GLFW_MOUSE_BUTTON_LEFT))
+			//{
+			//	double x, y;
+			//	input_keys.get_mouse_position(x, y);
+			//}
+		window.update(); //updating the screen with new draws
+	}
+	//ending screen loop 
+end:
+	//rendering text using freetype but it cannot coesist with glbegin and end
+	TextRenderer Text(SCREEN_WIDTH, SCREEN_HEIGHT);
+	Text.Load("src/window/arial.ttf", 24);
+	//start music for win
+	if (tries > 0)
+		PlaySound("win.wav", NULL, SND_ASYNC | SND_FILENAME);
+	//start music for gameover
+	else
+		PlaySound("lose.wav", NULL, SND_ASYNC | SND_FILENAME);
+	while (!window.closed())
+	{
+		window.clear(); //clearing the screen preveiose loop
+		//printing win game screen
 		if (tries > 0)
-			PlaySound("win.wav", NULL, SND_ASYNC | SND_FILENAME);
-		else
-			PlaySound("lose.wav", NULL, SND_ASYNC | SND_FILENAME);
-		while (!window.closed())
 		{
-			window.clear();
-			if (tries > 0)
-			{
-				Text.RenderText("THANK YOU FOR PLAYING", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
-				Text.RenderText("!!!!! \\ (^_^) / !!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
-			}
-			else
-			{
-				Text.RenderText("TOO BAD NO GAME FOR YOU", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-				Text.RenderText("!!!!! (;-_-) /!!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-			}
-			if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
-			{
-				window.~Window();
-				exit(0);
-			}
-			if (input_keys.key_pressed(GLFW_KEY_R))
-			{
-				glUseProgramObjectARB(0);
-				goto begin;
-			}
-			window.update();
+			Text.RenderText("THANK YOU FOR PLAYING", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+			Text.RenderText("!!!!! \\ (^_^) / !!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
 		}
-
-	return 0;
+		//printing game over screen
+		else
+		{
+			Text.RenderText("TOO BAD NO GAME FOR YOU", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+			Text.RenderText("!!!!! (;-_-) / !!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+		}
+		//input detection to exit game
+		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
+		{
+			window.~Window();
+			exit(0);
+		}
+		//input detection to reset game
+		if (input_keys.key_pressed(GLFW_KEY_R))
+		{
+			glUseProgramObjectARB(0); //resets the shader program to null
+			goto begin;
+		}
+		window.update(); //updating the screen with new draws
+	}
+	return 0; //always return zero when game ends
 }
 
 
-
+//glut usage deprecated
 #if 0
 #include <stdio.h>
 #include <GL/glut.h>

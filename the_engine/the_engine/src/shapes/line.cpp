@@ -22,8 +22,9 @@ void Line::drawline()
 {
 	//bottom
 	glBegin(GL_LINES);
-	glVertex2f(x_1, y_1); //x1, y1
-	glVertex2f(x_2, y_2); //x2, y2
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex2f(x_1 + vectors.pos.x, y_1 + vectors.pos.y); //x1, y1
+	glVertex2f(x_2 + vectors.pos.x, y_2 + vectors.pos.y); //x2, y2
 	glEnd();
 
 	////left

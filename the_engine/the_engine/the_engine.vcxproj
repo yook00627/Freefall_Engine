@@ -167,7 +167,7 @@
     <ClCompile Include="src\shapes\circle.cpp" />
     <ClCompile Include="src\shapes\shapes.cpp" />
     <ClCompile Include="src\shapes\rectangle.cpp" />
-    <ClCompile Include="src\shapes\square.cpp" />
+    <ClCompile Include="src\shapes\line.cpp" />
     <ClCompile Include="src\shapes\triangle.cpp" />
     <ClCompile Include="src\window\shader.cpp" />
     <ClCompile Include="src\window\text.cpp" />
