@@ -1,4 +1,4 @@
-<img src="ballfalling.png">
+<img src="ballfalling.png" width="30%">
 
 ## Freefall Engine
 
@@ -38,14 +38,14 @@
 | shapes.cpp | [shapes.cpp](the_engine/the_engine/src/shapes/shapes.cpp) | Placeholder file to move all shapes to |
 | shapes.h | [shapes.h](the_engine/the_engine/src/shapes/shapes.h) | Header file for all shapes classes |
 | triangle.cpp | [trangle.cpp](the_engine/the_engine/src/shapes/triangle.cpp) | Triangle class file |
-| text.frag | [text.frag](the_engine/the_engine/src/window/shader/text.frag) |  |
-| text.vs| [text.vs](the_engine/the_engine/src/window/shader/text.vs) |  |
+| text.frag | [text.frag](the_engine/the_engine/src/window/shader/text.frag) | Fragmentation Shader |
+| text.vs| [text.vs](the_engine/the_engine/src/window/shader/text.vs) | Vector shader |
 | arial.ttf | [arial.ttf](the_engine/the_engine/src/window/arial.ttf) | Font file for text |
 | printer.h | [printer.h](the_engine/the_engine/src/window/printer.h) | Header for functions to print game text |
-| shader.cpp | [shader.cpp](the_engine/the_engine/src/window/shader.cpp) |  |
-| shader.h | [shader.h](the_engine/the_engine/src/window/shader.h) | |
-| text.cpp | [text.cpp](the_engine/the_engine/src/window/text.cpp) |  |
-| text.h  | [text.h](the_engine/the_engine/src/window/text.h) | |
+| shader.cpp | [shader.cpp](the_engine/the_engine/src/window/shader.cpp) | Shader class file |
+| shader.h | [shader.h](the_engine/the_engine/src/window/shader.h) | Header for shader class file |
+| text.cpp | [text.cpp](the_engine/the_engine/src/window/text.cpp) | Shader manipulator to print text and import font |
+| text.h  | [text.h](the_engine/the_engine/src/window/text.h) | Header for text file |
 | window.cpp | [window.cpp](the_engine/the_engine/src/window/window.cpp) | File for window class |
 | window.h  | [window.h](the_engine/the_engine/src/window/window.h) | Header for the window class |
 
