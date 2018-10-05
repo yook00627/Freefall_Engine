@@ -13,7 +13,7 @@
 
 ### Description
 	
-	A 2D game engine that has a physics engine. All dependencies and libraries are stored in the Dependencies folder.
+	A 2D game engine that emulates physics. All dependencies and libraries are stored in the Dependencies folder.
 
 
 ### Files in This Repository
