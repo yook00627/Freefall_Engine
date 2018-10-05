@@ -66,30 +66,34 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	//	bottom = true;
 	//	return true;
 	//}
-	bool inside1 = pointCircle(x1, y1, cx, cy, radius);
-	float left = cx - x1;
 	glm::vec2 normal(0.0f, 0.0f);
-	if (inside1 == true)
+	if (!level3)
 	{
-		//if (left <= 0)
-		normal = glm::vec2(left, (cy - y1));
-		//else
-		//	normal = glm::vec2(-left, (cy - y1));
-		obj.norms = normal;
-		bottom = true;
-		return true;
-	}
-	bool inside2 = pointCircle(x2, y2, cx, cy, radius);
-	float right = cx - x2;
-	if (inside2 == true)
-	{
-		//if (right >= 0)
-		normal = glm::vec2(right, (cy - y2));
-		//else
-		//	normal = glm::vec2(-right, (cy - y2));
-		obj.norms = normal;
-		bottom = true;
-		return true;
+		bool inside1 = pointCircle(x1, y1, cx, cy, radius);
+		float left = cx - x1;
+		glm::vec2 normal(0.0f, 0.0f);
+		if (inside1 == true)
+		{
+			//if (left <= 0)
+			normal = glm::vec2(left, (cy - y1));
+			//else
+			//	normal = glm::vec2(-left, (cy - y1));
+			obj.norms = normal;
+			bottom = true;
+			return true;
+		}
+		bool inside2 = pointCircle(x2, y2, cx, cy, radius);
+		float right = cx - x2;
+		if (inside2 == true)
+		{
+			//if (right >= 0)
+			normal = glm::vec2(right, (cy - y2));
+			//else
+			//	normal = glm::vec2(-right, (cy - y2));
+			obj.norms = normal;
+			bottom = true;
+			return true;
+		}
 	}
 	//get lengths of the bottom line
 	float distbottomx = x1 - x2;
@@ -175,7 +179,7 @@ bool Collision::lineCircle(Circle &obj, Line &lobj)
 	//float dr = sqrt((distrightx*distrightx) + (distrighty*distrighty));
 
 	/*Lowers the detection radius of the end point on the line*/
-	db += 0.002f;
+	db += 0.0005f;
 	if (db <= 0.05f)
 	{
 		std::cout << "this is db: " << db << std::endl;
@@ -210,7 +214,7 @@ bool Collision::pointCircle(float px, float py, float cix, float ciy, float r)
 	point_y_offset = disty;
 	float distance = sqrt((distx * distx) + (disty * disty));
 	/*decreased detection buffer radius*/
-	distance -= 0.01f;
+	distance -= 0.009f;
 
 	// if distance is less than radius point is inside
 	if (distance <= 0.05f)

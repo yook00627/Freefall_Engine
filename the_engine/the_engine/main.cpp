@@ -218,6 +218,8 @@ begin:
 				{
 					std::cout << "I HIT left" << std::endl;
 					ball.vectors.resolve_collision(ball, linel, testl);
+					std::cout << "new vel " << ball.vectors.vel.x << " " << ball.vectors.vel.y << " " << ball.vectors.accel.y << std::endl;
+
 					if (testl.is_point)
 					{
 						std::cout << "offset " << testl.point_x_offset << " " << testl.point_y_offset << std::endl;
@@ -320,13 +322,79 @@ begin:
 				}
 
 				//collision activation
-				if (testb.lineCircle(ball, lineb) || testr.lineCircle(ball, liner) ||
-					testl.lineCircle(ball, linel))
+				if (testb.lineCircle(ball, lineb))
 				{
-					std::cout << "I HIT SOMETHING" << std::endl;
+					std::cout << "I HIT Bottom" << std::endl;
 					ball.vectors.resolve_collision(ball, lineb, testb);
+					std::cout << "new vel " << ball.vectors.vel.x << " " << ball.vectors.vel.y << " " << ball.vectors.accel.y << std::endl;
+					ball.vectors.pos.y += (ball.radius - testb.offset);
+					std::cout << "bottom offset" << testb.offset << std::endl;
+					if (ball.vectors.vel.y < 0)
+						ball.vectors.vel.y = -ball.vectors.vel.y;
+				}
+				else if (testr.lineCircle(ball, liner))
+				{
+					std::cout << "I HIT right" << std::endl;
+					std::cout << "Ball radius" << ball.radius << std::endl;
 					ball.vectors.resolve_collision(ball, liner, testr);
+					if (testr.is_point)
+					{
+						if (ball.vectors.pos.x < 0.08f)
+						{
+							ball.vectors.pos.x -= 0.2f * (ball.radius - testr.point_x_offset);
+							ball.vectors.pos.y -= 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						else if (ball.vectors.pos.x > 0.08f)
+						{
+							ball.vectors.pos.x += 0.2f * (ball.radius - testr.point_x_offset);
+							ball.vectors.pos.y += 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						else if (ball.vectors.pos.x == 0.08f && ball.vectors.pos.y < -0.45f)
+						{
+							ball.vectors.pos.y += 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						testl.is_point = false;
+					}
+					else
+					{
+						std::cout << "offset" << testr.offset << std::endl;
+						ball.vectors.pos.x -= (ball.radius - testr.offset);
+					}
+					if (ball.vectors.vel.y = 0.0f)
+						ball.vectors.accel.y = -9.8f;
+				}
+				else if (testl.lineCircle(ball, linel))
+				{
+					std::cout << "I HIT left" << std::endl;
 					ball.vectors.resolve_collision(ball, linel, testl);
+					std::cout << "new vel " << ball.vectors.vel.x << " " << ball.vectors.vel.y << " " << ball.vectors.accel.y << std::endl;
+
+					if (testl.is_point)
+					{
+						std::cout << "offset " << testl.point_x_offset << " " << testl.point_y_offset << std::endl;
+						if (ball.vectors.pos.x < -0.08f)
+						{
+							ball.vectors.pos.x -= 0.2f * (ball.radius - testl.point_x_offset);
+							ball.vectors.pos.y -= 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						else if (ball.vectors.pos.x > -0.08f)
+						{
+							ball.vectors.pos.x += 0.2f * (ball.radius - testl.point_x_offset);
+							ball.vectors.pos.y += 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						else if (ball.vectors.pos.x == -0.08f && ball.vectors.pos.y == -0.45f)
+						{
+							ball.vectors.pos.y += 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						testl.is_point = false;
+					}
+					else
+					{
+						std::cout << "offset" << testl.offset << std::endl;
+						ball.vectors.pos.x += (ball.radius - testl.offset);
+					}
+					if (ball.vectors.vel.y = 0.0f)
+						ball.vectors.accel.y = -9.8f;
 				}
 
 				//win condition detected
@@ -361,9 +429,13 @@ begin:
 				line3.drawline();
 				line4.drawline();
 				test1.lineCircle(ball, line1);
+				test1.level3 = true;
 				test2.lineCircle(ball, line2);
+				test2.level3 = true;
 				test3.lineCircle(ball, line4);
+				test3.level3 = true;
 				test4.lineCircle(ball, line4);
+				test4.level3 = true;
 
 				//limiting movement ball and box
 				if (ball.vectors.pos.x > 0.8f || ball.vectors.pos.x < -0.8f)
@@ -412,20 +484,257 @@ begin:
 				}
 
 				//collision activation
-				if (testb.lineCircle(ball, lineb) || testr.lineCircle(ball, liner) ||
-					testl.lineCircle(ball, linel) || test1.lineCircle(ball, line1) ||
-					test2.lineCircle(ball, line2) || test3.lineCircle(ball, line3) | \
-					test4.lineCircle(ball, line4))
+				if (testb.lineCircle(ball, lineb))
 				{
-					std::cout << "I HIT SOMETHING" << std::endl;
+					std::cout << "I HIT Bottom" << std::endl;
 					ball.vectors.resolve_collision(ball, lineb, testb);
-					ball.vectors.resolve_collision(ball, liner, testr);
-					ball.vectors.resolve_collision(ball, linel, testl);
-					ball.vectors.resolve_collision(ball, line1, test1);
-					ball.vectors.resolve_collision(ball, line2, test2);
-					ball.vectors.resolve_collision(ball, line3, test3);
-					ball.vectors.resolve_collision(ball, line4, test4);
+					std::cout << "new vel " << ball.vectors.vel.x << " " << ball.vectors.vel.y << " " << ball.vectors.accel.y << std::endl;
+					ball.vectors.pos.y += (ball.radius - testb.offset);
+					std::cout << "bottom offset" << testb.offset << std::endl;
+					if (ball.vectors.vel.y < 0)
+						ball.vectors.vel.y = -ball.vectors.vel.y;
 				}
+				else if (testr.lineCircle(ball, liner))
+				{
+					std::cout << "I HIT right" << std::endl;
+					std::cout << "Ball radius" << ball.radius << std::endl;
+					ball.vectors.resolve_collision(ball, liner, testr);
+					if (testr.is_point)
+					{
+						if (ball.vectors.pos.x < 0.08f)
+						{
+							ball.vectors.pos.x -= 0.2f * (ball.radius - testr.point_x_offset);
+							ball.vectors.pos.y -= 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						else if (ball.vectors.pos.x > 0.08f)
+						{
+							ball.vectors.pos.x += 0.2f * (ball.radius - testr.point_x_offset);
+							ball.vectors.pos.y += 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						else if (ball.vectors.pos.x == 0.08f && ball.vectors.pos.y < -0.45f)
+						{
+							ball.vectors.pos.y += 0.2f * (ball.radius - testr.point_y_offset);
+						}
+						testr.is_point = false;
+					}
+					else
+					{
+						std::cout << "offset" << testr.offset << std::endl;
+						ball.vectors.pos.x -= (ball.radius - testr.offset);
+					}
+					if (ball.vectors.vel.y = 0.0f)
+						ball.vectors.accel.y = -9.8f;
+				}
+				else if (testl.lineCircle(ball, linel))
+				{
+					std::cout << "I HIT left" << std::endl;
+					ball.vectors.resolve_collision(ball, linel, testl);
+					std::cout << "new vel " << ball.vectors.vel.x << " " << ball.vectors.vel.y << " " << ball.vectors.accel.y << std::endl;
+
+					if (testl.is_point)
+					{
+						std::cout << "offset " << testl.point_x_offset << " " << testl.point_y_offset << std::endl;
+						if (ball.vectors.pos.x < -0.08f)
+						{
+							ball.vectors.pos.x -= 0.2f * (ball.radius - testl.point_x_offset);
+							ball.vectors.pos.y -= 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						else if (ball.vectors.pos.x > -0.08f)
+						{
+							ball.vectors.pos.x += 0.2f * (ball.radius - testl.point_x_offset);
+							ball.vectors.pos.y += 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						else if (ball.vectors.pos.x == -0.08f && ball.vectors.pos.y == -0.45f)
+						{
+							ball.vectors.pos.y += 0.2f * (ball.radius - testl.point_y_offset);
+						}
+						testl.is_point = false;
+					}
+					else
+					{
+						std::cout << "offset" << testl.offset << std::endl;
+						ball.vectors.pos.x += (ball.radius - testl.offset);
+					}
+					if (ball.vectors.vel.y = 0.0f)
+						ball.vectors.accel.y = -9.8f;
+				}
+				else if (test1.lineCircle(ball, line1))
+				{
+					std::cout << "I HIT left" << std::endl;
+					ball.vectors.resolve_collision(ball, line1, test1);
+					std::cout << "new vel " << ball.vectors.vel.x << " " << ball.vectors.vel.y << " " << ball.vectors.accel.y << std::endl;
+
+					if (test1.is_point)
+					{
+						std::cout << "offset " << test1.point_x_offset << " " << test1.point_y_offset << std::endl;
+						if (ball.vectors.pos.x < -0.08f)
+						{
+							ball.vectors.pos.x -= 0.2f * (ball.radius - test1.point_x_offset);
+							ball.vectors.pos.y -= 0.2f * (ball.radius - test1.point_y_offset);
+						}
+						else if (ball.vectors.pos.x > -0.08f)
+						{
+							ball.vectors.pos.x += 0.2f * (ball.radius - test1.point_x_offset);
+							ball.vectors.pos.y += 0.2f * (ball.radius - test1.point_y_offset);
+						}
+						else if (ball.vectors.pos.x == -0.08f && ball.vectors.pos.y == -0.45f)
+						{
+							ball.vectors.pos.y += 0.2f * (ball.radius - test1.point_y_offset);
+						}
+						test1.is_point = false;
+					}
+					else
+					{
+						std::cout << "offset" << test1.offset << std::endl;
+						ball.vectors.pos.x += (ball.radius - test1.offset);
+					}
+					if (ball.vectors.vel.y = 0.0f)
+						ball.vectors.accel.y = -9.8f;
+				}
+				else if (test1.lineCircle(ball, line1))
+				{
+					std::cout << "I HIT left" << std::endl;
+					ball.vectors.resolve_collision(ball, line1, test1);
+					std::cout << "new vel " << ball.vectors.vel.x << " " << ball.vectors.vel.y << " " << ball.vectors.accel.y << std::endl;
+
+					if (test1.is_point)
+					{
+						std::cout << "offset " << test1.point_x_offset << " " << test1.point_y_offset << std::endl;
+						if (ball.vectors.pos.x < -0.08f)
+						{
+							ball.vectors.pos.x -= 0.2f * (ball.radius - test1.point_x_offset);
+							ball.vectors.pos.y -= 0.2f * (ball.radius - test1.point_y_offset);
+						}
+						else if (ball.vectors.pos.x > -0.08f)
+						{
+							ball.vectors.pos.x += 0.2f * (ball.radius - test1.point_x_offset);
+							ball.vectors.pos.y += 0.2f * (ball.radius - test1.point_y_offset);
+						}
+						else if (ball.vectors.pos.x == -0.08f && ball.vectors.pos.y == -0.45f)
+						{
+							ball.vectors.pos.y += 0.2f * (ball.radius - test1.point_y_offset);
+						}
+						test1.is_point = false;
+					}
+					else
+					{
+						std::cout << "offset" << test1.offset << std::endl;
+						ball.vectors.pos.x += (ball.radius - test1.offset);
+					}
+					if (ball.vectors.vel.y = 0.0f)
+						ball.vectors.accel.y = -9.8f;
+				}
+				else if (test2.lineCircle(ball, line2))
+				{
+				std::cout << "I HIT right" << std::endl;
+				std::cout << "Ball radius" << ball.radius << std::endl;
+				ball.vectors.resolve_collision(ball, line2, test2);
+				if (test2.is_point)
+				{
+					if (ball.vectors.pos.x < 0.08f)
+					{
+						ball.vectors.pos.x -= 0.2f * (ball.radius - test2.point_x_offset);
+						ball.vectors.pos.y -= 0.2f * (ball.radius - test2.point_y_offset);
+					}
+					else if (ball.vectors.pos.x > 0.08f)
+					{
+						ball.vectors.pos.x += 0.2f * (ball.radius - test2.point_x_offset);
+						ball.vectors.pos.y += 0.2f * (ball.radius - test2.point_y_offset);
+					}
+					else if (ball.vectors.pos.x == 0.08f && ball.vectors.pos.y < -0.45f)
+					{
+						ball.vectors.pos.y += 0.2f * (ball.radius - test2.point_y_offset);
+					}
+					test2.is_point = false;
+				}
+				else
+				{
+					std::cout << "offset" << test2.offset << std::endl;
+					ball.vectors.pos.x -= (ball.radius - test2.offset);
+				}
+				if (ball.vectors.vel.y = 0.0f)
+					ball.vectors.accel.y = -9.8f;
+				}
+				else if (test3.lineCircle(ball, line3))
+				{
+				std::cout << "I HIT right" << std::endl;
+				std::cout << "Ball radius" << ball.radius << std::endl;
+				ball.vectors.resolve_collision(ball, line3, test3);
+				if (test3.is_point)
+				{
+					if (ball.vectors.pos.x < 0.08f)
+					{
+						ball.vectors.pos.x -= 0.2f * (ball.radius - test3.point_x_offset);
+						ball.vectors.pos.y -= 0.2f * (ball.radius - test3.point_y_offset);
+					}
+					else if (ball.vectors.pos.x > 0.08f)
+					{
+						ball.vectors.pos.x += 0.2f * (ball.radius - test3.point_x_offset);
+						ball.vectors.pos.y += 0.2f * (ball.radius - test3.point_y_offset);
+					}
+					else if (ball.vectors.pos.x == 0.08f && ball.vectors.pos.y < -0.45f)
+					{
+						ball.vectors.pos.y += 0.2f * (ball.radius - test3.point_y_offset);
+					}
+					test3.is_point = false;
+				}
+				else
+				{
+					std::cout << "offset" << test3.offset << std::endl;
+					ball.vectors.pos.x -= (ball.radius - test3.offset);
+				}
+				if (ball.vectors.vel.y = 0.0f)
+					ball.vectors.accel.y = -9.8f;
+				}
+				else if (test4.lineCircle(ball, line4))
+				{
+				std::cout << "I HIT right" << std::endl;
+				std::cout << "Ball radius" << ball.radius << std::endl;
+				ball.vectors.resolve_collision(ball, line4, test4);
+				if (test4.is_point)
+				{
+					if (ball.vectors.pos.x < 0.08f)
+					{
+						ball.vectors.pos.x -= 0.2f * (ball.radius - test4.point_x_offset);
+						ball.vectors.pos.y -= 0.2f * (ball.radius - test4.point_y_offset);
+					}
+					else if (ball.vectors.pos.x > 0.08f)
+					{
+						ball.vectors.pos.x += 0.2f * (ball.radius - test4.point_x_offset);
+						ball.vectors.pos.y += 0.2f * (ball.radius - test4.point_y_offset);
+					}
+					else if (ball.vectors.pos.x == 0.08f && ball.vectors.pos.y < -0.45f)
+					{
+						ball.vectors.pos.y += 0.2f * (ball.radius - test4.point_y_offset);
+					}
+					testr.is_point = false;
+				}
+				else
+				{
+					std::cout << "offset" << test4.offset << std::endl;
+					ball.vectors.pos.x -= (ball.radius - test4.offset);
+				}
+				if (ball.vectors.vel.y = 0.0f)
+					ball.vectors.accel.y = -9.8f;
+				}
+
+
+
+
+				//if (testb.lineCircle(ball, lineb) || testr.lineCircle(ball, liner) ||
+				//	testl.lineCircle(ball, linel) || test1.lineCircle(ball, line1) ||
+				//	test2.lineCircle(ball, line2) || test3.lineCircle(ball, line3) | \
+				//	test4.lineCircle(ball, line4))
+				//{
+				//	std::cout << "I HIT SOMETHING" << std::endl;
+				//	ball.vectors.resolve_collision(ball, lineb, testb);
+				//	ball.vectors.resolve_collision(ball, liner, testr);
+				//	ball.vectors.resolve_collision(ball, linel, testl);
+				//	ball.vectors.resolve_collision(ball, line1, test1);
+				//	ball.vectors.resolve_collision(ball, line2, test2);
+				//	ball.vectors.resolve_collision(ball, line3, test3);
+				//	ball.vectors.resolve_collision(ball, line4, test4);
+				//}
 
 				//win condition detected
 				if (ball.vectors.vel.x == 0 && ball.vectors.vel.y == 0 &&

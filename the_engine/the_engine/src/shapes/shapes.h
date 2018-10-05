@@ -80,6 +80,7 @@ public:
 	float point_y_offset;
 	bool is_point;
 	bool left = false, right = false, bottom = false;
+	bool level3 = false;
 	Collision();
 	Collision(Circle &obj, Line &lobj);
 	bool linePoint(float x1, float y1, float x2, float y2, float closeX, float closeY);
