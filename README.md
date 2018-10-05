@@ -4,12 +4,11 @@
 
 ### Contents
 
-* [Description]()
-* [Files in This Repository]()
-* [Usage]()
-* [Usage]()
-* [Technologies]()
-* [Authors]()
+* [Description](https://github.com/yook00627/engine_project#description)
+* [Files in This Repository](https://github.com/yook00627/engine_project#files-in-this-repository)
+* [Usage](https://github.com/yook00627/engine_project#usage)
+* [Technologies](https://github.com/yook00627/engine_project#technologies-used)
+* [Authors](https://github.com/yook00627/engine_project#authors)
 ---
 
 ### Description
@@ -21,7 +20,7 @@
 
 | File                   | File Hierarchy                                       | Description
 |------------------------|------------------------------------------------------|--------------------------------------|
-|main.cpp | [main.cpp](the_engine/the_engine/src/main.cpp)  |  Main file  |
+|main.cpp | [main.cpp](the_engine/the_engine/main.cpp)  |  Main file  |
 | input.cpp  | [input.cpp](the_engine/the_engine/src/input/input.cpp)  |  Input file |
 | input.h | [input.h](the_engine/the_engine/src/input/input.h)  | header for input file |
 | fun.cpp | [fun.cpp](the_engine/the_engine/src/movement/fun.cpp) | advrasf  |
