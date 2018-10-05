@@ -21,31 +21,31 @@
 
 | File                   | File Hierarchy                                       | Description
 |------------------------|------------------------------------------------------|--------------------------------------|
-|main.cpp | [main.cpp](the_engine/src/main.cpp)  |  Main file  |
-| input.cpp  | [input.cpp](the_engine/src/input/input.cpp)  |  Input file |
-| input.h | [input.h](the_engine/src/input/input.h)  | header for input file |
-| fun.cpp | [fun.cpp](the_engine/src/movement/fun.cpp) | advrasf  |
-| fun.h  | [fun.h](the_engine/src/movement/fun.h) | erberezs |
-| collision.cpp | [collision.cpp](the_engine/src/physics/collision.cpp) | Collision file |
-| impulse.cpp | [impulse.cpp](the_engine/src/physics/impulse.cpp) | impulse file| 
-| physics.cpp | [physics.cpp](the_engine/src/physics/physics.cpp) | basics physics file |
-| physics.h | [physics.h](the_engine/src/physics/physics.h) | header for the physics class |
-| circle.cpp | [circle.cpp](the_engine/src/shapes/circle.cpp) | Circle class file |
-| line.cpp | [line.cpp](the_engine/src/shapes/line.cpp) | Line class file |
-| rectangle.cpp | [rectangle.cpp](the_engine/src/shapes/rectangle.cpp) | Rectangle class file |
-| shapes.cpp | [shapes.cpp](the_engine/src/shapes/shapes.cpp) | Placeholder file to move all shapes to |
-| shapes.h | [shapes.h](the_engine/src/shapes/shapes.h) | Header file for all shapes classes |
-| triangle.cpp | [trangle.cpp](the_engine/src/shapes/triangle.cpp) | Triangle class file |
-| text.frag | [text.frag](the_engine/src/window/shader/text.frag) | afeeve |
-| text.vs| [text.vs](the_engine/src/window/shader/text.vs) | avfdzfzdfdd |
-| arial.ttf | [arial.ttf](the_engine/src/window/arial.ttf) | Font file for text |
-| printer.h | [printer.h](the_engine/src/window/printer.h) | abrfdbdffds |
-| shader.cpp | [shader.cpp](the_engine/src/window/shader.cpp) | avzsbdfd |
-| shader.h | [shader.h](the_engine/src/window/shader.h) | arbrbrsd |
-| text.cpp | [text.cpp](the_engine/src/window/text.cpp) | dbfdbffd |
-| text.h  | [text.h](the_engine/src/window/text.h) | zdfbfdbfzd |
-| window.cpp | [window.cpp](the_engine/src/window/window.cpp) | File for window class |
-| window.h  | [window.h](the_engine/src/window/window.h) | Header for the window class |
+|main.cpp | [main.cpp](the_engine/the_engine/src/main.cpp)  |  Main file  |
+| input.cpp  | [input.cpp](the_engine/the_engine/src/input/input.cpp)  |  Input file |
+| input.h | [input.h](the_engine/the_engine/src/input/input.h)  | header for input file |
+| fun.cpp | [fun.cpp](the_engine/the_engine/src/movement/fun.cpp) | advrasf  |
+| fun.h  | [fun.h](the_engine/the_engine/src/movement/fun.h) | erberezs |
+| collision.cpp | [collision.cpp](the_engine/the_engine/src/physics/collision.cpp) | Collision file |
+| impulse.cpp | [impulse.cpp](the_engine/the_engine/src/physics/impulse.cpp) | impulse file| 
+| physics.cpp | [physics.cpp](the_engine/the_engine/src/physics/physics.cpp) | basics physics file |
+| physics.h | [physics.h](the_engine/the_engine/src/physics/physics.h) | header for the physics class |
+| circle.cpp | [circle.cpp](the_engine/the_engine/src/shapes/circle.cpp) | Circle class file |
+| line.cpp | [line.cpp](the_engine/the_engine/src/shapes/line.cpp) | Line class file |
+| rectangle.cpp | [rectangle.cpp](the_engine/the_engine/src/shapes/rectangle.cpp) | Rectangle class file |
+| shapes.cpp | [shapes.cpp](the_engine/the_engine/src/shapes/shapes.cpp) | Placeholder file to move all shapes to |
+| shapes.h | [shapes.h](the_engine/the_engine/src/shapes/shapes.h) | Header file for all shapes classes |
+| triangle.cpp | [trangle.cpp](the_engine/the_engine/src/shapes/triangle.cpp) | Triangle class file |
+| text.frag | [text.frag](the_engine/the_engine/src/window/shader/text.frag) | afeeve |
+| text.vs| [text.vs](the_engine/the_engine/src/window/shader/text.vs) | avfdzfzdfdd |
+| arial.ttf | [arial.ttf](the_engine/the_engine/src/window/arial.ttf) | Font file for text |
+| printer.h | [printer.h](the_engine/the_engine/src/window/printer.h) | abrfdbdffds |
+| shader.cpp | [shader.cpp](the_engine/the_engine/src/window/shader.cpp) | avzsbdfd |
+| shader.h | [shader.h](the_engine/the_engine/src/window/shader.h) | arbrbrsd |
+| text.cpp | [text.cpp](the_engine/the_engine/src/window/text.cpp) | dbfdbffd |
+| text.h  | [text.h](the_engine/the_engine/src/window/text.h) | zdfbfdbfzd |
+| window.cpp | [window.cpp](the_engine/the_engine/src/window/window.cpp) | File for window class |
+| window.h  | [window.h](the_engine/the_engine/src/window/window.h) | Header for the window class |
 
 ### Usage
 
