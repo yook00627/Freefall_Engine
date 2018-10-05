@@ -7,6 +7,7 @@
 #include "src/shapes/shapes.h"
 #include "src/window/text.h"
 #include "src/window/printer.h"
+#include "src/movement/fun.h"
 
 
 //main program to run game
@@ -63,11 +64,7 @@ begin:
 	int level = 1;
 	bool start = false;
 	bool started = false;
-	bool level0 = false;
-	bool level1 = true;
-	bool level2 = false;
-	bool level3 = false;
-	bool level4 = false;
+
 
 	//impletment sound
 	PlaySound("sound.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
@@ -88,6 +85,20 @@ begin:
 		if (input_keys.key_pressed(GLFW_KEY_R))
 		{
 			goto begin;
+		}
+		//input detection for cheating extra lives
+		if (input_keys.key_pressed(GLFW_KEY_C))
+		{
+			tries += 1;
+		}
+		//input detection for next level
+		if (input_keys.key_pressed(GLFW_KEY_N))
+		{
+			level++;
+		}
+		if (input_keys.key_pressed(GLFW_KEY_W))
+		{
+			level = 0;
 		}
 		//input detection to exit game
 		if (input_keys.key_pressed(GLFW_KEY_ESCAPE))
@@ -130,8 +141,16 @@ begin:
 			print_tries(3, -1.6f, 0.95f, tries);
 			print_level(3, 1.0f, 0.95f, level);
 
+			//secret
+			if (level == 0)
+			{
+				ball.vectors.vel.x = 0.0f;
+				if (fun(lineb, liner, linel, ball, input_keys, sw, old_time, new_time))
+					goto end;
+			}
+
 			//level 1 of game
-			if (level1)
+			if (level == 1)
 			{
 				//drawing level 1 objects
 				lineb.drawline();
@@ -252,8 +271,6 @@ begin:
 				if (ball.vectors.vel.x == 0 && ball.vectors.vel.y == 0 &&
 					ball.vectors.accel.x == 0 && ball.vectors.accel.y == 0)
 				{
-					level1 = false;
-					level2 = true;
 					difficulty = 2.0f;
 					ball.vectors.reset(0.0f, 0.8f, difficulty, 0.0f, 0.0f, 0.0f);
 					lineb.vectors.vel.x = 1.0f;
@@ -264,7 +281,7 @@ begin:
 				}
 			}
 			//level 2 of game
-			if (level2)
+			if (level == 2)
 			{
 				//drawing level 1 objects
 				lineb.drawline();
@@ -401,8 +418,6 @@ begin:
 				if (ball.vectors.vel.x == 0 && ball.vectors.vel.y == 0 &&
 					ball.vectors.accel.x == 0 && ball.vectors.accel.y == 0)
 				{
-					level2 = false;
-					level3 = true;
 					difficulty = 1.5f;
 					ball.vectors.reset(0.0f, 0.8f, 1.0f, 0.0f, 0.0f, 0.0f);
 					linel.vectors.reset(0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f);
@@ -412,7 +427,7 @@ begin:
 					tries = 4;
 				}
 			}
-			if (level3)
+			if (level == 3)
 			{
 				//drawing level 1 objects
 				lineb.drawline();
@@ -758,7 +773,7 @@ end:
 	TextRenderer Text(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Text.Load("src/window/arial.ttf", 24);
 	//start music for win
-	if (tries > 0)
+	if (tries > 0 && level != 0)
 		PlaySound("win.wav", NULL, SND_ASYNC | SND_FILENAME);
 	//start music for gameover
 	else
@@ -767,7 +782,12 @@ end:
 	{
 		window.clear(); //clearing the screen preveiose loop
 		//printing win game screen
-		if (tries > 0)
+		if (level == 0)
+		{
+			Text.RenderText("WHAT ARE YOU DOING", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+			Text.RenderText("ANDREW!!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+		}
+		else if (tries > 0)
 		{
 			Text.RenderText("THANK YOU FOR PLAYING", SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 2.2f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
 			Text.RenderText("!!!!! \\ (^_^) / !!!!!", SCREEN_WIDTH / 2.5f, SCREEN_HEIGHT / 1.8f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));

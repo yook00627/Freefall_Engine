@@ -36,9 +36,6 @@
     <ClCompile Include="src\physics\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\movement\movement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\shapes\shapes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,6 +54,9 @@
     <ClCompile Include="src\shapes\line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\movement\fun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\window.h">
@@ -71,9 +71,6 @@
     <ClInclude Include="src\physics\physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\movement\movement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\window\text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\window\printer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movement\fun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

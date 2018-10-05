@@ -162,7 +162,7 @@
     <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\physics\impulse.cpp" />
     <ClCompile Include="src\physics\physics.cpp" />
-    <ClCompile Include="src\movement\movement.cpp" />
+    <ClCompile Include="src\movement\fun.cpp" />
     <ClCompile Include="src\physics\collision.cpp" />
     <ClCompile Include="src\shapes\circle.cpp" />
     <ClCompile Include="src\shapes\shapes.cpp" />
@@ -176,7 +176,7 @@
   <ItemGroup>
     <ClInclude Include="src\input\input.h" />
     <ClInclude Include="src\physics\physics.h" />
-    <ClInclude Include="src\movement\movement.h" />
+    <ClInclude Include="src\movement\fun.h" />
     <ClInclude Include="src\shapes\shapes.h" />
     <ClInclude Include="src\window\printer.h" />
     <ClInclude Include="src\window\shader.h" />
