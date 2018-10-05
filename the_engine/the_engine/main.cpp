@@ -95,6 +95,29 @@ begin:
 		if (input_keys.key_pressed(GLFW_KEY_N))
 		{
 			level++;
+			glfwWaitEvents();
+			if (level == 2)
+			{
+				difficulty = 2.0f;
+				ball.vectors.reset(0.0f, 0.8f, difficulty, 0.0f, 0.0f, 0.0f);
+				lineb.vectors.vel.x = 1.0f;
+				liner.vectors.vel.x = 1.0f;
+				linel.vectors.vel.x = 1.0f;
+				tries = 4;
+			}
+			if (level == 3)
+			{
+				difficulty = 1.5f;
+				ball.vectors.reset(0.0f, 0.8f, 1.0f, 0.0f, 0.0f, 0.0f);
+				linel.vectors.reset(0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f);
+				lineb.vectors.reset(0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f);
+				liner.vectors.reset(0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f);
+				tries = 4;
+			}
+			if (level == 4)
+			{
+				goto end;
+			}
 		}
 		if (input_keys.key_pressed(GLFW_KEY_W))
 		{
