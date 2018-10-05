@@ -144,6 +144,7 @@ begin:
 			//secret
 			if (level == 0)
 			{
+				tries = 1;
 				ball.vectors.vel.x = 0.0f;
 				if (fun(lineb, liner, linel, ball, input_keys, sw, old_time, new_time))
 					goto end;
